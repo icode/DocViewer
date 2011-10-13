@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Copyright 2009 Erik Engström
+
+    This file is part of FlexPaper.
+
+    FlexPaper is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, version 3 of the License.
+
+    FlexPaper is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with FlexPaper.  If not, see <http://www.gnu.org/licenses/>.	
+-->
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="234" height="244" title="@Resource(key='Selectprintrange', bundle='FlexPaper')" creationComplete="Init()">
+<mx:Metadata>
+  [ResourceBundle("FlexPaper")]
+</mx:Metadata>
+<mx:Script>
+	<![CDATA[
+		import mx.events.CloseEvent;
+		import mx.managers.PopUpManager;
+		import mx.controls.Alert;
+		
+		public var PrintRange:String = "";
+		private const range_exp:RegExp = /^[0-9]+[-][0-9]+$/i;
+		private const numb_exp:RegExp = /^[0-9]+$/i;
+		public var validated:Boolean = true;
+		
+		private function Init():void{
+			this.addEventListener(CloseEvent.CLOSE, onClose);
+			bttnPrint.setFocus();
+		}
+	
+	  	private function onClose(evt:CloseEvent):void {
+	        PopUpManager.removePopUp(this);
+	    }		
+	    
+	    private function validateClose(event:Event):void{
+	    	var valmsg:String = "";
+	    	
+	    	if(bttnPrintCurrentPage.selected){PrintRange = "Current";}
+	    	if(bttnPrintRange.selected){
+	    		var pageList:Array = txtPrintRange.text.split(",");
+	    		for(var i:int=0;i<pageList.length;i++){
+	    			validated = (pageList[i].toString().indexOf("-")>-1 && range_exp.test(pageList[i].toString())) || (numb_exp.test(pageList[i].toString()));
+	    			if(!validated){break;}
+	    		}
+	    		
+	    		if(validated){
+	    			PrintRange=txtPrintRange.text;
+	    		}else{
+	    			valmsg = resourceManager.getString("FlexPaper", "Incorrectrangespecified");
+	    		}
+	    	}
+	    	if(bttnPrintAll.selected){PrintRange = "";}
+	    	
+	    	if(validated){
+	    		PopUpManager.removePopUp(this);
+	    	}else{
+	    		Alert.show(valmsg,resourceManager.getString("FlexPaper", "IncorrectRange"),mx.controls.Alert.OK,this);
+	    	}
+	    }
+	]]>
+</mx:Script>
+	<mx:RadioButtonGroup id="printRangeBttnGrp"/>
+	<mx:RadioButton x="10" y="10" label="@Resource(key='All', bundle='FlexPaper')" groupName="printRangeBttnGrp" selected="true" id="bttnPrintAll"/>
+	<mx:RadioButton x="10" y="36" label="@Resource(key='CurrentPage', bundle='FlexPaper')" groupName="printRangeBttnGrp" id="bttnPrintCurrentPage"/>
+	<mx:RadioButton x="10" y="62" label="@Resource(key='Pages', bundle='FlexPaper')" groupName="printRangeBttnGrp" id="bttnPrintRange"/>
+	<mx:TextInput x="82" y="62" restrict="0-9\-," width="122" id="txtPrintRange" enabled="{bttnPrintRange.selected}"/>
+	<mx:Text x="10" y="92" text="@Resource(key='Enterpagenumbers', bundle='FlexPaper')" height="72" width="194"/>
+	<mx:Button x="10" y="172" label="@Resource(key='Print', bundle='FlexPaper')" id="bttnPrint" width="90" click="validateClose(event)"/>
+	<mx:Button x="114" y="172" label="@Resource(key='Cancel', bundle='FlexPaper')" width="90" id="bttnCancel" click="PopUpManager.removePopUp(this);"/>
+</mx:TitleWindow>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_docviewerapi" default="compile.module.docviewerapi">
+  <dirname property="module.docviewerapi.basedir" file="${ant.file.module_docviewerapi}"/>
+  
+  <property name="module.jdk.home.docviewerapi" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.docviewerapi" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.docviewerapi" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.docviewerapi" value="${compiler.args}"/>
+  
+  <property name="docviewerapi.output.dir" value="${module.docviewerapi.basedir}/../out/production/docviewerapi"/>
+  <property name="docviewerapi.testoutput.dir" value="${module.docviewerapi.basedir}/../out/test/docviewerapi"/>
+  
+  <path id="docviewerapi.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="docviewerapi.module.production.classpath">
+    <path refid="${module.jdk.classpath.docviewerapi}"/>
+    <path refid="library.itext.classpath"/>
+    <path refid="library.ooo.classpath"/>
+    <path refid="library.common.classpath"/>
+    <path refid="library.j2ee1.4.classpath"/>
+  </path>
+  
+  <path id="docviewerapi.runtime.production.module.classpath">
+    <pathelement location="${docviewerapi.output.dir}"/>
+    <path refid="library.itext.classpath"/>
+    <path refid="library.ooo.classpath"/>
+    <path refid="library.common.classpath"/>
+    <path refid="library.j2ee1.4.classpath"/>
+  </path>
+  
+  <path id="docviewerapi.module.classpath">
+    <path refid="${module.jdk.classpath.docviewerapi}"/>
+    <pathelement location="${docviewerapi.output.dir}"/>
+    <path refid="library.itext.classpath"/>
+    <path refid="library.ooo.classpath"/>
+    <path refid="library.common.classpath"/>
+    <path refid="library.j2ee1.4.classpath"/>
+  </path>
+  
+  <path id="docviewerapi.runtime.module.classpath">
+    <pathelement location="${docviewerapi.testoutput.dir}"/>
+    <pathelement location="${docviewerapi.output.dir}"/>
+    <path refid="library.itext.classpath"/>
+    <path refid="library.ooo.classpath"/>
+    <path refid="library.common.classpath"/>
+    <path refid="library.j2ee1.4.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.docviewerapi">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.docviewerapi">
+    <patternset refid="excluded.from.module.docviewerapi"/>
+  </patternset>
+  
+  <path id="docviewerapi.module.sourcepath">
+    <dirset dir="${module.docviewerapi.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.docviewerapi" depends="compile.module.docviewerapi.production,compile.module.docviewerapi.tests" description="Compile module docviewerapi"/>
+  
+  <target name="compile.module.docviewerapi.production" depends="register.custom.compilers" description="Compile module docviewerapi; production classes">
+    <mkdir dir="${docviewerapi.output.dir}"/>
+    <javac2 destdir="${docviewerapi.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.docviewerapi}/javac">
+      <compilerarg line="${compiler.args.docviewerapi}"/>
+      <bootclasspath refid="docviewerapi.module.bootclasspath"/>
+      <classpath refid="docviewerapi.module.production.classpath"/>
+      <src refid="docviewerapi.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.docviewerapi"/>
+    </javac2>
+    
+    <copy todir="${docviewerapi.output.dir}">
+      <fileset dir="${module.docviewerapi.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.docviewerapi.tests" depends="register.custom.compilers,compile.module.docviewerapi.production" description="compile module docviewerapi; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.docviewerapi" description="cleanup module">
+    <delete dir="${docviewerapi.output.dir}"/>
+    <delete dir="${docviewerapi.testoutput.dir}"/>
+  </target>
+</project>

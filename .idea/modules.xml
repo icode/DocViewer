@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/docviewer/docviewer.iml" filepath="$PROJECT_DIR$/docviewer/docviewer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/docviewerapi/docviewerapi.iml" filepath="$PROJECT_DIR$/docviewerapi/docviewerapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/docviewerflex/docviewerflex.iml" filepath="$PROJECT_DIR$/docviewerflex/docviewerflex.iml" />
+    </modules>
+  </component>
+</project>
+

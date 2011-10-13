@@ -1,0 +1,45 @@
+	.toolbarBackground {
+		backgroundImage: ClassReference("com.devaldi.skinning.GradientBackground");
+		backgroundSize: "100%";
+		fillColors: #e6e6e6, #fdfdfd;
+		fillAlphas: 1, 1;
+		borderColor: #8a8a8a;
+	}
+	
+	.viewerBackground {
+		backgroundImage: ClassReference("com.devaldi.skinning.GradientBackground");
+		backgroundSize: "100%";
+		fillColors: #aab3b3, #d5dddd;
+		fillAlphas: 1, 1;
+		borderColor: #8a8a8a;
+	}	
+	
+	.toolbttn{
+		skin: ClassReference("mx.skins.ProgrammaticSkin");
+		overSkin:ClassReference("mx.skins.halo.ButtonBarButtonSkin");
+		downSkin:ClassReference("mx.skins.halo.ButtonBarButtonSkin");
+		selectedUpSkin:ClassReference("mx.skins.RectangularBorder");
+	}	
+
+	.sliderbttn{
+		skin: ClassReference("mx.skins.ProgrammaticSkin");
+		overSkin:ClassReference("mx.skins.halo.SliderHighlightSkin");
+		downSkin:ClassReference("mx.skins.halo.SliderHighlightSkin");
+	}
+	
+
+	.gradientlines {
+		spinner-type: gradientlines;
+		spinner-color: #ffffff;
+		spinner-highlight-color: #000000;
+	}
+	
+	.circles {
+		spinner-type: circles;
+	}
+	
+	.lines {
+		spinner-type: lines;
+		spinner-highlight-color: #000000;
+		spinner-color: #808080;
+	}	

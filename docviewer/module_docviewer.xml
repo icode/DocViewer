@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_docviewer" default="compile.module.docviewer">
+  <dirname property="module.docviewer.basedir" file="${ant.file.module_docviewer}"/>
+  
+  <property name="module.jdk.home.docviewer" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.docviewer" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.docviewer" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.docviewer" value="${compiler.args}"/>
+  
+  <property name="docviewer.output.dir" value="${module.docviewer.basedir}/../out/production/docviewer"/>
+  <property name="docviewer.testoutput.dir" value="${module.docviewer.basedir}/../out/test/docviewer"/>
+  
+  <path id="docviewer.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="docviewer.module.production.classpath">
+    <path refid="${module.jdk.classpath.docviewer}"/>
+    <pathelement location="${docviewerapi.output.dir}"/>
+    <path refid="library.j2ee1.4.classpath"/>
+    <path refid="library.common.classpath"/>
+  </path>
+  
+  <path id="docviewer.runtime.production.module.classpath">
+    <pathelement location="${docviewer.output.dir}"/>
+    <path refid="docviewerapi.runtime.production.module.classpath"/>
+    <path refid="library.j2ee1.4.classpath"/>
+    <path refid="library.common.classpath"/>
+  </path>
+  
+  <path id="docviewer.module.classpath">
+    <path refid="${module.jdk.classpath.docviewer}"/>
+    <pathelement location="${docviewer.output.dir}"/>
+    <pathelement location="${docviewerapi.testoutput.dir}"/>
+    <pathelement location="${docviewerapi.output.dir}"/>
+    <path refid="library.j2ee1.4.classpath"/>
+    <path refid="library.common.classpath"/>
+  </path>
+  
+  <path id="docviewer.runtime.module.classpath">
+    <pathelement location="${docviewer.testoutput.dir}"/>
+    <pathelement location="${docviewer.output.dir}"/>
+    <path refid="docviewerapi.runtime.module.classpath"/>
+    <path refid="library.j2ee1.4.classpath"/>
+    <path refid="library.common.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.docviewer">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.docviewer">
+    <patternset refid="excluded.from.module.docviewer"/>
+  </patternset>
+  
+  <path id="docviewer.module.sourcepath">
+    <dirset dir="${module.docviewer.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.docviewer" depends="compile.module.docviewer.production,compile.module.docviewer.tests" description="Compile module docviewer"/>
+  
+  <target name="compile.module.docviewer.production" depends="register.custom.compilers,compile.module.docviewerapi" description="Compile module docviewer; production classes">
+    <mkdir dir="${docviewer.output.dir}"/>
+    <javac2 destdir="${docviewer.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.docviewer}/javac">
+      <compilerarg line="${compiler.args.docviewer}"/>
+      <bootclasspath refid="docviewer.module.bootclasspath"/>
+      <classpath refid="docviewer.module.production.classpath"/>
+      <src refid="docviewer.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.docviewer"/>
+    </javac2>
+    
+    <copy todir="${docviewer.output.dir}">
+      <fileset dir="${module.docviewer.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.docviewer.tests" depends="register.custom.compilers,compile.module.docviewer.production" description="compile module docviewer; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.docviewer" description="cleanup module">
+    <delete dir="${docviewer.output.dir}"/>
+    <delete dir="${docviewer.testoutput.dir}"/>
+  </target>
+</project>

@@ -1,0 +1,9 @@
+#----- begin Chinese Simplified support package (2004-jul-27)
+cidToUnicode	Adobe-GB1	/home/icode/Workspace/personal/docviewer/etc/chinese-simplified/Adobe-GB1.cidToUnicode
+unicodeMap	ISO-2022-CN	/home/icode/Workspace/personal/docviewer/etc/chinese-simplified/ISO-2022-CN.unicodeMap
+unicodeMap	EUC-CN		/home/icode/Workspace/personal/docviewer/etc/chinese-simplified/EUC-CN.unicodeMap
+unicodeMap	GBK		/home/icode/Workspace/personal/docviewer/etc/chinese-simplified/GBK.unicodeMap
+cMapDir		Adobe-GB1	/home/icode/Workspace/personal/docviewer/etc/chinese-simplified/CMap
+toUnicodeDir			/home/icode/Workspace/personal/docviewer/etc/chinese-simplified/CMap
+#displayCIDFontTT	Adobe-GB1	/home/icode/Workspace/personal/docviewer/etc/chinese-simplified/fonts/gkai00mp.ttf
+#----- end Chinese Simplified support package

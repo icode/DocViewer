@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_docviewerflex" default="compile.module.docviewerflex">
+  <dirname property="module.docviewerflex.basedir" file="${ant.file.module_docviewerflex}"/>
+  
+  <property name="module.jdk.home.docviewerflex" value="${jdk.home.flex_sdk_4.5.1.21328_(player_10.2)}"/>
+  <property name="module.jdk.bin.docviewerflex" value="${jdk.bin.flex_sdk_4.5.1.21328_(player_10.2)}"/>
+  <property name="module.jdk.classpath.docviewerflex" value="jdk.classpath.flex_sdk_4.5.1.21328_(player_10.2)"/>
+  
+  <property name="compiler.args.docviewerflex" value="${compiler.args}"/>
+  
+  <property name="docviewerflex.output.dir" value="${module.docviewerflex.basedir}/../out/production/docviewerflex"/>
+  <property name="docviewerflex.testoutput.dir" value="${module.docviewerflex.basedir}/../out/test/docviewerflex"/>
+  
+  <path id="docviewerflex.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="docviewerflex.module.production.classpath">
+    <path refid="${module.jdk.classpath.docviewerflex}"/>
+    <pathelement location="${basedir}/docviewerflex/lib/FlexPaper_Resources.swc"/>
+  </path>
+  
+  <path id="docviewerflex.runtime.production.module.classpath">
+    <pathelement location="${docviewerflex.output.dir}"/>
+    <pathelement location="${basedir}/docviewerflex/lib/FlexPaper_Resources.swc"/>
+  </path>
+  
+  <path id="docviewerflex.module.classpath">
+    <path refid="${module.jdk.classpath.docviewerflex}"/>
+    <pathelement location="${docviewerflex.output.dir}"/>
+    <pathelement location="${basedir}/docviewerflex/lib/FlexPaper_Resources.swc"/>
+  </path>
+  
+  <path id="docviewerflex.runtime.module.classpath">
+    <pathelement location="${docviewerflex.testoutput.dir}"/>
+    <pathelement location="${docviewerflex.output.dir}"/>
+    <pathelement location="${basedir}/docviewerflex/lib/FlexPaper_Resources.swc"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.docviewerflex">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.docviewerflex">
+    <patternset refid="excluded.from.module.docviewerflex"/>
+  </patternset>
+  
+  <path id="docviewerflex.module.sourcepath">
+    <dirset dir="${module.docviewerflex.basedir}">
+      <include name="src"/>
+      <include name="lib"/>
+      <include name="locale"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.docviewerflex" depends="compile.module.docviewerflex.production,compile.module.docviewerflex.tests" description="Compile module docviewerflex"/>
+  
+  <target name="compile.module.docviewerflex.production" depends="register.custom.compilers" description="Compile module docviewerflex; production classes">
+    <mkdir dir="${docviewerflex.output.dir}"/>
+    <javac2 destdir="${docviewerflex.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.docviewerflex}/javac">
+      <compilerarg line="${compiler.args.docviewerflex}"/>
+      <bootclasspath refid="docviewerflex.module.bootclasspath"/>
+      <classpath refid="docviewerflex.module.production.classpath"/>
+      <src refid="docviewerflex.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.docviewerflex"/>
+    </javac2>
+    
+    <copy todir="${docviewerflex.output.dir}">
+      <fileset dir="${module.docviewerflex.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.docviewerflex.basedir}/lib">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.docviewerflex.basedir}/locale">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.docviewerflex.tests" depends="register.custom.compilers,compile.module.docviewerflex.production" description="compile module docviewerflex; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.docviewerflex" description="cleanup module">
+    <delete dir="${docviewerflex.output.dir}"/>
+    <delete dir="${docviewerflex.testoutput.dir}"/>
+  </target>
+</project>

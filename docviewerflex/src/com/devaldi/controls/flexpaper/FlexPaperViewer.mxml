@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fp:FlexPaperViewer_Base xmlns:mx="http://www.adobe.com/2006/mxml"
+						 xmlns:fp="com.devaldi.controls.flexpaper.*"
+						 xmlns:ct="com.devaldi.controls.*"
+						 xmlns:st="com.devaldi.skinning.*"
+
+						 addedToStage="bindStageEvents(event)"
+						 >
+	<mx:Metadata>
+		[ResourceBundle("FlexPaper")]
+		[Event(name="onDocumentLoaded", type="com.devaldi.events.DocumentLoadedEvent")]
+		[Event(name="onLoadingProgress", type="flash.events.ProgressEvent")]
+		[Event(name="onDocumentLoadedError", type="flash.events.ErrorEvent")]
+		[Event(name="onCurrPageChanged", type="com.devaldi.events.CurrentPageChangedEvent")]
+		[Event(name="onDocumentLoading", type="flash.events.Event")]
+		[Event(name="onExternalLinkClicked", type="com.devaldi.events.ExternalLinkClickedEvent")]
+		[Event(name="onDocumentPrinted", type="com.devaldi.events.DocumentPrintedEvent")]
+		[Event(name="onPageLoaded", type="com.devaldi.events.PageLoadedEvent")]
+		[Event(name="onPageLoading", type="com.devaldi.events.PageLoadingEvent")]
+		[Event(name="onErrorLoadingPage", type="com.devaldi.events.ErrorLoadingPageEvent")]
+	</mx:Metadata>
+	<mx:Script>
+		<![CDATA[
+        import com.devaldi.controls.flexpaper.resources.MenuIcons;
+        import com.devaldi.controls.flexpaper.utils.MacMouseWheelHandler;
+        import com.devaldi.events.ViewModeChangedEvent;
+
+        import mx.controls.Alert;
+        import mx.controls.sliderClasses.Slider;
+        import mx.events.SliderEvent;
+
+
+        private var _sliderUserChange:Boolean = false;
+
+			public override function get viewer():com.devaldi.controls.flexpaper.Viewer{
+				return paper;
+			}
+
+			private function bindStageEvents(e:Event):void{
+				stage.removeEventListener(FullScreenEvent.FULL_SCREEN, fullScreenRedraw);
+				stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenRedraw);
+			}
+
+			private function fullScreenRedraw(event:FullScreenEvent):void{
+				txtSearch.enabled = !TrueFullScreenActive;
+			}
+
+			private function onNoMoreSearchResultsHandler(event:Event):void{
+				Alert.show(resourceManager.getString("FlexPaper", "Finishedsearching"),resourceManager.getString("FlexPaper", "Searchfinished"),mx.controls.Alert.OK,this);
+			}
+
+			protected override function documentLoadedHandler(event:Event):void{
+				spin1.visible = false;
+				lblProgress.visible = false;
+				spin1.stop();
+				bttnInfo.visible = false;
+				if(StartAtPage!=1&&!isNaN(StartAtPage)){paper.gotoPage(StartAtPage);}
+				super.documentLoadedHandler(event);
+			}
+
+			protected override function pageLoadedEventHandler(event:Event):void{
+				spin1.visible = false;
+				lblProgress.visible = false;
+				spin1.stop();
+				bttnInfo.visible = false;
+				if(StartAtPage!=1&&!isNaN(StartAtPage)){paper.gotoPage(StartAtPage);}
+				super.pageLoadedEventHandler(event);
+			}
+
+//			private function logoClickedEventHandler(event:Event):void{
+//				showInfo(event);
+//			}
+
+			protected override function papersLoadingHandler(event:Event):void{
+				spin1.start();
+				spin1.visible = true;
+				super.papersLoadingHandler(event);
+			}
+
+			protected override function pageLoadingEventHandler(event:Event):void{
+				super.pageLoadingEventHandler(event);
+			}
+
+			private function sliderChange(event:SliderEvent):void
+			{
+				if(!paper.BusyLoading && _sliderUserChange)
+				{
+					paper.Zoom(Slider(event.currentTarget).value);
+				}
+
+				_sliderUserChange = true;
+			}
+
+			private function txtPctKeyDown(event:KeyboardEvent):void{
+				if(event.keyCode == Keyboard.ENTER && txtPct.text.length>1 && !isNaN(Number(txtPct.text.replace("%","")))){
+					paper.Zoom(new Number(txtPct.text.replace("%",""))/100);
+				}
+			}
+
+			private function txtSearchKeyDown(event:KeyboardEvent):void{
+				if(event!=null && event.keyCode == Keyboard.ENTER && txtSearch.text.length>0){
+					paper.searchText(txtSearch.text);
+				}
+			}
+
+			private function txtPageNumKeyDown(event:KeyboardEvent):void{
+				if(event.keyCode == Keyboard.ENTER && txtPage.text.length>0 && !isNaN(Number(txtPage.text))){
+					paper.gotoPage(new Number(txtPage.text));
+				}
+			}
+
+			protected override function onDocumentLoadingProgressHandler(event:ProgressEvent):void{
+				lblProgress.text = String(Math.round(event.bytesLoaded/event.bytesTotal*100));
+				super.onDocumentLoadingProgressHandler(event);
+			}
+
+			private function onScaleChanged(event:Event):void{
+				txtPct.text = formatPct(paper.Scale);
+				_sliderUserChange = false;
+				slidPctScale.value = Number(paper.Scale);
+			}
+
+			public override function loadSwf(s:String):void{
+				bttnInfo.visible = false;
+				spin1.visible = true;
+				lblProgress.text = "";
+				lblProgress.visible = true;
+				super.loadSwf(s);
+			}
+
+			protected override function onViewModeChanged(event:ViewModeChangedEvent):void{
+				txtPage.text = formatPageNumber(viewer.currPage);
+				super.onViewModeChanged(event);
+			}
+
+			protected function formatPageNumber(n:Number):String
+			{
+				if(viewer.ViewMode == ViewModeEnum.TWOPAGE)
+					return viewer.currPage.toString() + "-" + (viewer.currPage+1).toString();
+				else
+					return n.toString();
+			}
+		]]>
+	</mx:Script>
+	<mx:Style source="styles/default.css" />
+	<mx:HBox styleName="toolbarBackground" width="100%" height="26" borderStyle="solid" verticalScrollPolicy="off" horizontalScrollPolicy="off" paddingTop="2" paddingLeft="2" horizontalGap="3">
+		<st:GradientImageButton id="printeBtn" icon="{MenuIcons.PRINT_ICON}" styleName="toolbttn" width="20" click="printPaper(event)" toolTip="@Resource(key='Print', bundle='FlexPaper')" visible="{!ReadOnly}" includeInLayout="{!ReadOnly}" />
+		<mx:Image source="{MenuIcons.BAR}" width="3" height="21" visible="{!ReadOnly}" includeInLayout="{!ReadOnly}"  />
+
+		<st:GradientImageButton icon="{MenuIcons.SINGLE_PAGE}" styleName="toolbttn" width="20" click="paper.switchMode('Portrait');" toolTip="@Resource(key='SinglePage', bundle='FlexPaper')" selected="{paper.ViewMode == ViewModeEnum.PORTRAIT}" tabIndex="2" visible="{ViewModeToolsVisible}" includeInLayout="{ViewModeToolsVisible}"/>
+		<st:GradientImageButton icon="{MenuIcons.TWO_PAGE}" styleName="toolbttn" width="20" click="paper.switchMode('TwoPage');" toolTip="@Resource(key='TwoPage', bundle='FlexPaper')" selected="{paper.ViewMode == ViewModeEnum.TWOPAGE}"  tabIndex="3" visible="{ViewModeToolsVisible}" includeInLayout="{ViewModeToolsVisible}"/>
+		<st:GradientImageButton icon="{MenuIcons.THUMBS}" styleName="toolbttn" width="20" click="paper.switchMode('Tile');" toolTip="@Resource(key='ThumbView', bundle='FlexPaper')" selected="{paper.ViewMode == ViewModeEnum.TILE}" tabIndex="4" visible="{ViewModeToolsVisible}" includeInLayout="{ViewModeToolsVisible}"/>
+		<st:GradientImageButton id="bttnFitWidth" icon="{MenuIcons.PAGE_FITWIDTH}" styleName="toolbttn" width="20" selected="{paper.FitMode == FitModeEnum.FITWIDTH}" toggle="true" click="paper.fitWidth();bttnFitHeight.selected=false;" enabled="{paper.ViewMode == ViewModeEnum.PORTRAIT}" toolTip="@Resource(key='FitWidth', bundle='FlexPaper')"  tabIndex="5" visible="{ViewModeToolsVisible}" includeInLayout="{ViewModeToolsVisible}"/>
+		<st:GradientImageButton id="bttnFitHeight" icon="{MenuIcons.PAGE_FIT}" styleName="toolbttn" width="20"  click="paper.fitHeight();bttnFitWidth.selected=false;" selected="{paper.FitMode == FitModeEnum.FITHEIGHT}" toggle="true" enabled="{paper.ViewMode == ViewModeEnum.PORTRAIT||paper.ViewMode == ViewModeEnum.TWOPAGE}" toolTip="@Resource(key='FitPage', bundle='FlexPaper')"  tabIndex="6" visible="{ViewModeToolsVisible}" includeInLayout="{ViewModeToolsVisible}"/>
+		<mx:Image source="{MenuIcons.BAR}" width="3" height="21" visible="{ViewModeToolsVisible}" includeInLayout="{ViewModeToolsVisible}"/>
+
+		<st:GradientHSlider id="slidPctScale" mouseDown="_sliderUserChange=true" change="sliderChange(event)"  styleName="sliderbttn" dataTipFormatFunction="formatPct" liveDragging="true" snapInterval="{ZoomInterval}" minimum="{MinZoomSize}" maximum="{MaxZoomSize}" value="{Scale}" width="120" height="15" enabled="true" toolTip="@Resource(key='Scale', bundle='FlexPaper')" tabIndex="6" thumbSkin="{MenuIcons.SLIDER_DOT}" visible="{ZoomToolsVisible}" includeInLayout="{ZoomToolsVisible}"/>
+		<st:GradientTextInput fontSize="9" height="21" width="40" id="txtPct" text="{formatPct(Scale)}" keyDown="txtPctKeyDown(event)" enabled="{paper.ViewMode == ViewModeEnum.PORTRAIT || (Viewer.ViewModeExtList.length>0 &amp;&amp; Viewer.ViewModeExtList[0].doZoom) }" toolTip="@Resource(key='Scale', bundle='FlexPaper')" tabIndex="7" visible="{ZoomToolsVisible}" includeInLayout="{ZoomToolsVisible}" />
+		<st:GradientImageButton icon="{MenuIcons.FULLSCREEN}" styleName="toolbttn" toolTip="@Resource(key='Fullscreen', bundle='FlexPaper')"  width="20" height="20" x="312" y="2" click="toggleFullScreen();" tabIndex="8" visible="{ZoomToolsVisible}" includeInLayout="{ZoomToolsVisible}"/>
+		<mx:Image source="{MenuIcons.BAR}" width="3" height="21"  visible="{ZoomToolsVisible}" includeInLayout="{ZoomToolsVisible}"/>
+
+		<st:GradientImageButton icon="{MenuIcons.ARROW_LEFT}" styleName="toolbttn" toolTip="@Resource(key='PreviousPage', bundle='FlexPaper')" width="15" height="20" click="viewer.mvPrev();" tabIndex="8" visible="{NavToolsVisible}" includeInLayout="{NavToolsVisible}"/>
+		<st:GradientTextInput fontSize="9" height="21" width="45" id="txtPage" text="{formatPageNumber(paper.currPage)}" keyDown="txtPageNumKeyDown(event)" enabled="{paper.ViewMode == ViewModeEnum.PORTRAIT||paper.ViewMode == ViewModeEnum.TWOPAGE}" toolTip="@Resource(key='Current Page', bundle='FlexPaper')" tabIndex="9" visible="{NavToolsVisible}" includeInLayout="{NavToolsVisible}"/>
+		<mx:HBox horizontalGap="1" paddingTop="2" visible="{NavToolsVisible}" includeInLayout="{NavToolsVisible}">
+			<st:GradientLabel fontSize="9" height="21" width="10" text="/"/>
+			<st:GradientLabel fontSize="9" height="21" width="33" text="{paper.numPages}"/>
+		</mx:HBox>
+		<st:GradientImageButton icon="{MenuIcons.ARROW_RIGHT}" styleName="toolbttn" toolTip="@Resource(key='NextPage', bundle='FlexPaper')"  width="15" height="20"  click="viewer.mvNext();" tabIndex="10" visible="{NavToolsVisible}" includeInLayout="{NavToolsVisible}"/>
+		<mx:Image source="{MenuIcons.BAR}" width="3" height="21" visible="{NavToolsVisible}" includeInLayout="{NavToolsVisible}"/>
+
+		<st:GradientImageButton icon="{MenuIcons.TEXT_SELECT}" styleName="toolbttn" toolTip="@Resource(key='TextSelect', bundle='FlexPaper')"  width="20" selected="{paper.TextSelectEnabled}" click="{paper.TextSelectEnabled=true}" tabIndex="11" visible="{!ReadOnly &amp;&amp; CursorToolsVisible}" includeInLayout="{!ReadOnly &amp;&amp; CursorToolsVisible}" />
+		<st:GradientImageButton icon="{MenuIcons.HAND}" styleName="toolbttn" toolTip="@Resource(key='TextDrag', bundle='FlexPaper')"  width="22" selected="{!paper.TextSelectEnabled}"  click="{paper.TextSelectEnabled=false}" tabIndex="12" visible="{!ReadOnly &amp;&amp; CursorToolsVisible}" includeInLayout="{!ReadOnly &amp;&amp; CursorToolsVisible}" />
+		<mx:Image source="{MenuIcons.BAR}" width="3" height="21" visible="{!ReadOnly &amp;&amp; CursorToolsVisible}" includeInLayout="{!ReadOnly &amp;&amp; CursorToolsVisible}" />
+
+		<st:GradientTextInput fontSize="9" height="20" width="65" id="txtSearch" keyDown="txtSearchKeyDown(event)" enabled="{paper.ViewMode == ViewModeEnum.PORTRAIT||paper.ViewMode == ViewModeEnum.TWOPAGE}" toolTip="@Resource(key='Search', bundle='FlexPaper')" tabIndex="13" visible="{SearchToolsVisible}" includeInLayout="{SearchToolsVisible}"/>
+		<st:GradientImageButton icon="{MenuIcons.FIND}" styleName="toolbttn" width="20" height="20" click="paper.searchText(txtSearch.text);" toolTip="@Resource(key='Search', bundle='FlexPaper')" tabIndex="14" enabled="{!TrueFullScreenActive}" visible="{SearchToolsVisible}" includeInLayout="{SearchToolsVisible}"/>
+		<mx:Image source="{MenuIcons.BAR}" width="3" height="21" visible="{SearchToolsVisible}" includeInLayout="{SearchToolsVisible}" />
+
+		<mx:Canvas width="100%" id="cnv_info" horizontalScrollPolicy="off" verticalScrollPolicy="off" height="100%">
+			<st:GradientImageButton id="bttnInfo" left="{cnv_info.width-21}" visible="false" icon="{MenuIcons.SMALL_GRAY}" styleName="toolbttn" width="20" height="20" addedToStage="{new MenuIcons.SMALL_TRANSPARENT().width > 10}" />
+			<st:GradientLabel id="lblProgress" left="{cnv_info.width-26}" textAlign="center" y="4" fontSize="8" height="19" width="32" text="" tabIndex="0"/>
+			<ct:Spinner id="spin1" left="{cnv_info.width-22}" styleName="gradientlines" y="-1" startImmediately="false" spinnerType="gradientcircle" width="22" height="22" />
+		</mx:Canvas>
+	</mx:HBox>
+	<fp:Viewer id="paper"	onDocumentLoaded="documentLoadedHandler(event)"
+			   onDocumentLoading="papersLoadingHandler(event)"
+			   onDocumentLoadedError="documentLoadedErrorHandler(event)"
+
+			   onNoMoreSearchResults="onNoMoreSearchResultsHandler(event)"
+			   onLoadingProgress="onDocumentLoadingProgressHandler(event)"
+			   onScaleChanged="onScaleChanged(event)"
+			   onFitModeChanged="onFitModeChanged(event)"
+			   onViewModeChanged="onViewModeChanged(event)"
+			   onCurrPageChanged="onCurrPageChanged(event)"
+			   onCursorModeChanged="onCursorModeChanged(event)"
+			   onExternalLinkClicked="onExternalLinkClickedHandler(event)"
+			   onDocumentPrinted="documentPrintedHandler(event)"
+			   onPageLoaded="pageLoadedEventHandler(event)"
+			   onPageLoading="pageLoadingEventHandler(event)"
+               onErrorLoadingPage="errorLoadingPageEventHandler(event)"
+
+               SecretKey="{SecretKey}"
+               SwfFile="{SwfFile}"
+               Scale="{Scale}"
+               ZoomTransition="{ZoomTransition}"
+               ZoomTime="{ZoomTime}"
+               FitPageOnLoad="{FitPageOnLoad}"
+               FitWidthOnLoad="{FitWidthOnLoad}"
+               ProgressiveLoading="{ProgressiveLoading}"
+               ZoomInterval="{ZoomInterval}"
+               MinZoomSize="{MinZoomSize}"
+               MaxZoomSize="{MaxZoomSize}"
+               SearchMatchAll="{SearchMatchAll}"
+               SearchServiceUrl="{SearchServiceUrl}"
+
+			   addedToStage="MacMouseWheelHandler.init(stage)"
+			   height="100%" width="100%" borderStyle="solid"  tabIndex="0" />
+</fp:FlexPaperViewer_Base>

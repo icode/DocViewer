@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="Flex" version="4">
+  <component name="Flex.Build.Configuration">
+    <option name="DO_BUILD" value="true" />
+    <option name="CUSTOM_CONFIG_FILE" value="$MODULE_DIR$/compiler-config.xml" />
+    <option name="MAIN_CLASS" value="DocViewerFlex" />
+    <option name="OUTPUT_FILE_NAME" value="docviewer.swf" />
+    <option name="TARGET_PLAYER_VERSION" value="10.2.0" />
+    <option name="STATIC_LINK_RUNTIME_SHARED_LIBRARIES" value="false" />
+    <option name="USE_LOCALE_SETTINGS" value="true" />
+    <option name="LOCALE" value="zh_CN,en_US,bg_BG,cz_CS,de_DE,dn_DN,el_EL,es_ES,fi_FN,fr_FR,hu_HU,it_IT,nl_NL,pl_PL,pt_BR,pt_PT,pv_FN,ru_RU,se_SE,tr_TR" />
+    <option name="ADDITIONAL_COMPILER_OPTIONS" value=" -source-path=&quot;/home/icode/Workspace/personal/docviewer/docviewerflex/locale/{locale}&quot;  -compatibility-version=&quot;3.0&quot; -optimize=true -static-link-runtime-shared-libraries=true -debug=false -keep-generated-actionscript=false" />
+    <option name="VERSION" value="3" />
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../out/production/docviewerflex" />
+    <output-test url="file://$MODULE_DIR$/../out/test/docviewerflex" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/locale" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="flex_sdk_4.5.1.21328 (player 10.2)" jdkType="Flex SDK Type" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/FlexPaper_Resources.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
+

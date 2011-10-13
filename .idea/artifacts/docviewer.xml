@@ -1,0 +1,30 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="docviewer">
+    <output-path>$PROJECT_DIR$/out/artifacts/docviewer</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="docviewer" />
+          <element id="directory" name="config">
+            <element id="file-copy" path="$PROJECT_DIR$/docviewerapi/src/config/doc-viewer.properties" />
+            <element id="file-copy" path="$PROJECT_DIR$/docviewerapi/src/config/office-convert.properties" />
+            <element id="file-copy" path="$PROJECT_DIR$/docviewerapi/src/config/pdf-convert.properties" />
+          </element>
+          <element id="file-copy" path="$PROJECT_DIR$/docviewerapi/src/log4j.properties" />
+          <element id="file-copy" path="$USER_HOME$/Tools/resources/FreeMarker_Manual_zh_CN.pdf" output-file-name="test.pdf" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="archive" name="docviewerapi.jar">
+            <element id="module-output" name="docviewerapi" />
+          </element>
+          <element id="library" level="project" name="itext" />
+          <element id="library" level="project" name="ooo" />
+          <element id="library" level="project" name="common" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="docviewer/web/Web" />
+      <element id="dir-copy" path="$PROJECT_DIR$/docviewer/src" />
+      <element id="dir-copy" path="$PROJECT_DIR$/etc" />
+    </root>
+  </artifact>
+</component>

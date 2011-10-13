@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Copyright 2009 Erik Engström
+
+    This file is part of FlexPaper.
+
+    FlexPaper is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, version 3 of the License.
+
+    FlexPaper is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with FlexPaper.  If not, see <http://www.gnu.org/licenses/>.	
+--><mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="276" height="204" title="@Resource(key='About', bundle='FlexPaper')" showCloseButton="true" creationComplete="Init()">
+<mx:Metadata>
+  [ResourceBundle("FlexPaper")]
+</mx:Metadata>
+<mx:Script>
+	<![CDATA[
+	import mx.events.CloseEvent;
+	import mx.managers.PopUpManager;
+	import com.devaldi.controls.flexpaper.resources.MenuIcons;
+		
+	private function Init():void{
+		this.addEventListener(CloseEvent.CLOSE, onClose);
+		bttnOk.setFocus();
+	}
+
+  	private function onClose(evt:CloseEvent):void {
+        PopUpManager.removePopUp(this);
+    }		
+	]]>
+</mx:Script>
+	<mx:Button x="105.5" y="127" id="bttnOk" label="OK" click="PopUpManager.removePopUp(this);"/>
+	<mx:Image x="13" y="10"  source="{MenuIcons.LOGO_SMALL}" width="157" height="41"/>
+	<mx:Label x="10" y="62" text="@Resource(key='Developedby', bundle='FlexPaper')"/>
+	<mx:Label x="10" y="98" text="@Resource(key='Formoreinformation', bundle='FlexPaper')"/>
+	<mx:LinkButton x="160" y="98" label="devaldi.com" click="navigateToURL(new URLRequest('http://flexpaper.devaldi.com/?ref=FlexPaper'), 'devaldi')" fontWeight="normal" textDecoration="underline" color="#4134EB" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0"/>
+	<mx:Label x="165" y="19" text="1.4.5"/>
+	<mx:Label x="10" y="80" text="GPL 3 (non-commercial) License."/>
+	
+</mx:TitleWindow>

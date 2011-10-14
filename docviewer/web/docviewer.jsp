@@ -17,43 +17,14 @@
             }
 
 
-
             var docViewer = new DocViewer({
-                docUrl:getParameter('url'),
+                docUrl:getParameter('url'),//文档地址 于info参数选其一 info=true则忽略此参数
                 'case':DocViewer.NODE_CASE,
                 width:'100%',
                 height:'100%',
-                docId:getParameter('id'),
-                requestDocInfo:getParameter('info')
+                docId:getParameter('id'),//文档ID
+                requestDocInfo:getParameter('info')//是否自动请求加载文档
             });
-            if (!docViewer.error) {
-                docViewer.on({
-                    'saveannotations': function(e, params, data) {
-                        var el = $('<div>' + (data || '保存成功！') + '</div>');
-                        el.appendTo(this.el);
-                        el.dialog({
-                            modal: true,
-                            buttons: {
-                                Ok: function() {
-                                    el.dialog('destroy');
-                                }
-                            }
-                        });
-                    },
-                    'saveannotationserror': function() {
-                        var el = $('<div>发生错误！</div>');
-                        el.appendTo(this.el);
-                        el.dialog({
-                            modal: true,
-                            buttons: {
-                                Ok: function() {
-                                    el.dialog('destroy');
-                                }
-                            }
-                        });
-                    }
-                });
-            }
         });
     </script>
     <style>
@@ -62,7 +33,7 @@
             padding: 0;
         }
 
-        body,html {
+        body, html {
             overflow: hidden;
             height: 100%;
             width: 100%;

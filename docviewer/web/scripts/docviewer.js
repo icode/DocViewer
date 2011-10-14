@@ -255,7 +255,7 @@
                     timeout : 60000,
                     error : function(jqXHR, textStatus, errorThrown) {
                         el.trigger('requestdocinfoserror', [params,jqXHR, textStatus, errorThrown]);
-                        if(jqXHR.status == 404){
+                        if (jqXHR.status == 404) {
                             clearTimeout(timer);
                             me.loadingMessage.html('文档未找到!');
                         }
@@ -425,7 +425,7 @@
                 NavToolsVisible : true,
                 CursorToolsVisible : true,
                 SearchToolsVisible : true,
-                LocaleChain : ((w.navigator.userLanguage || w.navigator.language.replace("-", "_"))||'').replace("-", "_")
+                LocaleChain : ((w.navigator.userLanguage || w.navigator.language.replace("-", "_")) || '').replace("-", "_")
             }, this.arguments.flash.vars);
 
             this.config.flash.params = $.extend({
@@ -574,12 +574,12 @@
         ALL_PERMS:5,
         WINDOW_CASE:'window',
         NODE_CASE:'node',
-        SWF_OBJECT_URL:rootPath + 'scripts/lib/swfobject/swfobject.js',
-        SWF_OBJECT_SWF_URL:rootPath + 'scripts/lib/swfobject/expressInstall.swf',
-        SWF_COMMON_URL:rootPath + 'resources/flex/docviewer.swf',
-        SWF_ANNOTATIONS_URL:rootPath + 'resources/docviewer/docviewer_annotations.swf',
-        SAVE_ANNOTATIONS_ACTION:rootPath + 'annotations/save',
-        LOAD_ANNOTATIONS_ACTION:rootPath + 'annotations/load',
+        SWF_OBJECT_URL:rootPath + '/scripts/lib/swfobject/swfobject.js',
+        SWF_OBJECT_SWF_URL:rootPath + '/scripts/lib/swfobject/expressInstall.swf',
+        SWF_COMMON_URL:rootPath + '/resources/flex/docviewer.swf',
+        SWF_ANNOTATIONS_URL:rootPath + '/resources/docviewer/docviewer_annotations.swf',
+        SAVE_ANNOTATIONS_ACTION:rootPath + '/annotations/save',
+        LOAD_ANNOTATIONS_ACTION:rootPath + '/annotations/load',
         REQUEST_DOC_INFO_ACTION:rootPath + '/docviewer/info'
     });
 })(window, undefined);

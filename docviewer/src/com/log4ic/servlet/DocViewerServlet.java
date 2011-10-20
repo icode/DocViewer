@@ -3,6 +3,8 @@ package com.log4ic.servlet;
 import com.log4ic.DocViewer;
 import com.log4ic.enums.Permissions;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,27 +18,35 @@ import java.io.*;
  */
 public class DocViewerServlet extends HttpServlet {
 
+    private static final Log LOGGER = LogFactory.getLog(DocViewerServlet.class);
+
     public void getDocInfo(HttpServletRequest request, HttpServletResponse response) {
+
         try {
             String id = request.getParameter("docId");
+            LOGGER.info("请求文档信息 ID:" + id);
             if (StringUtils.isBlank(id)) {
+                LOGGER.info("ID为空!");
                 response.setStatus(404);
                 return;
             }
 
 
             int docId = Integer.parseInt(id);
-
+            LOGGER.info("获取文档权限...");
             Permissions permissions = DocViewer.getAttachmentService().getDocPermissionsById(docId, request);
-
+            LOGGER.info("文档权限:" + permissions);
             if (permissions.equals(Permissions.NONE)) {
                 //response.setStatus(404);
+                LOGGER.info("无权查看该文档!");
                 return;
             }
 
+            LOGGER.info("获取文档页数...");
             int pageCount = DocViewer.getDocPageCount(docId);
             if (pageCount == 0) {
                 response.setStatus(404);
+                LOGGER.info("空白文档!");
                 return;
             }
             response.setContentType("application/json");
@@ -45,7 +55,7 @@ public class DocViewerServlet extends HttpServlet {
             if (!DocViewer.isSplitPage()) {
                 docUri = request.getContextPath() + url + id + ".swf";
             }
-
+            LOGGER.info("回传文档信息...");
             if (DocViewer.isEncryption()) {
                 String secretKey = DocViewer.getCurrentSecretKey();
                 request.getSession().setAttribute("secretKey", secretKey);

@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="docviewer">
+  <artifact type="war" name="docviewer">
     <output-path>$PROJECT_DIR$/out/artifacts/docviewer</output-path>
-    <root id="root">
+    <root id="archive" name="docviewer.war">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="docviewer" />

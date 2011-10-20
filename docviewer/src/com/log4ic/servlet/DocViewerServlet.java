@@ -49,6 +49,7 @@ public class DocViewerServlet extends HttpServlet {
                 LOGGER.info("空白文档!");
                 return;
             }
+            LOGGER.info("文档页数:" + pageCount + "页.");
             response.setContentType("application/json");
             String url = "/docviewer?doc=";
             String docUri = request.getContextPath() + url + id + "-{[*,0]," + pageCount + "}\"";
@@ -71,7 +72,9 @@ public class DocViewerServlet extends HttpServlet {
 
     public void getDoc(HttpServletRequest request, HttpServletResponse response) {
         String doc = request.getParameter("doc");
+
         if (StringUtils.isBlank(doc)) {
+            LOGGER.info("doc不能为空!");
             response.setStatus(404);
             return;
         }
@@ -101,10 +104,12 @@ public class DocViewerServlet extends HttpServlet {
         OutputStream outp = null;
         InputStream in = null;
         try {
+            LOGGER.info("获取文档!");
             if (DocViewer.getDoc(docId) != null) {
                 outp = response.getOutputStream();
                 if (DocViewer.isSplitPage()) {
                     if (DocViewer.isEncryption()) {
+                        LOGGER.info("解密文档...");
                         if (DocViewer.isDynamicKey()) {
                             byte[] page = DocViewer.encryptToBytes(docId, docPage, secretKey);
                             in = new ByteArrayInputStream(page);
@@ -117,6 +122,7 @@ public class DocViewerServlet extends HttpServlet {
                     }
                 } else {
                     if (DocViewer.isEncryption()) {
+                        LOGGER.info("解密文档...");
                         if (DocViewer.isDynamicKey()) {
                             byte[] page = DocViewer.encryptToBytes(docId, secretKey);
                             in = new ByteArrayInputStream(page);
@@ -163,9 +169,12 @@ public class DocViewerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getRequestURI().equals("/docviewer/info")) {
+        LOGGER.info("DocViewer doGet:" + req.getContextPath() + "/docviewer/info");
+        if (req.getRequestURI().equals(req.getContextPath() + "/docviewer/info")) {
+            LOGGER.info("请求文档信...");
             getDocInfo(req, resp);
-        } else if (req.getRequestURI().equals("/docviewer")) {
+        } else if (req.getRequestURI().equals(req.getContextPath() + "/docviewer")) {
+            LOGGER.info("加载文档...");
             getDoc(req, resp);
         }
     }

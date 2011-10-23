@@ -221,7 +221,7 @@
                                     opacity: 0,
                                     top: -40
                                 }, 500, function() {
-                                    el.flash.setViewerFocus(true);
+                                    //el.flash.setViewerFocus(true);
                                     me.loadingMessage.html('初始化...');
                                 });
                             }, 1200);

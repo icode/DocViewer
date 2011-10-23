@@ -16,7 +16,7 @@
   <component name="ChangeListManager">
     <list default="true" id="652659cf-4b74-429d-8e5e-61851e29736d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewer/web/scripts/docviewer.js" afterPath="$PROJECT_DIR$/docviewer/web/scripts/docviewer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" afterPath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" />
     </list>
     <ignored path="docviwer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,34 +35,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <line_breakpoints>
-      <breakpoint url="file://$PROJECT_DIR$/docviewer/src/com/log4ic/service/DocAttachmentService.java" line="18" class="com.log4ic.service.DocAttachmentService" package="com.log4ic.service">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" line="391" class="com.log4ic.DocViewer" package="com.log4ic">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
     <breakpoint_any>
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -142,7 +114,7 @@
       <file leaf-file-name="DocAttachmentService.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewer/src/com/log4ic/service/DocAttachmentService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="0" selection-start="567" selection-end="567" vertical-scroll-proportion="0.0">
+            <state line="18" column="0" selection-start="472" selection-end="472" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -184,10 +156,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="docviewer.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="docviewer.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewer/web/scripts/docviewer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="223" column="56" selection-start="9585" selection-end="9585" vertical-scroll-proportion="0.36347198">
+            <state line="223" column="56" selection-start="9585" selection-end="9585" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DocViewerConverter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/DocViewerConverter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="49" selection-start="658" selection-end="671" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DocViewer.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="280" column="61" selection-start="9399" selection-end="9399" vertical-scroll-proportion="0.33333334">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ThreadPool.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/thread/ThreadPool.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="65" column="32" selection-start="1993" selection-end="1993" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -252,7 +251,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/server/OOoServer.java" />
         <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/BootstrapConnector.java" />
         <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/BootstrapPipeConnector.java" />
         <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/BootstrapSocketConnector.java" />
@@ -268,6 +266,7 @@
         <option value="$PROJECT_DIR$/docviewer/web/upload.jsp" />
         <option value="$PROJECT_DIR$/docviewer/web/scripts/lib/plupload/examples/custom.html" />
         <option value="$PROJECT_DIR$/docviewer/web/scripts/docviewer.js" />
+        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" />
       </list>
     </option>
   </component>
@@ -939,7 +938,7 @@
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3784219" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3778802" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872504" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -950,7 +949,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32978722" sideWeight="0.6390169" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32978722" sideWeight="0.62211984" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -984,7 +983,7 @@
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="ADD LOG" />
+    <option name="LAST_COMMIT_MESSAGE" value="取消flash聚焦" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1006,6 +1005,7 @@
     <MESSAGE value="增加批量上传前端类库" />
     <MESSAGE value="META INF" />
     <MESSAGE value="ADD LOG" />
+    <MESSAGE value="取消flash聚焦" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1049,26 +1049,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/server/OOoServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="45" selection-start="1820" selection-end="1820" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/BootstrapConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="27" selection-start="2163" selection-end="2163" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/BootstrapPipeConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="5" selection-start="1252" selection-end="1252" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/BootstrapSocketConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="7" selection-start="1128" selection-end="1128" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docviewer/src/com/log4ic/servlet/DocViewerServlet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="51" column="36" selection-start="1670" selection-end="1670" vertical-scroll-proportion="0.0">
@@ -1148,7 +1128,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/docviewer/web/scripts/docviewer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="223" column="56" selection-start="9585" selection-end="9585" vertical-scroll-proportion="0.36347198">
+        <state line="223" column="56" selection-start="9585" selection-end="9585" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/thread/ThreadPool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="32" selection-start="1993" selection-end="1993" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/DocViewerConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="49" selection-start="658" selection-end="671" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewer/src/com/log4ic/service/DocAttachmentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="0" selection-start="472" selection-end="472" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="280" column="61" selection-start="9399" selection-end="9399" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>

@@ -278,7 +278,7 @@ public class DocViewer {
 
         synchronized (fileList) {
             for (File f : fileList) {
-                if (FileUtils.getFilePrefix(f).equals(id)) {
+                if (FileUtils.getFilePrefix(f).equals(id + "")) {
                     return true;
                 }
             }

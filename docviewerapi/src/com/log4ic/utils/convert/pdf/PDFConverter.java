@@ -32,7 +32,7 @@ public class PDFConverter {
 
     private static void setCommand(String command) {
         PDFConverter.COMMAND = command;
-        LOGGER.info("设置命令(command)配置为 :" + command);
+        LOGGER.debug("设置命令(command)配置为 :" + command);
     }
 
     public static String getCommand() {
@@ -41,7 +41,7 @@ public class PDFConverter {
 
     private static void setSinglePageModeMaxThread(Integer value) {
         PDFConverter.SINGLE_PAGE_MODE_MAX_THREAD = value;
-        LOGGER.info("设置单页面转换模式最大线程(single_page_mode_max_thread)配置为 :" + value);
+        LOGGER.debug("设置单页面转换模式最大线程(single_page_mode_max_thread)配置为 :" + value);
     }
 
     public static Integer getOnePageModeMaxThread() {

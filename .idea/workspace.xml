@@ -16,7 +16,6 @@
   <component name="ChangeListManager">
     <list default="true" id="652659cf-4b74-429d-8e5e-61851e29736d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README" afterPath="$PROJECT_DIR$/README" />
     </list>
     <ignored path="docviwer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -246,7 +245,7 @@
       <file leaf-file-name="docviewer.properties" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="10" selection-start="776" selection-end="776" vertical-scroll-proportion="0.6048387">
+            <state line="28" column="10" selection-start="776" selection-end="776" vertical-scroll-proportion="0.57459676">
               <folding />
             </state>
           </provider>
@@ -1263,7 +1262,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="10" selection-start="776" selection-end="776" vertical-scroll-proportion="0.6048387">
+        <state line="28" column="10" selection-start="776" selection-end="776" vertical-scroll-proportion="0.57459676">
           <folding />
         </state>
       </provider>

@@ -438,9 +438,9 @@ public class DocViewer {
     }
 
 
-    public static byte[] encryptToBytes(int id, int page, String key) throws Exception {
+    public static byte[] encryptToBytes(int id, Integer page, String key) throws Exception {
         String dir = OUTPUT_PATH + id + File.separator;
-        String fileName = "page" + page + ".swf";
+        String fileName = "page" + (page == null ? "" : page) + ".swf";
         File in = new File(dir + fileName);
         if (!in.exists() || in.isDirectory()) {
             return null;
@@ -449,9 +449,9 @@ public class DocViewer {
     }
 
 
-    public static File encryptToFile(int id, int page, String key) throws Exception {
+    public static File encryptToFile(int id, Integer page, String key) throws Exception {
         String dir = OUTPUT_PATH + id + File.separator;
-        String fileName = "page" + page + ".swf";
+        String fileName = "page" + (page == null ? "" : page) + ".swf";
         String output = dir + key + File.separator + fileName;
         File in = new File(dir + fileName);
         File out = new File(output);
@@ -479,41 +479,12 @@ public class DocViewer {
     }
 
     public static byte[] encryptToBytes(int id, String key) throws Exception {
-        String dir = OUTPUT_PATH + id + File.separator;
-        String fileName = "page.swf";
-        String output = dir + key + File.separator + fileName;
-        File in = new File(dir + fileName);
-        File out = new File(output);
-        if (!in.exists() || in.isDirectory()) {
-            return null;
-        }
-        if (out.exists() && out.isFile()) {
-            return FileUtils.getBytesFromFile(out);
-        } else {
-            out.getParentFile().mkdir();
-        }
-
-        return XXTEA.encrypt(FileUtils.getBytesFromFile(in), key.getBytes("UTF-8"));
+        return encryptToBytes(id, null, key);
     }
 
 
     public static File encryptToFile(int id, String key) throws Exception {
-        String dir = OUTPUT_PATH + id + File.separator;
-        String fileName = "page.swf";
-        String output = dir + key + File.separator + fileName;
-        File in = new File(dir + fileName);
-        File out = new File(output);
-        if (!in.exists() || in.isDirectory()) {
-            return null;
-        }
-        if (out.exists() && out.isFile()) {
-            return out;
-        } else {
-            out.getParentFile().mkdir();
-        }
-
-        // return in;
-        return FileUtils.getFileFromBytes(XXTEA.encrypt(FileUtils.getBytesFromFile(in), key.getBytes("UTF-8")), out.getPath());
+        return encryptToFile(id, null, key);
     }
 
     public static String getRandomKey(int length) {

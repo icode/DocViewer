@@ -42,6 +42,16 @@ public class DocViewerServlet extends HttpServlet {
                 return;
             }
 
+            response.setHeader("Cache-Control", "private");
+            response.setHeader("Pragma", "no-cache");
+            response.setHeader("Connection", "Keep-Alive");
+            response.setHeader("Proxy-Connection", "Keep-Alive");
+            response.setContentType("application/json");
+            response.flushBuffer();
+            PrintWriter writer = response.getWriter();
+
+            writer.flush();
+
             LOGGER.info("获取文档页数...");
             int pageCount = DocViewer.getDocPageCount(docId);
             if (pageCount == 0) {
@@ -50,7 +60,6 @@ public class DocViewerServlet extends HttpServlet {
                 return;
             }
             LOGGER.info("文档页数:" + pageCount + "页.");
-            response.setContentType("application/json");
             String docUri;
             String url = "/docviewer?doc=";
             if (!DocViewer.isSplitPage()) {
@@ -62,9 +71,9 @@ public class DocViewerServlet extends HttpServlet {
             if (DocViewer.isEncryption()) {
                 String secretKey = DocViewer.getCurrentSecretKey();
                 request.getSession().setAttribute("secretKey", secretKey);
-                response.getWriter().write("{\"uri\":\"" + docUri + "\",\"key\":\"" + secretKey + "\",\"permissions\":" + permissions.ordinal() + "}");
+                writer.write("{\"uri\":\"" + docUri + "\",\"key\":\"" + secretKey + "\",\"permissions\":" + permissions.ordinal() + "}");
             } else {
-                response.getWriter().write("{\"uri\":\"" + docUri + "\",\"permissions\":" + permissions.ordinal() + "}");
+                writer.write("{\"uri\":\"" + docUri + "\",\"permissions\":" + permissions.ordinal() + "}");
             }
         } catch (Exception e) {
             e.printStackTrace();

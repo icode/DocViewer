@@ -301,6 +301,15 @@ public class PDFConverter {
         return convert(pdfFile, outPath, true, poly2bitmap);
     }
 
+    /**
+     * pdf转换为swf
+     * @param pdfFile
+     * @param outPath
+     * @param splitPage
+     * @param poly2bitmap
+     * @return 返回转换后输出文件目录
+     * @throws Exception
+     */
     public File convert(File pdfFile, String outPath, boolean splitPage, boolean poly2bitmap) throws Exception {
 
         LOGGER.debug("---准备转换文档---");

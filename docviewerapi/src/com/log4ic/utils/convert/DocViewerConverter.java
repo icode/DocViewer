@@ -38,6 +38,13 @@ public class DocViewerConverter {
         return runningQueue;
     }
 
+    /***
+     * 转换为swf
+     * @param file
+     * @param outPath
+     * @return 返回转换后输出文件目录
+     * @throws Exception
+     */
     public static File toSwf(File file, String outPath) throws Exception {
         synchronized (lock) {
             if (pdfConverter == null) {

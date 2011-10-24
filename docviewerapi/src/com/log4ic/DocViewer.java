@@ -45,7 +45,7 @@ public class DocViewer {
 
     public static void setPDFPoolMaxThread(int count) throws Exception {
         PDF_POOL_MAX_THREAD = count;
-        LOGGER.debug("设置PDF转换最大线程(pdf_pool_max_thread)为:" + count);
+        LOGGER.debug("设置PDF转换最大线程为:" + count);
     }
 
     public static void setOfficePoolMaxThread(int count) throws Exception {
@@ -134,7 +134,6 @@ public class DocViewer {
     }
 
 
-
     public static boolean isSupport(String fileExtends) {
         return OfficeConverter.isSupport(fileExtends);
     }
@@ -201,6 +200,11 @@ public class DocViewer {
             setOfficePoolMaxThread(Integer.parseInt(officePoolMaxThread));
         } catch (Exception e) {
             throw new Exception("office_pool_max_thread config error");
+        }
+        try {
+            setSplitPage(Boolean.parseBoolean(properties.getProperty(baseConverterConfigSpace + "splitPage", SPLIT_PAGE + "")));
+        } catch (Exception e) {
+            throw new Exception("splitPage config error");
         }
         try {
             setEncryption(Boolean.parseBoolean(properties.getProperty(baseConfigSpace + "encryption", ENCRYPTION + "")));
@@ -278,13 +282,39 @@ public class DocViewer {
 
 
     public static File getDoc(int id) throws Exception {
-        if (DocViewer.hasDocDir(id) || DocViewer.isConverting(id)) {
+        if (DocViewer.hasDocDir(id)) {
             while (DocViewer.isConverting(id)) {
                 Thread.sleep(500);
             }
             return new File(OUTPUT_PATH + id);
         }
-        return null;
+        ConvertWorker worker = null;
+        if (pdfQueue.isWaiting(id)) {
+            worker = (ConvertWorker) pdfQueue.getWaitingWorker(id);
+            if (worker != null) {
+                pdfQueue.removeWaitingWorker(worker);
+            }
+
+        } else if (officeQueue.isWaiting(id)) {
+            worker = (ConvertWorker) officeQueue.getWaitingWorker(id);
+            if (worker != null) {
+                officeQueue.removeWaitingWorker(worker);
+            }
+        }
+
+        File in = null;
+
+        if (worker != null) {
+            in = worker.getInFile();
+        } else {
+            in = getDocFileFromSource(id);
+        }
+
+        if (in == null) {
+            return null;
+        }
+
+        return DocViewerConverter.toSwf(in, OUTPUT_PATH);
     }
 
     public synchronized static boolean isConverting(int id) {
@@ -334,38 +364,7 @@ public class DocViewer {
 
 
     public static int getDocPageCount(int id) throws Exception {
-        if (DocViewer.hasDocDir(id)) {
-            while (DocViewer.isConverting(id)) {
-                Thread.sleep(500);
-            }
-            int count = new File(OUTPUT_PATH + id).listFiles(new SwfFileFilter()).length;
-            if (count != 0) {
-                return count;
-            }
-        }
-        ConvertWorker worker = null;
-        if (pdfQueue.isWaiting(id)) {
-            worker = (ConvertWorker) pdfQueue.getWaitingWorker(id);
-            if (worker != null) {
-                pdfQueue.removeWaitingWorker(worker);
-            }
-
-        } else if (officeQueue.isWaiting(id)) {
-            worker = (ConvertWorker) officeQueue.getWaitingWorker(id);
-            if (worker != null) {
-                officeQueue.removeWaitingWorker(worker);
-            }
-        }
-
-        File in = null;
-
-        if (worker != null) {
-            in = worker.getInFile();
-        } else {
-            in = getDocFileFromSource(id);
-        }
-
-        return DocViewerConverter.toSwf(in, OUTPUT_PATH).listFiles(new SwfFileFilter()).length;
+        return getDoc(id).listFiles(new SwfFileFilter()).length;
     }
 
     public static File getDocFileFromSource(int id) throws Exception {

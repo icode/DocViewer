@@ -51,18 +51,20 @@ public class DocViewerServlet extends HttpServlet {
             }
             LOGGER.info("文档页数:" + pageCount + "页.");
             response.setContentType("application/json");
+            String docUri;
             String url = "/docviewer?doc=";
-            String docUri = request.getContextPath() + url + id + "-{[*,0]," + pageCount + "}\"";
             if (!DocViewer.isSplitPage()) {
-                docUri = request.getContextPath() + url + id + ".swf";
+                docUri = request.getContextPath() + url + id;
+            } else {
+                docUri = request.getContextPath() + url + id + "-{[*,0]," + pageCount + "}";
             }
             LOGGER.info("回传文档信息...");
             if (DocViewer.isEncryption()) {
                 String secretKey = DocViewer.getCurrentSecretKey();
                 request.getSession().setAttribute("secretKey", secretKey);
-                response.getWriter().write("{\"uri\":\"" + docUri + ",\"key\":\"" + secretKey + "\",\"permissions\":" + permissions.ordinal() + "}");
+                response.getWriter().write("{\"uri\":\"" + docUri + "\",\"key\":\"" + secretKey + "\",\"permissions\":" + permissions.ordinal() + "}");
             } else {
-                response.getWriter().write("{\"uri\":\"" + docUri + ",\"permissions\":" + permissions.ordinal() + "}");
+                response.getWriter().write("{\"uri\":\"" + docUri + "\",\"permissions\":" + permissions.ordinal() + "}");
             }
         } catch (Exception e) {
             e.printStackTrace();

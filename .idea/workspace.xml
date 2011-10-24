@@ -14,8 +14,9 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="652659cf-4b74-429d-8e5e-61851e29736d" name="Default" comment="">
+    <list default="true" id="652659cf-4b74-429d-8e5e-61851e29736d" name="Default" comment="..">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" afterPath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" />
     </list>
     <ignored path="docviwer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -137,7 +138,7 @@
       <file leaf-file-name="DocAttachmentService.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/docviewer/src/com/log4ic/service/DocAttachmentService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="20" selection-start="471" selection-end="471" vertical-scroll-proportion="0.32416502">
+            <state line="19" column="36" selection-start="603" selection-end="603" vertical-scroll-proportion="0.29862475">
               <folding />
             </state>
           </provider>
@@ -182,8 +183,10 @@
       <file leaf-file-name="DocViewer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="167" column="37" selection-start="5889" selection-end="5889" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="328" column="42" selection-start="11667" selection-end="11667" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="method#initialize#0;class#DocViewer#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -348,10 +351,10 @@
         <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/pdf/PDFConverter.java" />
         <option value="$PROJECT_DIR$/docviewerapi/src/log4j.properties" />
         <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/DocViewerConverter.java" />
-        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" />
         <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/OfficeConverter.java" />
         <option value="$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties" />
         <option value="$PROJECT_DIR$/README" />
+        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" />
         <option value="$PROJECT_DIR$/docviewer/src/com/log4ic/service/DocAttachmentService.java" />
       </list>
     </option>
@@ -1073,7 +1076,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32978722" sideWeight="0.60522276" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32978722" sideWeight="0.6436252" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1177,13 +1180,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/example/BootstrapSocketConnectorExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="0" selection-start="2778" selection-end="3164" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/server/OOoServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="168" column="21" selection-start="5965" selection-end="5965" vertical-scroll-proportion="0.0">
@@ -1254,13 +1250,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/OfficeConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="225" column="40" selection-start="7023" selection-end="7023" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docviewerapi/src/conf/documentFormats.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -1282,9 +1271,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/OfficeConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="225" column="40" selection-start="7023" selection-end="7023" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="328" column="42" selection-start="11667" selection-end="11667" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="method#initialize#0;class#DocViewer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/docviewer/src/com/log4ic/service/DocAttachmentService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="20" selection-start="471" selection-end="471" vertical-scroll-proportion="0.32416502">
+        <state line="19" column="36" selection-start="603" selection-end="603" vertical-scroll-proportion="0.29862475">
           <folding />
         </state>
       </provider>

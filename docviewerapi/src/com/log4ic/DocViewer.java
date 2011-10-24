@@ -280,7 +280,7 @@ public class DocViewer {
     public static File getDoc(int id) throws Exception {
         if (DocViewer.hasDocDir(id) || DocViewer.isConverting(id)) {
             while (DocViewer.isConverting(id)) {
-                Thread.sleep(200);
+                Thread.sleep(500);
             }
             return new File(OUTPUT_PATH + id);
         }
@@ -305,7 +305,7 @@ public class DocViewer {
     public static File getPDFDoc(int id) throws Exception {
         if (DocViewer.hasDocDir(id)) {
             while (DocViewer.isConverting(id)) {
-                Thread.sleep(200);
+                Thread.sleep(500);
             }
             File file = new File(OUTPUT_PATH + id + File.separator + id + ".pdf");
             if (file.exists()) {
@@ -336,7 +336,7 @@ public class DocViewer {
     public static int getDocPageCount(int id) throws Exception {
         if (DocViewer.hasDocDir(id)) {
             while (DocViewer.isConverting(id)) {
-                Thread.sleep(200);
+                Thread.sleep(500);
             }
             int count = new File(OUTPUT_PATH + id).listFiles(new SwfFileFilter()).length;
             if (count != 0) {

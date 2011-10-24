@@ -1,6 +1,7 @@
 package com.log4ic.utils;
 
 import java.io.*;
+import java.util.Properties;
 
 /**
  * @author: 张立鑫
@@ -8,6 +9,20 @@ import java.io.*;
  * @date: 11-8-25 上午10:17
  */
 public class FileUtils {
+
+    public static Properties getProperties(String config) throws Exception {
+        Properties properties = new Properties();
+        //获取class文件夹
+        ClassLoader loader = FileUtils.class.getClassLoader();
+        //加载文件
+        InputStream is = loader.getResourceAsStream(config);
+        if (is == null) {
+            throw new Exception("properties is not found");
+        }
+        //读取
+        properties.load(is);
+        return properties;
+    }
 
     public static final String FILE_SEPARATOR = System.getProperties().getProperty("file.separator");
 

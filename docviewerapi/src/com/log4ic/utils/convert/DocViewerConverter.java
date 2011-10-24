@@ -45,18 +45,23 @@ public class DocViewerConverter {
                 pdfConverter = new PDFConverter();
             }
         }
-        runningQueue.add(file);
-        String suffix = FileUtils.getFileSuffix(file);
-        if (suffix == null) {
-            throw new Exception("The file not has a suffix!");
-        }
-        if (!suffix.toLowerCase().equals("pdf")) {
-            file = toPDF(file, outPath);
-        }
+        try {
+            runningQueue.add(file);
+            String suffix = FileUtils.getFileSuffix(file);
+            File pdf;
+            if (suffix == null) {
+                throw new Exception("The file not has a suffix!");
+            }
+            if (!suffix.toLowerCase().equals("pdf")) {
+                pdf = toPDF(file, outPath);
+            } else {
+                pdf = file;
+            }
 
-        File out = pdfConverter.convert(file, outPath, DocViewer.isSplitPage(), false);
-        runningQueue.remove(file);
-        return out;
+            return pdfConverter.convert(pdf, outPath, DocViewer.isSplitPage(), false);
+        } finally {
+            runningQueue.remove(file);
+        }
     }
 
     public static File toPDF(File file, String outPath) throws Exception {
@@ -65,16 +70,18 @@ public class DocViewerConverter {
                 officeConverter = new OfficeConverter();
             }
         }
+        try {
+            runningQueue.add(file);
+            File pdf = null;
 
-        runningQueue.add(file);
-        File pdf = null;
-
-        File dir = deploy(file, outPath);
-        pdf = new File(dir.getPath() + File.separator + FileUtils.getFilePrefix(file) + ".pdf");
-        if (!pdf.exists()) {
-            pdf = officeConverter.toPDF(file, dir.getPath());
+            File dir = deploy(file, outPath);
+            pdf = new File(dir.getPath() + File.separator + FileUtils.getFilePrefix(file) + ".pdf");
+            if (!pdf.exists()) {
+                pdf = officeConverter.toPDF(file, dir.getPath());
+            }
+            return pdf;
+        } finally {
+            runningQueue.remove(file);
         }
-        runningQueue.remove(file);
-        return pdf;
     }
 }

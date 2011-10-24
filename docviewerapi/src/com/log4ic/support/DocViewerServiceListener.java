@@ -1,8 +1,6 @@
 package com.log4ic.support;
 
 import com.log4ic.DocViewer;
-import com.log4ic.utils.convert.office.OfficeConverter;
-import com.log4ic.utils.convert.pdf.PDFConverter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -20,17 +18,7 @@ public class DocViewerServiceListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {
-            OfficeConverter.startService();
-        } catch (Exception e) {
-            LOGGER.error(e);
-        }
-        try {
-            PDFConverter.loadConfig();
-        } catch (Exception e) {
-            LOGGER.error(e);
-        }
-        try {
-            DocViewer.loadConfig();
+            DocViewer.initialize();
         } catch (Exception e) {
             LOGGER.error(e);
         }
@@ -38,7 +26,7 @@ public class DocViewerServiceListener implements ServletContextListener {
 
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         try {
-            OfficeConverter.stopService();
+            DocViewer.destroy();
         } catch (Exception e) {
             LOGGER.error(e);
         }

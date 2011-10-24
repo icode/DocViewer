@@ -1,29 +1,20 @@
 package com.log4ic.utils.convert.office;
 
-import com.artofsolving.jodconverter.DefaultDocumentFormatRegistry;
-import com.artofsolving.jodconverter.DocumentConverter;
-import com.artofsolving.jodconverter.DocumentFormatRegistry;
-import com.artofsolving.jodconverter.openoffice.connection.OpenOfficeConnection;
-import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
-import com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConverter;
 import com.log4ic.utils.FileUtils;
-import com.log4ic.utils.convert.office.connector.BootstrapSocketConnector;
-import com.sun.star.bridge.UnoUrlResolver;
-import com.sun.star.bridge.XUnoUrlResolver;
-import com.sun.star.comp.helper.Bootstrap;
 import com.sun.star.comp.helper.BootstrapException;
-import com.sun.star.frame.XDesktop;
-import com.sun.star.uno.UnoRuntime;
-import com.sun.star.uno.XComponentContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.artofsolving.jodconverter.OfficeDocumentConverter;
+import org.artofsolving.jodconverter.document.DefaultDocumentFormatRegistry;
+import org.artofsolving.jodconverter.document.DocumentFormatRegistry;
+import org.artofsolving.jodconverter.office.DefaultOfficeManagerConfiguration;
+import org.artofsolving.jodconverter.office.OfficeConnectionProtocol;
+import org.artofsolving.jodconverter.office.OfficeManager;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ConnectException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 /**
@@ -35,11 +26,12 @@ public class OfficeConverter {
 
     private static final Log LOGGER = LogFactory.getLog(OfficeConverter.class);
 
-    private static XComponentContext context;
+    private static OfficeConnectionProtocol CONNECTION_PROTOCOL;
 
-    private static BootstrapSocketConnector bootstrapSocketConnector;
+    private static File OFFICE_PROFILE;
 
-    private static List<OpenOfficeConnection> connectionPoll = new ArrayList<OpenOfficeConnection>();
+    private static OfficeManager officeManager;
+
     /**
      * 配置文件
      */
@@ -47,12 +39,8 @@ public class OfficeConverter {
     /**
      * open office 目录
      */
-    private static String OPEN_OFFICE_HOME = "";
-    /**
-     * *
-     * 远程服务文件目录
-     */
-    private static String CLASS_PATH = OPEN_OFFICE_HOME + "program/";
+    private static String OFFICE_HOME = "";
+
     /**
      * 远程主机地址
      */
@@ -61,66 +49,15 @@ public class OfficeConverter {
      * 远程地址端口
      */
     private static int PORT = 8100;
-    //远程连接
-    private OpenOfficeConnection connection;
 
     private static DocumentFormatRegistry documentFormatRegistry = new DefaultDocumentFormatRegistry();
 
     private static Properties properties;
 
     public static boolean isSupport(String fileExtends) {
-        return documentFormatRegistry.getFormatByFileExtension(fileExtends) != null;
+        return documentFormatRegistry.getFormatByExtension(fileExtends) != null;
     }
 
-    /**
-     * 以默认端口获取远程连接
-     *
-     * @return
-     */
-    public OpenOfficeConnection getServiceConnection() throws ConnectException {
-        return getServiceConnection(PORT);
-    }
-
-    /**
-     * *
-     * 获取远程服务连接
-     *
-     * @param port
-     * @return
-     */
-    public OpenOfficeConnection getServiceConnection(int port) throws ConnectException {
-        if (this.connection == null) {
-            this.connection = new SocketOpenOfficeConnection(port);
-            connectionPoll.add(this.connection);
-        }
-        if (!this.connection.isConnected()) {
-            try {
-                // 链接远程服务
-                this.connection.connect();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return this.connection;
-    }
-
-    /**
-     * 关闭连接
-     */
-    public void closeServiceConnection() {
-        if (this.connection != null) {
-            this.connection.disconnect();
-            connectionPoll.remove(this.connection);
-        }
-    }
-
-    /**
-     * 销毁连接
-     */
-    public void destroyServiceConnection() {
-        this.closeServiceConnection();
-        this.connection = null;
-    }
 
     /**
      * 将office转换为PDF
@@ -179,8 +116,6 @@ public class OfficeConverter {
      * @param outputFile
      */
     public File convert(File inputFile, File outputFile) throws IOException {
-        LOGGER.debug("链接运行的远程实例");
-        getServiceConnection();
         try {
             if (System.getProperty("os.name").startsWith("Windows") && inputFile.getName().endsWith(".txt")) {
                 File tmp = new File(inputFile.getName().replace(".txt", ".odt"));
@@ -189,27 +124,16 @@ public class OfficeConverter {
                 }
                 inputFile = tmp;
             }
-            if (connection != null && connection.isConnected()) {
-                // 转换
-                LOGGER.debug("进行文档转换转换:" + inputFile.getPath() + " --> " + outputFile.getPath());
-                DocumentConverter converter = new OpenOfficeDocumentConverter(connection);
+            LOGGER.debug("进行文档转换转换:" + inputFile.getPath() + " --> " + outputFile.getPath());
+            OfficeDocumentConverter converter = new OfficeDocumentConverter(officeManager);
 
-                converter.convert(inputFile, outputFile);
+            converter.convert(inputFile, outputFile);
 
-                LOGGER.debug("文档转换完成:" + inputFile.getPath() + " --> " + outputFile.getPath());
-                return outputFile;
-            }
+            LOGGER.debug("文档转换完成:" + inputFile.getPath() + " --> " + outputFile.getPath());
+            return outputFile;
         } catch (Exception e) {
             LOGGER.error(e);
         } finally {
-            try {
-                //关闭连接
-                LOGGER.debug("关闭链接中的运行的远程实例链接");
-                closeServiceConnection();
-                LOGGER.debug("关闭链接中的运行的远程实例链接完毕!");
-            } catch (Exception e) {
-                LOGGER.error("关闭链接中的运行的远程实例链失败:" + e);
-            }
         }
         return null;
     }
@@ -235,111 +159,39 @@ public class OfficeConverter {
         return properties;
     }
 
-    /**
-     * 读取配置文件
-     */
-    public static void loadConfig() throws Exception {
-        Properties properties = getProperties();
-
-        //设置office目录  property中的中文进行转码处理
-        setOpenOfficeHome(new String(properties.getProperty("open_office_home", OPEN_OFFICE_HOME).getBytes("ISO-8859-1"), "UTF-8"));
-        setHost(new String(properties.getProperty("host", HOST).getBytes("ISO-8859-1"), "UTF-8"));
-        setPort(Integer.parseInt(properties.getProperty("port", PORT + "")));
-    }
-
     public static void startService() throws Exception {
-        SocketOpenOfficeConnection connection = new SocketOpenOfficeConnection(PORT);
+        DefaultOfficeManagerConfiguration configuration = new DefaultOfficeManagerConfiguration();
         try {
-            LOGGER.debug("检测openoffice服务....");
-            connection.connect();
-            connection.disconnect();
-            LOGGER.debug("openoffice服务已启动!");
-        } catch (Exception ce) {
-            LOGGER.debug("openoffice服务未启动!准备启动服务....");
-            //读取配置
-            try {
-                LOGGER.debug("初始化openoffice服务配置....");
-                loadConfig();
-                LOGGER.debug("初始化服务配置完毕!启动服务....");
-            } catch (Exception e) {
-                e.printStackTrace();
-                LOGGER.error(e);
+            LOGGER.debug("准备启动服务....");
+            configuration.setOfficeHome(getOfficeHome());
+            configuration.setPortNumber(getPort());
+            officeManager = configuration.buildOfficeManager();
+            if (CONNECTION_PROTOCOL != null) {
+                configuration.setConnectionProtocol(CONNECTION_PROTOCOL);
             }
-
-            // 启动open office远程服务
-            bootstrapSocketConnector = new BootstrapSocketConnector(CLASS_PATH);
-            context = bootstrapSocketConnector.connect(HOST, PORT);
-            LOGGER.debug("启动openoffice成功!");
+            if (OFFICE_PROFILE != null) {
+                configuration.setTemplateProfileDir(OFFICE_PROFILE);
+            }
+            officeManager.start();
+            LOGGER.debug("office转换服务启动成功!");
+        } catch (Exception ce) {
         } finally {
-            connection = null;
+
         }
 
     }
 
     public static void stopService() throws Exception, BootstrapException {
-        LOGGER.debug("关闭openoffice服务....");
-        for (OpenOfficeConnection conn : connectionPoll) {
-            conn.disconnect();
+        LOGGER.debug("关闭office转换服务....");
+        if (officeManager != null) {
+            officeManager.stop();
         }
-
-        if (bootstrapSocketConnector != null) {
-            bootstrapSocketConnector.disconnect();
-
-            bootstrapSocketConnector = null;
-        } else {
-            XComponentContext xLocalContext = Bootstrap.createInitialComponentContext(null);
-            if (xLocalContext == null) {
-                throw new BootstrapException("no local component context!");
-            }
-
-            // create a URL resolver
-            XUnoUrlResolver xUrlResolver = UnoUrlResolver.create(xLocalContext);
-
-            // get remote context
-
-            String hostAndPort = "host=" + HOST + ",port=" + PORT;
-
-            // connection string
-            String unoConnectString = "uno:socket," + hostAndPort + ";urp;StarOffice.ComponentContext";
-
-            Object context = xUrlResolver.resolve(unoConnectString);
-            XComponentContext xRemoteContext = (XComponentContext) UnoRuntime.queryInterface(XComponentContext.class, context);
-            if (xRemoteContext == null) {
-                throw new BootstrapException("no component context!");
-            }
-
-            // get desktop to terminate office
-            Object desktop = xRemoteContext.getServiceManager().createInstanceWithContext("com.sun.star.frame.Desktop", xRemoteContext);
-            XDesktop xDesktop = (XDesktop) UnoRuntime.queryInterface(XDesktop.class, desktop);
-            xDesktop.terminate();
-        }
-
-        context = null;
-        LOGGER.debug("关闭openoffice成功!");
-    }
-
-    public static void setOpenOfficeHomeConfig(String openOfficeHome) throws Exception {
-        setConfig("open_office_home", openOfficeHome);
-        setOpenOfficeHome(openOfficeHome);
-    }
-
-    public static void setPortConfig(int port) throws Exception {
-        setConfig("port", port + "");
-        setPort(port);
-    }
-
-    public static void setHostConfig(String host) throws Exception {
-        setConfig("host", host);
-        setHost(host);
+        LOGGER.debug("关闭office转换成功!");
     }
 
     //getter and setter
-    public static String getClassPath() {
-        return CLASS_PATH;
-    }
-
-    public static String getOpenOfficeHome() {
-        return OPEN_OFFICE_HOME;
+    public static String getOfficeHome() {
+        return OFFICE_HOME;
     }
 
     public static String getHost() {
@@ -350,108 +202,28 @@ public class OfficeConverter {
         return PORT;
     }
 
-    private static void setOpenOfficeHome(String openOfficeHome) {
-        OfficeConverter.OPEN_OFFICE_HOME = FileUtils.appendFileSeparator(openOfficeHome);
-        OfficeConverter.setClassPath(FileUtils.appendFileSeparator(OfficeConverter.OPEN_OFFICE_HOME + "program"));
-        LOGGER.debug("设置openoffice目录为：" + OfficeConverter.OPEN_OFFICE_HOME);
+    public static void setOfficeHome(String officeHome) {
+        OfficeConverter.OFFICE_HOME = FileUtils.appendFileSeparator(officeHome);
+        LOGGER.debug("设置office目录为：" + OfficeConverter.OFFICE_HOME);
     }
 
-    private static void setClassPath(String classPath) {
-        OfficeConverter.CLASS_PATH = FileUtils.appendFileSeparator(classPath);
-        LOGGER.debug("设置openoffice服务文件目录为：" + OfficeConverter.CLASS_PATH);
-    }
-
-    private static void setPort(int port) {
-        LOGGER.debug("设置openoffice服务端口为：" + port);
+    public static void setPort(int port) {
+        LOGGER.debug("设置office转换服务端口为：" + port);
         OfficeConverter.PORT = port;
     }
 
-    private static void setHost(String host) {
-        LOGGER.debug("设置openoffice服务主机为：" + host);
+    public static void setHost(String host) {
+        LOGGER.debug("设置office转换服务主机为：" + host);
         OfficeConverter.HOST = host;
     }
 
+    public static void setConnectionProtocol(OfficeConnectionProtocol protocol) {
+        LOGGER.debug("设置office转换服务协议为：" + protocol);
+        OfficeConverter.CONNECTION_PROTOCOL = protocol;
+    }
 
-    public static void main(String[] args) {
-
-        try {
-            OfficeConverter.startService();
-        } catch (Exception e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-//        Thread thread0 = new Thread(new Runnable() {
-//            public void run() {
-//                OfficeConverter converter = new OfficeConverter();
-//                try {
-//                    converter.toPDF(new File("/home/icode/test/test1.doc"));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        thread0.start();
-//
-//        Thread thread1 = new Thread(new Runnable() {
-//            public void run() {
-//                OfficeConverter converter = new OfficeConverter();
-//                try {
-//                    converter.toPDF(new File("/home/icode/test/test2.doc"));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        thread1.start();
-//
-//        Thread thread2 = new Thread(new Runnable() {
-//            public void run() {
-//                OfficeConverter converter = new OfficeConverter();
-//                try {
-//                    converter.toPDF(new File("/home/icode/test/test3.doc"));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        thread2.start();
-//
-//        Thread thread3 = new Thread(new Runnable() {
-//            public void run() {
-//                OfficeConverter converter = new OfficeConverter();
-//                try {
-//                    converter.toPDF(new File("/home/icode/test/test4.doc"));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        thread3.start();
-//
-//        Thread thread4 = new Thread(new Runnable() {
-//            public void run() {
-//                OfficeConverter converter = new OfficeConverter();
-//                try {
-//                    converter.toPDF(new File("/home/icode/test/test5.doc"));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//        thread4.start();
-
-
-        OfficeConverter converter = new OfficeConverter();
-        try {
-            converter.toPDF(new File("/home/icode/test/test.txt"), "/home/icode/test/2");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            OfficeConverter.stopService();
-        } catch (Exception e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
+    public static void setTemplateProfileDir(File file) {
+        LOGGER.debug("设置office转换服务模板目录为：" + file.getPath());
+        OfficeConverter.OFFICE_PROFILE = file;
     }
 }

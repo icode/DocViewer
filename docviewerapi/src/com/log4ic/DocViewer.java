@@ -5,10 +5,13 @@ import com.log4ic.services.IAttachmentService;
 import com.log4ic.utils.FileUtils;
 import com.log4ic.utils.convert.*;
 import com.log4ic.utils.convert.office.OfficeConverter;
+import com.log4ic.utils.convert.pdf.PDFConverter;
 import com.log4ic.utils.filter.SwfFileFilter;
 import com.log4ic.utils.security.XXTEA;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.artofsolving.jodconverter.office.OfficeConnectionProtocol;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,7 +30,7 @@ public class DocViewer {
 
     private static int workerId = 0;
 
-    private static final String CONFIG_FILE = "config" + File.separator + "doc-viewer.properties";
+    private static final String CONFIG_FILE = "conf" + File.separator + "docviewer.properties";
     private static String OUTPUT_PATH = "";
     private static boolean SPLIT_PAGE = true;
     private static int PDF_POOL_MAX_THREAD = 5;
@@ -37,56 +40,47 @@ public class DocViewer {
     private static String SECRET_KEY = "";
     private static int KEY_LENGTH = 40;
     private static String ATTACHMENT_SERVICE;
-    private static Properties properties;
 
     private static IAttachmentService attachmentService = null;
 
     public static void setPDFPoolMaxThread(int count) throws Exception {
         PDF_POOL_MAX_THREAD = count;
-        setConfig("pdf_pool_max_thread", count + "");
         LOGGER.debug("设置PDF转换最大线程(pdf_pool_max_thread)为:" + count);
     }
 
     public static void setOfficePoolMaxThread(int count) throws Exception {
         OFFICE_POOL_MAX_THREAD = count;
-        setConfig("office_pool_max_thread", count + "");
-        LOGGER.debug("设置office转换最大线程(office_pool_max_thread)为:" + count);
+        LOGGER.debug("设置office转换最大线程为:" + count);
     }
 
     public static void setOutputPath(String path) throws Exception {
         OUTPUT_PATH = FileUtils.appendFileSeparator(path);
-        setConfig("output", path);
-        LOGGER.debug("设置转换输出目录为(output)为:" + path);
+        LOGGER.debug("设置转换输出目录为为:" + path);
     }
 
     public static void setDynamicKey(boolean dynamicKey) throws Exception {
         DYNAMIC_KEY = dynamicKey;
-        setConfig("dynamic_key", dynamicKey + "");
-        LOGGER.debug("设置是否为动态加密转换后的SWF文档(dynamic_key)为:" + dynamicKey);
+        LOGGER.debug("设置是否为动态加密转换后的SWF文档为:" + dynamicKey);
     }
 
     public static void setSecretKey(String secretKey) throws Exception {
         SECRET_KEY = secretKey;
-        setConfig("secret_key", secretKey + "");
-        LOGGER.debug("设置静态密钥(secret_key)为:" + secretKey);
+        LOGGER.debug("设置静态密钥为:" + secretKey);
     }
 
     public static void setEncryption(boolean encryption) throws Exception {
         ENCRYPTION = encryption;
-        setConfig("encryption", encryption + "");
-        LOGGER.debug("设置是否加密转换后的SWF文档(encryption)为:" + encryption);
+        LOGGER.debug("设置是否加密转换后的SWF文档为:" + encryption);
     }
 
     public static void setKeyLength(int length) throws Exception {
         KEY_LENGTH = length;
-        setConfig("key_length", length + "");
-        LOGGER.debug("设置密钥长度(key_length)为:" + length);
+        LOGGER.debug("设置密钥长度为:" + length);
     }
 
     public static void setSplitPage(boolean split) throws Exception {
         SPLIT_PAGE = split;
-        setConfig("split_page", split + "");
-        LOGGER.debug("设置是否分页(split_page)为:" + split);
+        LOGGER.debug("设置是否分页为:" + split);
     }
 
     public static int getPDFPoolMaxThread() {
@@ -139,79 +133,99 @@ public class DocViewer {
         LOGGER.debug("设置附件服务类(attachment_service)为:" + service);
     }
 
-    public static void setConfig(String cfgName, String cfgValue) throws Exception {
-        Properties properties = getProperties();
-        properties.setProperty(cfgName, cfgValue);
-    }
-
-    public static Properties getProperties() throws Exception {
-        if (properties == null) {
-            properties = new Properties();
-            //获取class文件夹
-            ClassLoader loader = DocViewer.class.getClassLoader();
-            //加载文件
-            InputStream is = loader.getResourceAsStream(CONFIG_FILE);
-            if (is == null) {
-                throw new Exception("properties is not found");
-            }
-
-            //读取
-            properties.load(is);
-        }
-        return properties;
-    }
 
 
     public static boolean isSupport(String fileExtends) {
         return OfficeConverter.isSupport(fileExtends);
     }
 
-    /**
-     * 读取配置文件
-     */
-    public synchronized static void loadConfig() throws Exception {
+
+    DocViewer() {
+    }
+
+    public static void initialize() throws Exception {
+        Properties properties = FileUtils.getProperties(CONFIG_FILE);
+        String baseConfigSpace = "docviewer.";
+        String baseConverterConfigSpace = baseConfigSpace + "converter.";
+        String basePdfConfigSpace = baseConverterConfigSpace + "pdf.";
+        String baseOfficeConfigSpace = baseConverterConfigSpace + "office.";
+
+        LOGGER.debug("初始化office转换服务配置....");
+        OfficeConverter.setOfficeHome(new String(properties.getProperty(baseOfficeConfigSpace + "home", OfficeConverter.getOfficeHome()).getBytes("ISO-8859-1"), "UTF-8"));
+        //OfficeConverter.setHost(new String(properties.getProperty(baseOfficeConfigSpace + "host", OfficeConverter.getHost()).getBytes("ISO-8859-1"), "UTF-8"));
+        OfficeConverter.setPort(Integer.parseInt(properties.getProperty(baseOfficeConfigSpace + "port", OfficeConverter.getPort() + "")));
+        String protocol = properties.getProperty(baseOfficeConfigSpace + "protocol");
+        if (StringUtils.isNotBlank(protocol)) {
+            protocol = protocol.toLowerCase();
+            if (protocol.equals("socket")) {
+                OfficeConverter.setConnectionProtocol(OfficeConnectionProtocol.SOCKET);
+            } else if (protocol.equals("pipe")) {
+                OfficeConverter.setConnectionProtocol(OfficeConnectionProtocol.PIPE);
+            }
+        }
+        String profile = properties.getProperty(baseOfficeConfigSpace + "profile");
+        if (StringUtils.isNotBlank(profile)) {
+            OfficeConverter.setTemplateProfileDir(new File(profile));
+        }
+        LOGGER.debug("初始化服务配置完毕!启动服务....");
+
+        OfficeConverter.startService();
+
+        LOGGER.debug("初始PDF转换器化配置....");
+
+        PDFConverter.setCommand(new String(properties.getProperty(basePdfConfigSpace + "command", PDFConverter.getCommand()).getBytes("ISO-8859-1"), "UTF-8"));
+
+        String max = properties.getProperty(basePdfConfigSpace + "mode.singlePage.maxThread", PDFConverter.getSinglePageModeMaxThread() + "");
+        try {
+            PDFConverter.setSinglePageModeMaxThread(Integer.parseInt(max));
+        } catch (Exception e) {
+            throw new Exception(basePdfConfigSpace + "mode.singlePage.maxThread" + " config error");
+        }
+
+        LOGGER.debug("初始化PDF转换器配置完毕!");
 
         LOGGER.debug("初始化文档阅读器主程序配置....");
 
-        Properties properties = getProperties();
+        setOutputPath(new String(properties.getProperty(baseConfigSpace + "output", OUTPUT_PATH).getBytes("ISO-8859-1"), "UTF-8"));
 
-        setOutputPath(new String(properties.getProperty("output", OUTPUT_PATH).getBytes("ISO-8859-1"), "UTF-8"));
-
-        String pdfPoolMaxThread = properties.getProperty("pdf_pool_max_thread", PDF_POOL_MAX_THREAD + "");
+        String pdfPoolMaxThread = properties.getProperty(basePdfConfigSpace + "maxThread", PDF_POOL_MAX_THREAD + "");
 
         try {
             setPDFPoolMaxThread(Integer.parseInt(pdfPoolMaxThread));
         } catch (Exception e) {
             throw new Exception("pdf_pool_max_thread config error");
         }
-        String officePoolMaxThread = properties.getProperty("office_pool_max_thread", OFFICE_POOL_MAX_THREAD + "");
+
+        String officePoolMaxThread = properties.getProperty(baseOfficeConfigSpace + "maxThread", OFFICE_POOL_MAX_THREAD + "");
         try {
             setOfficePoolMaxThread(Integer.parseInt(officePoolMaxThread));
         } catch (Exception e) {
             throw new Exception("office_pool_max_thread config error");
         }
         try {
-            setEncryption(Boolean.parseBoolean(properties.getProperty("encryption", ENCRYPTION + "")));
+            setEncryption(Boolean.parseBoolean(properties.getProperty(baseConfigSpace + "encryption", ENCRYPTION + "")));
         } catch (Exception e) {
             throw new Exception("encryption config error");
         }
+
         try {
-            setKeyLength(Integer.parseInt(properties.getProperty("key_length", KEY_LENGTH + "")));
+            setSecretKey(properties.getProperty(baseConfigSpace + "encryption.key", ""));
         } catch (Exception e) {
-            throw new Exception("key_length config error");
+            throw new Exception("secretKey config error");
+        }
+
+        try {
+            setDynamicKey(Boolean.parseBoolean(properties.getProperty(baseConfigSpace + "encryption.dynamic", DYNAMIC_KEY + "")));
+        } catch (Exception e) {
+            throw new Exception("dynamicKey config error");
         }
         try {
-            setSecretKey(properties.getProperty("secret_key", ""));
+            setKeyLength(Integer.parseInt(properties.getProperty(baseConfigSpace + "encryption.dynamic.key.length", KEY_LENGTH + "")));
         } catch (Exception e) {
-            throw new Exception("secret_key config error");
+            throw new Exception("keyLength config error");
         }
         try {
-            setDynamicKey(Boolean.parseBoolean(properties.getProperty("dynamic_key", DYNAMIC_KEY + "")));
-        } catch (Exception e) {
-            throw new Exception("dynamic_key config error");
-        }
-        try {
-            setAttachmentService(properties.getProperty("attachment_service"));
+            setAttachmentService(properties.getProperty(baseConfigSpace + "attachment.service"));
         } catch (Exception e) {
             throw new Exception("attachment_service config error");
         }
@@ -219,7 +233,8 @@ public class DocViewer {
         LOGGER.debug("初始化文档阅读器主程序配置完毕!");
     }
 
-    DocViewer() {
+    public static void destroy() throws Exception {
+        OfficeConverter.stopService();
     }
 
     private synchronized static void checkWorker(ConvertWorker worker) throws Exception {

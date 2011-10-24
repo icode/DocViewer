@@ -12,7 +12,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * @author: 张立鑫
@@ -22,83 +21,34 @@ import java.util.Properties;
 public class PDFConverter {
     private static final Log LOGGER = LogFactory.getLog(PDFConverter.class);
 
-    private static final String CONFIG_FILE = "config" + File.separator + "pdf-convert.properties";
-
     private static String COMMAND = "";
 
     private static Integer SINGLE_PAGE_MODE_MAX_THREAD = 5;
 
-    private static Properties properties;
-
-    private static void setCommand(String command) {
+    public static void setCommand(String command) {
         PDFConverter.COMMAND = command;
-        LOGGER.debug("设置命令(command)配置为 :" + command);
+        LOGGER.debug("设置命令配置为 :" + command);
     }
 
     public static String getCommand() {
         return COMMAND;
     }
 
-    private static void setSinglePageModeMaxThread(Integer value) {
+    public static void setSinglePageModeMaxThread(Integer value) {
         PDFConverter.SINGLE_PAGE_MODE_MAX_THREAD = value;
-        LOGGER.debug("设置单页面转换模式最大线程(single_page_mode_max_thread)配置为 :" + value);
+        LOGGER.debug("设置单页面转换模式最大线程配置为 :" + value);
     }
 
-    public static Integer getOnePageModeMaxThread() {
+    public static Integer getSinglePageModeMaxThread() {
         return SINGLE_PAGE_MODE_MAX_THREAD;
     }
 
     public static void setOnePageModeMaxThreadConfig(Integer value) throws Exception {
-        setConfig("single_page_mode_max_thread", value.toString());
         setSinglePageModeMaxThread(value);
     }
 
     public static void setCommandConfig(String command) throws Exception {
-        setConfig("command", command);
         setCommand(command);
-    }
-
-
-    public static void setConfig(String cfgName, String cfgValue) throws Exception {
-        Properties properties = getProperties();
-        properties.setProperty(cfgName, cfgValue);
-    }
-
-    public static Properties getProperties() throws Exception {
-        if (properties == null) {
-            properties = new Properties();
-            //获取class文件夹
-            ClassLoader loader = PDFConverter.class.getClassLoader();
-            //加载文件
-            InputStream is = loader.getResourceAsStream(CONFIG_FILE);
-            if (is == null) {
-                throw new Exception("properties is not found");
-            }
-            //读取
-            properties.load(is);
-        }
-        return properties;
-    }
-
-    /**
-     * 读取配置文件
-     */
-    public static void loadConfig() throws Exception {
-
-        LOGGER.debug("初始PDF转换器化配置....");
-
-        Properties properties = getProperties();
-
-        setCommand(new String(properties.getProperty("command", COMMAND).getBytes("ISO-8859-1"), "UTF-8"));
-
-        String max = properties.getProperty("single_page_mode_max_thread", SINGLE_PAGE_MODE_MAX_THREAD + "");
-        try {
-            setSinglePageModeMaxThread(Integer.parseInt(max));
-        } catch (Exception e) {
-            throw new Exception("single_page_mode_max_thread config error");
-        }
-
-        LOGGER.debug("初始化PDF转换器配置完毕!");
     }
 
     public int execConvertCommand(String command, final List<String> outResources) throws InterruptedException, IOException {

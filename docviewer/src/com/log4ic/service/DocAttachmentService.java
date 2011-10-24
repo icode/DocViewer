@@ -16,7 +16,7 @@ import java.io.File;
 public class DocAttachmentService implements IAttachmentService {
     public IDocAttachment getDocAttachmentById(int id) {
         //TODO  获取文档
-        File f = new File("/home/icode/Tools/resources/基于oracle的全文检索的方案.doc");//new File(this.getClass().getClassLoader().getResource("test.pdf").getPath());
+        File f = new File(this.getClass().getClassLoader().getResource("test.pdf").getPath());
         return new DocAttachment(f);
     }
 

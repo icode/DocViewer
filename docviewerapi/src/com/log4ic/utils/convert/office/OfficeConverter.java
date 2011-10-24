@@ -223,7 +223,7 @@ public class OfficeConverter {
     }
 
     public static void setTemplateProfileDir(File file) {
-        LOGGER.debug("设置office转换服务模板目录为：" + file.getPath());
+        LOGGER.debug("设置office转换服务临时实例目录为：" + file.getPath());
         OfficeConverter.OFFICE_PROFILE = file;
     }
 }

@@ -11,3 +11,5 @@ Windos7 Windows2003 Windos Xp ubuntu11.04 ubuntu11.10 测试通过。linux下请
 企业级应用，支持静态密钥加密 动态密钥加密 分页延迟加载 即使转换列队与后台转换列队无缝切入 支持较复杂文档转换 支持加密PDF转换（此功能需要/lib/itext中未修改的jar，因为我修改过ITEXT源码以支持加密PDF）等。
 
 安装集成配置请参考的我博客: http://blog.log4ic.com/docviewer
+
+在线实例：http://docviewer.os.log4ic.com/?info=true&id=1

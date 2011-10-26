@@ -3,7 +3,6 @@
  * @version: 1
  */
 package com.sinitek.log4ic.streaming {
-import com.sinitek.log4ic.utils.security.Security;
 import com.sinitek.log4ic.utils.security.XXTEA;
 
 import flash.events.Event;
@@ -13,7 +12,6 @@ import flash.net.URLLoaderDataFormat;
 import flash.net.URLRequest;
 import flash.utils.ByteArray;
 
-import mx.controls.Alert;
 
 public class EncryptedLoader extends URLLoader {
     public function EncryptedLoader(key:ByteArray = null) {

@@ -29,12 +29,9 @@ public class Security {
         var loader:EncryptedLoader = loaderMap[url.url];
 
         if (loader) {
-            if(loader.hasEventListener(Event.COMPLETE)){
-                loader.removeEventListener(Event.COMPLETE, onComplete);
-            }
+            loader.removeEventListener(Event.COMPLETE, onComplete);
             loader.addEventListener(Event.COMPLETE, onComplete);
             if (loader.loaded) {
-                loader.dispatchEvent(new Event(ProgressEvent.PROGRESS));
                 loader.dispatchEvent(new Event(Event.COMPLETE));
             }
             return;

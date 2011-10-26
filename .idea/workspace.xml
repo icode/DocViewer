@@ -14,23 +14,11 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="652659cf-4b74-429d-8e5e-61851e29736d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/filter/SplitSwfFileFilter.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/filter/SwfFileFilter.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewer/web/resources/flex/docviewer.swf" afterPath="$PROJECT_DIR$/docviewer/web/resources/flex/docviewer.swf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/docviewer.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/docviewer.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+    <list default="true" id="652659cf-4b74-429d-8e5e-61851e29736d" name="Default" comment="..">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewer/src/com/log4ic/servlet/DocViewerServlet.java" afterPath="$PROJECT_DIR$/docviewer/src/com/log4ic/servlet/DocViewerServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" afterPath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/DocViewerConverter.java" afterPath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/DocViewerConverter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/OfficeConverter.java" afterPath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/OfficeConverter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/pdf/PDFConverter.java" afterPath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/pdf/PDFConverter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties" afterPath="$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/streaming/EncryptedLoader.as" afterPath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/streaming/EncryptedLoader.as" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/StringUtils.as" afterPath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/StringUtils.as" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/Security.as" afterPath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/Security.as" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/XXTEA.as" afterPath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/XXTEA.as" />
     </list>
     <ignored path="docviwer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -134,10 +122,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DocViewerServlet.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DocViewerServlet.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewer/src/com/log4ic/servlet/DocViewerServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="36" selection-start="1476" selection-end="1476" vertical-scroll-proportion="0.33257404">
+            <state line="45" column="36" selection-start="1476" selection-end="1476" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -170,10 +158,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DocViewer.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="DocViewer.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="287" column="23" selection-start="10431" selection-end="10431" vertical-scroll-proportion="0.0">
+            <state line="288" column="0" selection-start="10465" selection-end="10465" vertical-scroll-proportion="0.32876712">
               <folding />
             </state>
           </provider>
@@ -227,7 +215,7 @@
       <file leaf-file-name="docviewer.properties" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="53" selection-start="611" selection-end="611" vertical-scroll-proportion="0.0">
+            <state line="32" column="64" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -245,7 +233,7 @@
       <file leaf-file-name="EncryptedLoader.as" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/streaming/EncryptedLoader.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="13" selection-start="687" selection-end="687" vertical-scroll-proportion="0.0">
+            <state line="4" column="38" selection-start="77" selection-end="77" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -281,7 +269,7 @@
       <file leaf-file-name="Viewer.as" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/devaldi/controls/flexpaper/Viewer.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="656" column="33" selection-start="21028" selection-end="21028" vertical-scroll-proportion="0.0">
+            <state line="658" column="2" selection-start="21178" selection-end="21178" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -344,7 +332,7 @@
       <file leaf-file-name="Security.as" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/Security.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="16" selection-start="1056" selection-end="1056" vertical-scroll-proportion="0.0">
+            <state line="43" column="0" selection-start="1223" selection-end="1223" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -479,15 +467,15 @@
         <option value="$PROJECT_DIR$/docviewer/src/com/log4ic/service/DocAttachmentService.java" />
         <option value="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/XXTEA.as" />
         <option value="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/StringUtils.as" />
-        <option value="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/streaming/EncryptedLoader.as" />
-        <option value="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/Security.as" />
         <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/filter/SplitSwfFileFilter.java" />
-        <option value="$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties" />
         <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/DocViewerConverter.java" />
         <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/OfficeConverter.java" />
         <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/pdf/PDFConverter.java" />
         <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" />
         <option value="$PROJECT_DIR$/docviewer/src/com/log4ic/servlet/DocViewerServlet.java" />
+        <option value="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/streaming/EncryptedLoader.as" />
+        <option value="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/Security.as" />
+        <option value="$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties" />
       </list>
     </option>
   </component>
@@ -611,6 +599,40 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="log4ic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewerflex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="log4ic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="security" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -995,6 +1017,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flex" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1433,14 +1477,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-6" width="1366" height="804" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872504" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872504" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.58678955" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.431562" sideWeight="0.99240124" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.45007682" sideWeight="0.99240124" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872504" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1451,7 +1495,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32978722" sideWeight="0.5883257" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32978722" sideWeight="0.5499232" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1554,48 +1598,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/StringUtils.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="3" selection-start="38" selection-end="38" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="434" selection-end="434" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/log4j.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="32" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/PDFConvertWorker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="186" selection-end="186" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/FileUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="58" selection-start="450" selection-end="450" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/BootstrapConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="27" selection-start="2163" selection-end="2163" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/BootstrapPipeConnector.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="36" column="5" selection-start="1252" selection-end="1252" vertical-scroll-proportion="0.0">
@@ -1652,16 +1654,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java">
+    <entry file="file://$PROJECT_DIR$/docviewer/src/com/log4ic/servlet/DocViewerServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="287" column="23" selection-start="10431" selection-end="10431" vertical-scroll-proportion="0.0">
+        <state line="45" column="36" selection-start="1476" selection-end="1476" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docviewer/src/com/log4ic/servlet/DocViewerServlet.java">
+    <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/streaming/EncryptedLoader.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="36" selection-start="1476" selection-end="1476" vertical-scroll-proportion="0.33257404">
+        <state line="4" column="38" selection-start="77" selection-end="77" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/StringUtils.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="3" selection-start="38" selection-end="38" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/Security.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="0" selection-start="1223" selection-end="1223" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/devaldi/controls/flexpaper/Viewer.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="658" column="2" selection-start="21178" selection-end="21178" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/java/jdk1.6.0_26/src.zip!/java/lang/Exception.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="13" selection-start="479" selection-end="479" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="64" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="288" column="0" selection-start="10465" selection-end="10465" vertical-scroll-proportion="0.32876712">
           <folding />
         </state>
       </provider>

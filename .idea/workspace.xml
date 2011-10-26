@@ -15,8 +15,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="652659cf-4b74-429d-8e5e-61851e29736d" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/filter/SplitSwfFileFilter.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/filter/SwfFileFilter.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewer/web/resources/flex/docviewer.swf" afterPath="$PROJECT_DIR$/docviewer/web/resources/flex/docviewer.swf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/docviewer.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/docviewer.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README" afterPath="$PROJECT_DIR$/README" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewer/src/com/log4ic/servlet/DocViewerServlet.java" afterPath="$PROJECT_DIR$/docviewer/src/com/log4ic/servlet/DocViewerServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" afterPath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/DocViewerConverter.java" afterPath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/DocViewerConverter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/OfficeConverter.java" afterPath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/OfficeConverter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/pdf/PDFConverter.java" afterPath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/pdf/PDFConverter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties" afterPath="$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/streaming/EncryptedLoader.as" afterPath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/streaming/EncryptedLoader.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/StringUtils.as" afterPath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/StringUtils.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/Security.as" afterPath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/Security.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/XXTEA.as" afterPath="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/XXTEA.as" />
     </list>
     <ignored path="docviwer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -86,17 +100,8 @@
       </file>
       <file leaf-file-name="web.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewer/web/WEB-INF/web.xml">
-          <provider editor-type-id="com.intellij.javaee.module.view.web.viewlets.WebModuleAssemblyDescriptorProvider">
-            <state />
-          </provider>
-          <provider editor-type-id="com.intellij.javaee.module.view.web.viewlets.WebModuleGeneralEditorProvider">
-            <state />
-          </provider>
-          <provider editor-type-id="com.intellij.javaee.module.view.web.viewlets.WebModuleAssemblyDescriptorReferencesProvider">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="21" column="59" selection-start="891" selection-end="891" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -114,7 +119,7 @@
       <file leaf-file-name="DocAttachment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewer/src/com/log4ic/entity/DocAttachment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="13" selection-start="263" selection-end="263" vertical-scroll-proportion="0.0">
+            <state line="18" column="22" selection-start="367" selection-end="367" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -123,16 +128,16 @@
       <file leaf-file-name="DocAttachmentService.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewer/src/com/log4ic/service/DocAttachmentService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="13" selection-start="341" selection-end="341" vertical-scroll-proportion="0.0">
+            <state line="15" column="53" selection-start="328" selection-end="394" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DocViewerServlet.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="DocViewerServlet.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/docviewer/src/com/log4ic/servlet/DocViewerServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="137" column="0" selection-start="5186" selection-end="5186" vertical-scroll-proportion="0.0">
+            <state line="45" column="36" selection-start="1476" selection-end="1476" vertical-scroll-proportion="0.33257404">
               <folding />
             </state>
           </provider>
@@ -159,7 +164,7 @@
       <file leaf-file-name="docviewer.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewer/web/scripts/docviewer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="223" column="56" selection-start="9585" selection-end="9585" vertical-scroll-proportion="0.0">
+            <state line="582" column="59" selection-start="23358" selection-end="23362" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -168,16 +173,7 @@
       <file leaf-file-name="DocViewer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="447" column="0" selection-start="14804" selection-end="14804" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DocViewerServiceListener.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/support/DocViewerServiceListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="27" selection-start="580" selection-end="580" vertical-scroll-proportion="0.0">
+            <state line="287" column="23" selection-start="10431" selection-end="10431" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -213,7 +209,7 @@
       <file leaf-file-name="OfficeConverter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/OfficeConverter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="225" column="40" selection-start="7023" selection-end="7023" vertical-scroll-proportion="0.0">
+            <state line="134" column="0" selection-start="4092" selection-end="4092" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -231,16 +227,151 @@
       <file leaf-file-name="docviewer.properties" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="28" selection-start="806" selection-end="806" vertical-scroll-proportion="0.0">
+            <state line="21" column="53" selection-start="611" selection-end="611" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SplitSwfFileFilter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/filter/SplitSwfFileFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="33" selection-start="481" selection-end="481" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EncryptedLoader.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/streaming/EncryptedLoader.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="13" selection-start="687" selection-end="687" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TwoPagePlugin.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/devaldi/controls/TwoPagePlugin.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FlexPaperViewer.mxml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/devaldi/controls/flexpaper/FlexPaperViewer.mxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="184" column="11" selection-start="12621" selection-end="12621" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FlexPaperViewer_Base.mxml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/devaldi/controls/flexpaper/FlexPaperViewer_Base.mxml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Viewer.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/devaldi/controls/flexpaper/Viewer.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="656" column="33" selection-start="21028" selection-end="21028" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IFlexPaperPlugin.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/devaldi/controls/flexpaper/IFlexPaperPlugin.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IFlexPaperPluginControl.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/devaldi/controls/flexpaper/IFlexPaperPluginControl.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IFlexPaperViewModePlugin.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/devaldi/controls/flexpaper/IFlexPaperViewModePlugin.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ViewModeEnum.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/devaldi/controls/flexpaper/ViewModeEnum.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StreamUtil.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/devaldi/controls/flexpaper/utils/StreamUtil.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShapeMarker.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/devaldi/controls/flexpaper/ShapeMarker.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Security.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/Security.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="36" column="16" selection-start="1056" selection-end="1056" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XXTEA.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/XXTEA.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="3" selection-start="38" selection-end="38" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StringUtils.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/StringUtils.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="3" selection-start="38" selection-end="38" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="21" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0">
+            <state line="13" column="0" selection-start="434" selection-end="434" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -249,7 +380,7 @@
       <file leaf-file-name="log4j.properties" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewerapi/src/log4j.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="2" column="32" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -267,7 +398,7 @@
       <file leaf-file-name="DocViewerConverter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/DocViewerConverter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="36" selection-start="1858" selection-end="1858" vertical-scroll-proportion="0.0">
+            <state line="84" column="0" selection-start="2340" selection-end="2340" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -276,7 +407,16 @@
       <file leaf-file-name="PDFConverter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/pdf/PDFConverter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="276" column="31" selection-start="10383" selection-end="10383" vertical-scroll-proportion="0.0">
+            <state line="227" column="0" selection-start="7821" selection-end="7821" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Thread.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar:///usr/lib/java/jdk1.6.0_26/src.zip!/java/lang/Thread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="661" column="0" selection-start="24792" selection-end="24792" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -332,22 +472,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/server/OOoServer.java" />
-        <option value="$PROJECT_DIR$/docviewerapi/src/config/pdf-convert.properties" />
-        <option value="$PROJECT_DIR$/docviewerapi/src/config/office-convert.properties" />
-        <option value="$PROJECT_DIR$/docviewerapi/src/config/doc-viewer.properties" />
-        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/FileUtils.java" />
         <option value="$PROJECT_DIR$/docviewerapi/src/config/docviewer.properties" />
         <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/support/DocViewerServiceListener.java" />
         <option value="$PROJECT_DIR$/docviewerapi/src/log4j.properties" />
-        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/OfficeConverter.java" />
-        <option value="$PROJECT_DIR$/docviewer/src/com/log4ic/service/DocAttachmentService.java" />
-        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/DocViewerConverter.java" />
-        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/pdf/PDFConverter.java" />
-        <option value="$PROJECT_DIR$/docviewer/src/com/log4ic/servlet/DocViewerServlet.java" />
-        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" />
-        <option value="$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties" />
         <option value="$PROJECT_DIR$/README" />
+        <option value="$PROJECT_DIR$/docviewer/src/com/log4ic/service/DocAttachmentService.java" />
+        <option value="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/XXTEA.as" />
+        <option value="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/StringUtils.as" />
+        <option value="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/streaming/EncryptedLoader.as" />
+        <option value="$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/security/Security.as" />
+        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/filter/SplitSwfFileFilter.java" />
+        <option value="$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties" />
+        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/DocViewerConverter.java" />
+        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/OfficeConverter.java" />
+        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/pdf/PDFConverter.java" />
+        <option value="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" />
+        <option value="$PROJECT_DIR$/docviewer/src/com/log4ic/servlet/DocViewerServlet.java" />
       </list>
     </option>
   </component>
@@ -409,12 +549,207 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Favorites" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="docviwer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewerflex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewerflex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewerflex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="log4ic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewerflex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="log4ic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="streaming" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewerflex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="devaldi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewerflex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="devaldi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controls" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewerflex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="devaldi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controls" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flexpaper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewerflex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="devaldi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controls" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="flexpaper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -521,6 +856,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="filter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewerapi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="log4ic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="convert" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -561,58 +922,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="docviewerapi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="log4ic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="utils" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="convert" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="office" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="docviwer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="docviewerapi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="log4ic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="docviwer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="docviewer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -628,6 +937,64 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviwer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="docviewer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -692,21 +1059,14 @@
               <option name="myItemId" value="log4ic" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Favorites" />
-      <pane id="Scope" />
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="docviwer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+              <option name="myItemId" value="entity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1072,29 +1432,29 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-6" width="1366" height="774" extended-state="6" />
+    <frame x="0" y="-6" width="1366" height="804" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872504" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872504" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.58678955" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43164364" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.431562" sideWeight="0.99240124" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872504" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3563748" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872504" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32953683" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32978722" sideWeight="0.5683564" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32978722" sideWeight="0.5883257" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872504" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3563748" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1194,58 +1554,23 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/support/DocViewerServiceListener.java">
+    <entry file="file://$PROJECT_DIR$/docviewerflex/src/com/sinitek/log4ic/utils/StringUtils.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="27" selection-start="580" selection-end="580" vertical-scroll-proportion="0.0">
+        <state line="3" column="3" selection-start="38" selection-end="38" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/thread/ThreadPool.java">
+    <entry file="file://$PROJECT_DIR$/README">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="25" selection-start="2089" selection-end="2089" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/example/BootstrapSocketConnectorExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="0" selection-start="2778" selection-end="3164" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/connector/server/OOoServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="21" selection-start="5965" selection-end="5965" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/OfficeConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="225" column="40" selection-start="7023" selection-end="7023" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/pdf/PDFConverterDeploy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="11" selection-start="452" selection-end="452" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="28" selection-start="806" selection-end="806" vertical-scroll-proportion="0.0">
+        <state line="13" column="0" selection-start="434" selection-end="434" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/docviewerapi/src/log4j.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="2" column="32" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1253,20 +1578,6 @@
     <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/PDFConvertWorker.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="13" selection-start="186" selection-end="186" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/DocViewerConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="36" selection-start="1858" selection-end="1858" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/pdf/PDFConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="276" column="31" selection-start="10383" selection-end="10383" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1299,9 +1610,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README">
+    <entry file="jar:///usr/lib/java/jdk1.6.0_26/src.zip!/java/io/File.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="21" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0">
+        <state line="748" column="19" selection-start="30497" selection-end="30497" vertical-scroll-proportion="0.33257404">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/office/OfficeConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="134" column="0" selection-start="4092" selection-end="4092" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/java/jdk1.6.0_26/src.zip!/com/sun/org/apache/xalan/internal/xsltc/dom/StripWhitespaceFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="17" selection-start="903" selection-end="903" vertical-scroll-proportion="0.3318584">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/java/jdk1.6.0_26/src.zip!/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="661" column="0" selection-start="24792" selection-end="24792" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/pdf/PDFConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="227" column="0" selection-start="7821" selection-end="7821" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/utils/convert/DocViewerConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="0" selection-start="2340" selection-end="2340" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="287" column="23" selection-start="10431" selection-end="10431" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docviewer/src/com/log4ic/servlet/DocViewerServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="36" selection-start="1476" selection-end="1476" vertical-scroll-proportion="0.33257404">
           <folding />
         </state>
       </provider>

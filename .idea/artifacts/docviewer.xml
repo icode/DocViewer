@@ -7,8 +7,6 @@
           <element id="module-output" name="docviewer" />
           <element id="directory" name="conf">
             <element id="file-copy" path="$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties" />
-            <element id="file-copy" path="$PROJECT_DIR$/docviewerapi/src/conf/office-convert.properties" />
-            <element id="file-copy" path="$PROJECT_DIR$/docviewerapi/src/conf/pdf-convert.properties" />
           </element>
           <element id="file-copy" path="$PROJECT_DIR$/docviewerapi/src/log4j.properties" />
           <element id="file-copy" path="$USER_HOME$/Tools/resources/FreeMarker_Manual_zh_CN.pdf" output-file-name="test.pdf" />

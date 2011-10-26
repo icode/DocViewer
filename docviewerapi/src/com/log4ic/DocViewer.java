@@ -6,17 +6,14 @@ import com.log4ic.utils.FileUtils;
 import com.log4ic.utils.convert.*;
 import com.log4ic.utils.convert.office.OfficeConverter;
 import com.log4ic.utils.convert.pdf.PDFConverter;
-import com.log4ic.utils.filter.SwfFileFilter;
+import com.log4ic.utils.filter.SplitSwfFileFilter;
 import com.log4ic.utils.security.XXTEA;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.artofsolving.jodconverter.office.OfficeConnectionProtocol;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.Properties;
 import java.util.Random;
@@ -281,8 +278,15 @@ public class DocViewer {
     private static final ConvertQueue pdfQueue = new ConvertQueue(PDF_POOL_MAX_THREAD, "pdf_queue");
 
 
+    /**
+     * 获取转换后的文档目录 如果没有转换则进行转换
+     *
+     * @param id
+     * @return 文档所在目录
+     * @throws Exception
+     */
     public static File getDoc(int id) throws Exception {
-        if (DocViewer.hasDocDir(id)) {
+        if (DocViewer.isConverting(id) || hasDoc(id)) {
             while (DocViewer.isConverting(id)) {
                 Thread.sleep(500);
             }
@@ -362,9 +366,52 @@ public class DocViewer {
         return DocViewerConverter.toPDF(in, OUTPUT_PATH);
     }
 
-
+    /**
+     * 获取文档页数 没有则创建
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
     public static int getDocPageCount(int id) throws Exception {
-        return getDoc(id).listFiles(new SwfFileFilter()).length;
+        return getDocPageCount(id, true);
+    }
+
+    /**
+     * 获取文档页数
+     *
+     * @param id       文档id
+     * @param isCreate 如果文档不存在，是否从数据源创建文档
+     * @return
+     * @throws Exception
+     */
+    public static int getDocPageCount(int id, boolean isCreate) throws Exception {
+        File dir = null;
+        if (isCreate) {
+            dir = getDoc(id);
+        } else {
+            dir = new File(OUTPUT_PATH + id);
+        }
+        if (dir != null && dir.exists() && dir.isDirectory()) {
+            File info = new File(FileUtils.appendFileSeparator(dir.getPath()) + "info");
+
+            if (info.exists() && info.isFile()) {
+
+                FileInputStream in = new FileInputStream(info);
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+
+                try {
+                    return Integer.parseInt(reader.readLine());
+                } catch (Exception e) {
+                } finally {
+                    reader.close();
+                    in.close();
+                }
+            }
+
+        }
+        return 0;
     }
 
     public static File getDocFileFromSource(int id) throws Exception {
@@ -408,13 +455,13 @@ public class DocViewer {
 
     public static boolean hasDocDir(int id) {
 
-        File file = new File(OUTPUT_PATH + id);
+        File dir = new File(OUTPUT_PATH + id);
 
-        if (!file.exists()) {
+        if (!dir.exists()) {
             return false;
         }
 
-        if (file.isDirectory()) {
+        if (dir.isDirectory()) {
             return true;
         }
 
@@ -422,16 +469,45 @@ public class DocViewer {
     }
 
 
-    public static boolean hasDoc(int id) {
+    public static boolean hasPDF(int id) {
 
-        File file = new File(OUTPUT_PATH + id);
+        if (!hasDocDir(id)) {
+            return false;
+        }
+
+        File file = new File(OUTPUT_PATH + id + File.separator + id + ".pdf");
 
         if (!file.exists()) {
             return false;
         }
 
-        if (file.isDirectory() && file.list().length > 0) {
-            return true;
+        return true;
+    }
+
+    /**
+     * 是否有转换的文档
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public static boolean hasDoc(int id) throws Exception {
+
+        if (hasPDF(id)) {
+
+            File dir = new File(OUTPUT_PATH + id + File.separator);
+            if (isSplitPage()) {
+                if (dir.exists()) {
+                    if (dir.listFiles(new SplitSwfFileFilter()).length == getDocPageCount(id, false)) {
+                        return true;
+                    }
+                }
+            } else {
+                File swf = new File(dir.getPath() + "page.swf");
+                if (swf.exists() && swf.isFile() && swf.length() > 0) {
+                    return true;
+                }
+            }
         }
 
         return false;

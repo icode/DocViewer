@@ -1,21 +1,20 @@
 /**
- * @author: ÕÅÁ¢öÎ
+ * @author: å¼ ç«‹é‘«
  * @version: 1
- * @date: 11-8-26 ÏÂÎç6:26
  */
 package com.sinitek.log4ic.utils {
 public class StringUtils {
-    //ºöÂÔ´óĞ¡×ÖÄ¸±È½Ï×Ö·ûÊÇ·ñÏàµÈ;
+    //å¿½ç•¥å¤§å°å­—æ¯æ¯”è¾ƒå­—ç¬¦æ˜¯å¦ç›¸ç­‰;
     public static function equalsIgnoreCase(char1:String, char2:String):Boolean {
         return char1.toLowerCase() == char2.toLowerCase();
     }
 
-    //±È½Ï×Ö·ûÊÇ·ñÏàµÈ;
+    //æ¯”è¾ƒå­—ç¬¦æ˜¯å¦ç›¸ç­‰;
     public static function equals(char1:String, char2:String):Boolean {
         return char1 == char2;
     }
 
-    //ÊÇ·ñÎªEmailµØÖ·;
+    //æ˜¯å¦ä¸ºEmailåœ°å€;
     public static function isEmail(char:String):Boolean {
         if (char == null) {
             return false;
@@ -29,7 +28,7 @@ public class StringUtils {
         return true;
     }
 
-    //ÊÇ·ñÊÇÊıÖµ×Ö·û´®;
+    //æ˜¯å¦æ˜¯æ•°å€¼å­—ç¬¦ä¸²;
     public static function isNumber(char:String):Boolean {
         if (char == null) {
             return false;
@@ -37,7 +36,7 @@ public class StringUtils {
         return !(isNaN(Number(char)))
     }
 
-    //ÊÇ·ñÎªDoubleĞÍÊı¾İ;
+    //æ˜¯å¦ä¸ºDoubleå‹æ•°æ®;
     public static function isDouble(char:String):Boolean {
         char = trim(char);
         var pattern:RegExp = /^[-\+]?\d+(\.\d+)?$/;
@@ -76,7 +75,7 @@ public class StringUtils {
         return true;
     }
 
-    //ÖĞÎÄ;
+    //ä¸­æ–‡;
     public static function isChinese(char:String):Boolean {
         if (char == null) {
             return false;
@@ -90,7 +89,7 @@ public class StringUtils {
         return true;
     }
 
-    //Ë«×Ö½Ú
+    //åŒå­—èŠ‚
     public static function isDoubleChar(char:String):Boolean {
         if (char == null) {
             return false;
@@ -104,7 +103,7 @@ public class StringUtils {
         return true;
     }
 
-    //º¬ÓĞÖĞÎÄ×Ö·û
+    //å«æœ‰ä¸­æ–‡å­—ç¬¦
     public static function hasChineseChar(char:String):Boolean {
         if (char == null) {
             return false;
@@ -118,7 +117,7 @@ public class StringUtils {
         return true;
     }
 
-    //×¢²á×Ö·û;
+    //æ³¨å†Œå­—ç¬¦;
     public static function hasAccountChar(char:String, len:uint = 15):Boolean {
         if (char == null) {
             return false;
@@ -135,7 +134,7 @@ public class StringUtils {
         return true;
     }
 
-    //URLµØÖ·;
+    //URLåœ°å€;
     public static function isURL(char:String):Boolean {
         if (char == null) {
             return false;
@@ -149,7 +148,7 @@ public class StringUtils {
         return true;
     }
 
-    // ÊÇ·ñÎª¿Õ°×;
+    // æ˜¯å¦ä¸ºç©ºç™½;
     public static function isWhitespace(char:String):Boolean {
         switch (char) {
             case " ":
@@ -163,7 +162,7 @@ public class StringUtils {
         }
     }
 
-    //È¥×óÓÒ¿Õ¸ñ;
+    //å»å·¦å³ç©ºæ ¼;
     public static function trim(char:String):String {
         if (char == null) {
             return null;
@@ -171,7 +170,7 @@ public class StringUtils {
         return rtrim(ltrim(char));
     }
 
-    //È¥×ó¿Õ¸ñ;
+    //å»å·¦ç©ºæ ¼;
     public static function ltrim(char:String):String {
         if (char == null) {
             return null;
@@ -180,7 +179,7 @@ public class StringUtils {
         return char.replace(pattern, "");
     }
 
-    //È¥ÓÒ¿Õ¸ñ;
+    //å»å³ç©ºæ ¼;
     public static function rtrim(char:String):String {
         if (char == null) {
             return null;
@@ -189,27 +188,27 @@ public class StringUtils {
         return char.replace(pattern, "");
     }
 
-    //ÊÇ·ñÎªÇ°×º×Ö·û´®;
+    //æ˜¯å¦ä¸ºå‰ç¼€å­—ç¬¦ä¸²;
     public static function beginsWith(char:String, prefix:String):Boolean {
         return (prefix == char.substring(0, prefix.length));
     }
 
-    //ÊÇ·ñÎªºó×º×Ö·û´®;
+    //æ˜¯å¦ä¸ºåç¼€å­—ç¬¦ä¸²;
     public static function endsWith(char:String, suffix:String):Boolean {
         return (suffix == char.substring(char.length - suffix.length));
     }
 
-    //È¥³ıÖ¸¶¨×Ö·û´®;
+    //å»é™¤æŒ‡å®šå­—ç¬¦ä¸²;
     public static function remove(char:String, remove:String):String {
         return replace(char, remove, "");
     }
 
-    //×Ö·û´®Ìæ»»;
+    //å­—ç¬¦ä¸²æ›¿æ¢;
     public static function replace(char:String, replace:String, replaceWith:String):String {
         return char.split(replace).join(replaceWith);
     }
 
-    //utf16×ªutf8±àÂë;
+    //utf16è½¬utf8ç¼–ç ;
     public static function utf16to8(char:String):String {
         var out:Array = new Array();
         var len:uint = char.length;
@@ -229,7 +228,7 @@ public class StringUtils {
         return out.join('');
     }
 
-    //utf8×ªutf16±àÂë;
+    //utf8è½¬utf16ç¼–ç ;
     public static function utf8to16(char:String):String {
         var out:Array = new Array();
         var len:uint = char.length;

@@ -42,11 +42,8 @@ public class DocViewerServlet extends HttpServlet {
                 return;
             }
 
-            response.setHeader("Cache-Control", "private");
-            response.setHeader("Pragma", "no-cache");
-            response.setHeader("Connection", "Keep-Alive");
-            response.setHeader("Proxy-Connection", "Keep-Alive");
             response.setContentType("application/json");
+            response.setStatus(202);
             response.flushBuffer();
             PrintWriter writer = response.getWriter();
 
@@ -75,6 +72,8 @@ public class DocViewerServlet extends HttpServlet {
             } else {
                 writer.write("{\"uri\":\"" + docUri + "\",\"permissions\":" + permissions.ordinal() + "}");
             }
+            writer.flush();
+            writer.close();
         } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(404);
@@ -104,9 +103,6 @@ public class DocViewerServlet extends HttpServlet {
             } else {
                 docId = Integer.parseInt(doc);
             }
-            if (DocViewer.isEncryption()) {
-                secretKey = request.getSession().getAttribute("secretKey") + "";
-            }
         } catch (Exception e) {
             response.setStatus(404);
             return;
@@ -117,6 +113,9 @@ public class DocViewerServlet extends HttpServlet {
         try {
             LOGGER.info("获取文档!");
             if (DocViewer.getDoc(docId) != null) {
+                if (DocViewer.isEncryption()) {
+                    secretKey = request.getSession().getAttribute("secretKey") + "";
+                }
                 outp = response.getOutputStream();
                 if (DocViewer.isSplitPage()) {
                     if (DocViewer.isEncryption()) {
@@ -169,6 +168,7 @@ public class DocViewerServlet extends HttpServlet {
             }
             if (outp != null) {
                 try {
+                    outp.flush();
                     outp.close();
                 } catch (IOException e) {
                     e.printStackTrace();

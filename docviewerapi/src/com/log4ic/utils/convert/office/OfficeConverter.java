@@ -13,7 +13,6 @@ import org.artofsolving.jodconverter.office.OfficeManager;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.ConnectException;
 import java.util.Properties;
 
@@ -32,10 +31,6 @@ public class OfficeConverter {
 
     private static OfficeManager officeManager;
 
-    /**
-     * 配置文件
-     */
-    private static String CONFIG_FILE = "config" + File.separator + "office-convert.properties";
     /**
      * open office 目录
      */
@@ -136,27 +131,6 @@ public class OfficeConverter {
         } finally {
         }
         return null;
-    }
-
-    public static void setConfig(String cfgName, String cfgValue) throws Exception {
-        Properties properties = getProperties();
-        properties.setProperty(cfgName, cfgValue);
-    }
-
-    public static Properties getProperties() throws Exception {
-        if (properties == null) {
-            properties = new Properties();
-            //获取class文件夹
-            ClassLoader loader = OfficeConverter.class.getClassLoader();
-            //加载文件
-            InputStream is = loader.getResourceAsStream(CONFIG_FILE);
-            if (is == null) {
-                throw new Exception("properties is not found");
-            }
-            //读取
-            properties.load(is);
-        }
-        return properties;
     }
 
     public static void startService() throws Exception {

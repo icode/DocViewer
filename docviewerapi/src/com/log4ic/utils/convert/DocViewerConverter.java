@@ -82,7 +82,7 @@ public class DocViewerConverter {
             File pdf = null;
 
             File dir = deploy(file, outPath);
-            pdf = new File(dir.getPath() + File.separator + FileUtils.getFilePrefix(file) + ".pdf");
+            pdf = new File(FileUtils.appendFileSeparator(dir.getPath()) + FileUtils.getFilePrefix(file) + ".pdf");
             if (!pdf.exists()) {
                 pdf = officeConverter.toPDF(file, dir.getPath());
             }

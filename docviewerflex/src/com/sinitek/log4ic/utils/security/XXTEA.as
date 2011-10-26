@@ -1,7 +1,6 @@
 /**
- * @author: ÕÅÁ¢öÎ
+ * @author: å¼ ç«‹é‘«
  * @version: 1
- * @date: 11-8-26 ÏÂÎç6:17
  */
 package com.sinitek.log4ic.utils.security {
 import com.sinitek.log4ic.utils.StringUtils;

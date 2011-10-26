@@ -1,7 +1,6 @@
 /**
- * @author: ÕÅÁ¢öÎ
+ * @author: å¼ ç«‹é‘«
  * @version: 1
- * @date: 2011/08/25 ÏÂÎç1:00
  */
 package com.sinitek.log4ic.utils.security {
 import com.sinitek.log4ic.streaming.EncryptedLoader;
@@ -30,9 +29,12 @@ public class Security {
         var loader:EncryptedLoader = loaderMap[url.url];
 
         if (loader) {
-            loader.removeEventListener(Event.COMPLETE, onComplete);
+            if(loader.hasEventListener(Event.COMPLETE)){
+                loader.removeEventListener(Event.COMPLETE, onComplete);
+            }
             loader.addEventListener(Event.COMPLETE, onComplete);
             if (loader.loaded) {
+                loader.dispatchEvent(new Event(ProgressEvent.PROGRESS));
                 loader.dispatchEvent(new Event(Event.COMPLETE));
             }
             return;
@@ -52,7 +54,7 @@ public class Security {
 
         loaderMap[url.url] = urlLoader;
 
-        urlLoader.load(url);//¼ÓÃÜºóµÄswfÎÄ¼ş
+        urlLoader.load(url);
     }
 
     public static function isLoaded(url:URLRequest) {

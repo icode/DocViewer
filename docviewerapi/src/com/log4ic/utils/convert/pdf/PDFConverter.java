@@ -148,6 +148,25 @@ public class PDFConverter {
 
         reader.close();
 
+        if (pageCount != 0) {
+            OutputStream out = null;
+            try {
+                File info = new File(FileUtils.appendFileSeparator(outputDirectory.getPath()) + "info");
+
+                info.createNewFile();
+
+                out = new FileOutputStream(info);
+
+                out.write((pageCount + "").getBytes("UTF-8"));
+            } finally {
+                if (out != null) {
+                    out.flush();
+                    out.close();
+                }
+            }
+
+        }
+
         return new PDFConverterDeploy(outputDirectory, pageCount, COMMAND.replace("${in}", pdfPath)
                 .replace("${out}", outPath + (splitPage ? "page%.swf" : "page.swf")) +
                 //是否将图片转换成点阵形式
@@ -303,6 +322,7 @@ public class PDFConverter {
 
     /**
      * pdf转换为swf
+     *
      * @param pdfFile
      * @param outPath
      * @param splitPage

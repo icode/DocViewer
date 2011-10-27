@@ -119,15 +119,19 @@ public class DocViewer {
 
     public static IAttachmentService getAttachmentService() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         if (attachmentService == null) {
-            Class serviceClass = Class.forName(ATTACHMENT_SERVICE);
-            attachmentService = (IAttachmentService) serviceClass.newInstance();
+            synchronized (ATTACHMENT_SERVICE){
+                if (attachmentService == null) {
+                    Class serviceClass = Class.forName(ATTACHMENT_SERVICE);
+                    attachmentService = (IAttachmentService) serviceClass.newInstance();
+                }
+            }
         }
         return attachmentService;
     }
 
     public static void setAttachmentService(String service) {
         ATTACHMENT_SERVICE = service;
-        LOGGER.debug("设置附件服务类(attachment_service)为:" + service);
+        LOGGER.debug("设置附件服务类为:" + service);
     }
 
 
@@ -415,7 +419,7 @@ public class DocViewer {
     }
 
     public static File getDocFileFromSource(int id) throws Exception {
-        IDocAttachment attachment = attachmentService.getDocAttachmentById(id);
+        IDocAttachment attachment = getAttachmentService().getDocAttachmentById(id);
 
         if (attachment == null) {
             throw new Exception("Document is not exists!");

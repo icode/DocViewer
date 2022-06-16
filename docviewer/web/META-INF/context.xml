@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/">
+    <Resource name="jdbc/docviewerDB" auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="org.apache.derby.jdbc.EmbeddedDriver"
+              url="jdbc:derby:docviewerDB;create=true"
+              maxActive="20"
+              maxIdle="10"
+              maxWait="5000"
+              testOnBorrow="true"
+              validationQuery="select 1 from sysibm.sysdummy1"/>
+</Context>

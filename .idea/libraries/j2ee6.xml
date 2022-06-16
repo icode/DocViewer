@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="j2ee6">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/j2ee6" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/j2ee6" recursive="false" />
+  </library>
+</component>

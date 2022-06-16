@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="berby">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/berby" />
+      <root url="file://$PROJECT_DIR$/lib/berby" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/berby" recursive="false" />
+  </library>
+</component>

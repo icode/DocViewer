@@ -1,0 +1,12 @@
+.clearfix:after{clear:both;content:".";display:block;height:0;visibility:hidden;_height:1%;}
+/*上传控件*/
+.uploader-box,.uploader-box *{margin: 0;padding: 0;font-size: 14px;}
+.uploader-box ul{list-style: none;}
+.uploader-box .upload-btn{margin:5px 0}
+.uploader-box .pro-bar{border:1px solid #ccc;height:7px;background: white;padding: 1px;overflow: hidden;display: inline-block;width:100px;vertical-align: middle;}
+.uploader-box .pro-inner{width: 100%;height:7px;background-color:#2bb927 ;display: inline-block;vertical-align: top;margin-right: 0}
+.uploader-box .fileitem span{margin-right:3px}
+.uploader-box .fileitem .filesize{margin-right:10px}
+.uploader-box .fileitem .failure{color:red}
+.icon-add,.icon-att{background: url(/resources/images/icon.png);width:16px;height:16px;vertical-align:middle;display:inline-block;*display:inline;*zoom:1;}
+.icon-att{background-position: -16px 0;}

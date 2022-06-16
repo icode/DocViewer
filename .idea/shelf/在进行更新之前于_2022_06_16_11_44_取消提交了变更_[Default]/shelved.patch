@@ -1,0 +1,62 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision d492829f16e4dcaab456be887a8b1752175c16f0)
++++ b/.idea/workspace.xml	(date 1655351014894)
+@@ -19,12 +19,7 @@
+     <option name="historyRevisionsNumber" value="4" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="652659cf-4b74-429d-8e5e-61851e29736d" name="Default" comment="增加文档上传并后台转换的例子">
+-      <change beforePath="$PROJECT_DIR$/.idea/ant.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/docviewerapi/src/com/log4ic/DocViewer.java" afterDir="false" />
+-    </list>
++    <list default="true" id="652659cf-4b74-429d-8e5e-61851e29736d" name="Default" comment="脱敏" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -94,6 +89,14 @@
+     <FindUsagesManager>
+       <setting name="OPEN_NEW_TAB" value="false" />
+     </FindUsagesManager>
++  </component>
++  <component name="Git.Rebase.Settings">
++    <option name="NEW_BASE" value="592ff774bcc496596252abe2fb445319901c4dc7" />
++    <option name="OPTIONS">
++      <set>
++        <option value="INTERACTIVE" />
++      </set>
++    </option>
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -1075,6 +1078,14 @@
+       <option name="presentableId" value="Default" />
+       <updated>1318409457219</updated>
+     </task>
++    <task id="LOCAL-00001" summary="脱敏">
++      <created>1655350969727</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1655350969727</updated>
++    </task>
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
+   <component name="TodoView" selected-index="0">
+@@ -1164,7 +1175,8 @@
+     <MESSAGE value="加入长时间等待支持" />
+     <MESSAGE value="根据网友反映 生成的flash 10版本兼容性不是很好，故更改成flash 9" />
+     <MESSAGE value="增加文档上传并后台转换的例子" />
+-    <option name="LAST_COMMIT_MESSAGE" value="增加文档上传并后台转换的例子" />
++    <MESSAGE value="脱敏" />
++    <option name="LAST_COMMIT_MESSAGE" value="脱敏" />
+     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
+   </component>
+   <component name="VssConfiguration">

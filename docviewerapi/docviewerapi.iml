@@ -10,7 +10,7 @@
     <orderEntry type="library" name="itext" level="project" />
     <orderEntry type="library" name="ooo" level="project" />
     <orderEntry type="library" name="common" level="project" />
-    <orderEntry type="library" name="j2ee1.4" level="project" />
+    <orderEntry type="library" name="j2ee6" level="project" />
   </component>
 </module>
 

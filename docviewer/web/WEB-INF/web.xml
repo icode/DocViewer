@@ -2,7 +2,48 @@
 <web-app id="WebApp_9" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <filter>
+        <filter-name>CharsetFilter</filter-name>
+        <filter-class>
+            com.log4ic.utils.web.filter.CharacterEncodingFilter
+        </filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharsetFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>uploaderFilter</filter-name>
+        <filter-class>com.log4ic.utils.io.FileUploaderFilter</filter-class>
+        <init-param>
+            <param-name>tempDir</param-name>
+            <param-value>/home/icode/uploader/tempDir</param-value>
+        </init-param>
+    </filter>
 
+    <filter-mapping>
+        <filter-name>uploaderFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+
+
+    <servlet>
+        <servlet-name>uploaderServlet</servlet-name>
+        <servlet-class>com.log4ic.servlet.UploaderServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>uploaderServlet</servlet-name>
+        <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
 
     <!--doc viewer servlet-->
     <servlet>
@@ -19,11 +60,22 @@
     </servlet-mapping>
     <!--start doc viewer service listener-->
     <listener>
-        <listener-class>com.log4ic.support.DocViewerServiceListener</listener-class>
+        <listener-class>com.log4ic.utils.support.DocViewerServiceListener</listener-class>
+    </listener>
+
+    <!--数据库自动按照注解建模支持-->
+    <listener>
+        <listener-class>com.log4ic.utils.support.DataBaseSupport</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>
+            org.apache.commons.fileupload.servlet.FileCleanerCleanup
+        </listener-class>
     </listener>
 
     <welcome-file-list>
-        <welcome-file>docviewer.jsp</welcome-file>
+        <welcome-file>documents.jsp</welcome-file>
     </welcome-file-list>
 
 </web-app>

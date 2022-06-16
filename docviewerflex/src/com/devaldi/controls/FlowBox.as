@@ -18,6 +18,7 @@ along with FlexPaper.  If not, see <http://www.gnu.org/licenses/>.
 
 package com.devaldi.controls
 {
+ import com.devaldi.streaming.DupImage;
  
  import flash.display.Bitmap;
  import flash.display.DisplayObject;

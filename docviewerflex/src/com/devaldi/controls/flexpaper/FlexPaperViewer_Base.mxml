@@ -1,454 +1,425 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
-         width="100%"
-         height="100%"
-         verticalGap="0"
-         borderColor="#8a8a8a"
-
-         verticalScrollPolicy="off"
-         horizontalScrollPolicy="off"
-
-         addedToStage="bindStageEvents(event)"
-         preinitialize="preInit()">
-    <mx:Script>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+		 width="100%" 
+		 height="100%" 
+		 verticalGap="0" 
+		 xmlns:fp="com.devaldi.controls.flexpaper.*" 
+		 xmlns:ct="com.devaldi.controls.*" 
+		 xmlns:st="com.devaldi.skinning.*" 
+		 borderColor="#8a8a8a" 
+		 verticalScrollPolicy="off" 
+		 horizontalScrollPolicy="off"
+		 
+		 addedToStage="bindStageEvents(event)"
+		 creationComplete="Init()"
+		 preinitialize="preInit()">
+	<mx:Script>
 		<![CDATA[
-        import com.devaldi.controls.TwoPagePlugin;
-        import com.devaldi.controls.flexpaper.utils.StreamUtil;
-        import com.devaldi.events.CurrentPageChangedEvent;
-        import com.devaldi.events.CursorModeChangedEvent;
-        import com.devaldi.events.DocumentPrintedEvent;
-        import com.devaldi.events.ErrorLoadingPageEvent;
-        import com.devaldi.events.ExternalLinkClickedEvent;
-        import com.devaldi.events.FitModeChangedEvent;
-        import com.devaldi.events.ViewModeChangedEvent;
-        import com.devaldi.streaming.AVM2Loader;
-
-        import flash.desktop.Clipboard;
-        import flash.desktop.ClipboardFormats;
-
-        import mx.graphics.ImageSnapshot;
-        import mx.managers.BrowserManager;
-        import mx.managers.IBrowserManager;
-        import mx.managers.PopUpManager;
-        import mx.controls.Alert;
-
-        [Bindable]
-        public var SecretKey:String = null;
-
-        [Bindable]
-        public var Scale:Number = 1;
-
-        [Bindable]
-        public var SwfFile:String = "";
-
-        [Bindable]
-        public var SearchServiceUrl:String = "";
-
-        [Bindable]
-        public var ZoomTransition:String = "easeOut";
-
-        [Bindable]
-        public var ZoomTime:Number = 0.6;
-
-        [Bindable]
-        public var ZoomInterval:Number = 0.1;
-
-        [Bindable]
-        public var FitPageOnLoad:Boolean = false;
-
-        [Bindable]
-        public var FitWidthOnLoad:Boolean = false;
-
-        [Bindable]
-        public var FullScreenAsMaxWindow:Boolean = false;
-
-        [Bindable]
-        public var ProgressiveLoading:Boolean = false;
-
-        [Bindable]
-        protected var TrueFullScreenActive:Boolean = false;
-
-        [Bindable]
-        public var StartAtPage:Number = 1;
-
-        [Bindable]
-        public var ReadOnly:Boolean = false;
-
-        [Bindable]
-        public var MinZoomSize:Number = 0.3;
-
-        [Bindable]
-        public var MaxZoomSize:Number = 5;
-
-        [Bindable]
-        public var ViewModeToolsVisible:Boolean = true;
-
-        [Bindable]
-        public var ZoomToolsVisible:Boolean = true;
-
-        [Bindable]
-        public var NavToolsVisible:Boolean = true;
-
-        [Bindable]
-        public var CursorToolsVisible:Boolean = true;
-
-        [Bindable]
-        public var SearchToolsVisible:Boolean = true;
-
-        [Bindable]
-        public var PrintDialogEnabled:Boolean = true;
-
-        [Bindable]
-        public var SearchMatchAll:Boolean = false;
-
-        [Bindable]
-        public var BitmapBasedRendering:Boolean = false;
-
-
-        //public static var Key:String = "";
-
-        private var _fixedWidth:Number = -1;
-        private var _fixedHeight:Number = -1;
-        private var prd:PrintRangeDialog;
-        private var _twopage:TwoPagePlugin;
-        protected var _browserManager:IBrowserManager;
-
-        public function get viewer():com.devaldi.controls.flexpaper.Viewer {
-            return null;
-        }
-
-        private function preInit():void {
-            _twopage = new TwoPagePlugin();
-
-            if (Viewer.ViewModeExtList == null)
-                Viewer.ViewModeExtList = new Array();
-
-            Viewer.ViewModeExtList[Viewer.ViewModeExtList.length] = _twopage;
-        }
-
-        private function bindStageEvents(e:Event):void {
-            stage.removeEventListener(FullScreenEvent.FULL_SCREEN, fullScreenRedraw);
-            stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenRedraw);
-            stage.addEventListener(KeyboardEvent.KEY_DOWN, viewerKeyDown);
-            this.addEventListener(MouseEvent.CLICK, setFocusTo);
-
-            contextMenu = new ContextMenu();
-            contextMenu.hideBuiltInItems();
-
-            if (!ReadOnly) {
-                this.addEventListener(Event.COPY, copyHandler);
-                contextMenu.clipboardMenu = true;
-                contextMenu.clipboardItems.copy = true;
-                contextMenu.clipboardItems.selectAll = false;
-            }
-
-//				if(new MenuIcons.SMALL_TRANSPARENT().width > 10){
-//					var cmi_about:ContextMenuItem = new ContextMenuItem(resourceManager.getString("FlexPaper", "About")+' FlexPaper');
-//					cmi_about.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, showInfo);
-//					contextMenu.customItems.push(cmi_about);
-//				}
-
-            if (!ReadOnly) {
-                var cmi_print:ContextMenuItem = new ContextMenuItem(resourceManager.getString("FlexPaper", "Print") + " ...");
-                cmi_print.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, printPaper);
-                contextMenu.customItems.push(cmi_print);
-            }
-        }
-
-        public function setViewerFocus():void {
-            viewer.setPaperFocus();
-        }
-
-        public function getCurrPage():Number {
-            return viewer.currPage;
-        }
-
-        public function getTotalPages():Number {
-            return viewer.numPages;
-        }
-
-        public function nextPage():void {
-            viewer.mvNext();
-        }
-
-        public function prevPage():void {
-            return viewer.mvPrev();
-        }
-
-        public function get PluginList():Array {
-            return viewer.PluginList;
-        }
-
-        public function set PluginList(p:Array):void {
-            viewer.PluginList = p;
-        }
-
-        //			public function showInfo(e:Event):void {
-        //				var vabout:About = new About();
-        //				PopUpManager.addPopUp(vabout, this, true);
-        //				PopUpManager.centerPopUp(vabout);
-        //			}
-
-        private function setFocusTo(e:MouseEvent):void {
-            stage.stageFocusRect = false;
-            stage.focus = e.target as InteractiveObject;
-        }
-
-        public function printPaper(e:Event):void {
-            if (!ReadOnly) {
-                if (PrintDialogEnabled) {
-                    prd = new PrintRangeDialog();
-                    PopUpManager.addPopUp(prd, this, true);
-                    PopUpManager.centerPopUp(prd);
-                    prd["bttnPrint"].addEventListener("click", printHandler);
-                } else {
-                    viewer.printPaper();
-                }
-            }
-        }
-
-        protected function printHandler(event:Event):void {
-            if (prd.PrintRange != "" && prd.validated) {
-                viewer.printPaperRange(prd.PrintRange);
-            } else if (prd.validated) {
-                viewer.printPaper();
-            }
-        }
-
-        private function fullScreenRedraw(event:FullScreenEvent):void {
-            if (!event.fullScreen && _fixedWidth > 0) {
-                viewer.setActualSize(_fixedWidth, _fixedHeight);
-            }
-
-            if (viewer.FitMode == FitModeEnum.FITWIDTH) {
-                flash.utils.setTimeout(viewer.fitWidth, 200);
-            } else if (viewer.FitMode == FitModeEnum.FITHEIGHT) {
-                flash.utils.setTimeout(viewer.fitHeight, 200);
-            } else {
-                viewer.PaperVisible = true;
-            }
-
-            TrueFullScreenActive = event.fullScreen && !FullScreenAsMaxWindow;
-        }
-
-        private function viewerKeyDown(event:KeyboardEvent):void {
-            if (event.keyCode == Keyboard.SPACE && !(event.target is mx.core.UITextField)) {
-                viewer.mvNext();
-            }
-        }
-
-        private function copyHandler(e:Event):void {
-            if (!ReadOnly) {
-                try {
-                    Clipboard.generalClipboard.setData(ClipboardFormats.TEXT_FORMAT, viewer.CurrentlySelectedText);
-                } catch (e:*) {
-                }
-            }
-        }
-
-        protected function toggleFullScreen():void {
-            try {
-                if (!FullScreenAsMaxWindow) {
-                    viewer.PaperVisible = false; // to avoid flickering and let it redraw properly
-
-                    if (this.stage.displayState == StageDisplayState.NORMAL) {
-                        _fixedWidth = viewer.width;
-                        _fixedHeight = viewer.height;
-                    }
-
-                    switch (this.stage.displayState) {
-                        case StageDisplayState.FULL_SCREEN:
-                            this.stage.displayState = StageDisplayState.NORMAL;
-                            break;
-                        default:
-                            this.stage.displayState = StageDisplayState.FULL_SCREEN;
-                            break;
-                    }
-                } else {
-                    var ur:URLRequest = new URLRequest(this.stage.loaderInfo.url);
-                    var uv:URLVariables = new URLVariables();
-                    uv.Scale = Scale;
-                    uv.SecretKey = SecretKey;
-                    uv.SwfFile = SwfFile;
-                    uv.ZoomTransition = ZoomTransition;
-                    uv.ZoomTime = ZoomTime;
-                    uv.ZoomInterval = ZoomInterval;
-                    uv.FitPageOnLoad = viewer.FitMode == FitModeEnum.FITHEIGHT;
-                    uv.FitWidthOnLoad = viewer.FitMode == FitModeEnum.FITWIDTH;
-                    uv.ViewModeToolsVisible = ViewModeToolsVisible;
-                    uv.ZoomToolsVisible = ZoomToolsVisible;
-                    uv.NavToolsVisible = NavToolsVisible;
-                    uv.CursorToolsVisible = CursorToolsVisible;
-                    uv.SearchToolsVisible = SearchToolsVisible;
-                    uv.ProgressiveLoading = ProgressiveLoading;
-                    uv.FullScreenAsMaxWindow = FullScreenAsMaxWindow;
-                    uv.localeChain = resourceManager.localeChain;
-                    uv.ReadOnly = ReadOnly;
-                    ur.data = uv;
-                    navigateToURL(ur, "FlexPaperFullScreen");
-                }
-            } catch (err:SecurityError) {
-
-            }
-        }
-
-        public function fitWidth():void {
-            viewer.fitWidth();
-        }
-
-        public function fitHeight():void {
-            viewer.fitHeight();
-        }
-
-        public function gotoPage(p:Number):void {
-            viewer.gotoPage(p);
-        }
-
-        protected function documentLoadedErrorHandler(event:Event):void {
-            dispatchEvent(event);
-        }
-
-        protected function onFitModeChanged(event:FitModeChangedEvent):void {
-            dispatchEvent(event);
-        }
-
-        protected function onViewModeChanged(event:ViewModeChangedEvent):void {
-            dispatchEvent(event);
-        }
-
-        protected function onCurrPageChanged(event:CurrentPageChangedEvent):void {
-            dispatchEvent(event);
-        }
-
-        protected function onCursorModeChanged(event:CursorModeChangedEvent):void {
-            dispatchEvent(event);
-        }
-
-        protected function onExternalLinkClickedHandler(event:ExternalLinkClickedEvent):void {
-            dispatchEvent(event);
-        }
-
-        protected function onDocumentLoadingProgressHandler(event:ProgressEvent):void {
-            dispatchEvent(event);
-        }
-
-        protected function papersLoadingHandler(event:Event):void {
-            dispatchEvent(event);
-        }
-
-        protected function pageLoadingEventHandler(event:Event):void {
-            dispatchEvent(event);
-        }
-
-        protected function documentPrintedHandler(event:DocumentPrintedEvent):void {
-            dispatchEvent(event);
-        }
-
-        protected function documentLoadedHandler(event:Event):void {
-            dispatchEvent(event);
-        }
-
-        protected function pageLoadedEventHandler(event:Event):void {
-            dispatchEvent(event);
-        }
-
-        protected function errorLoadingPageEventHandler(event:ErrorLoadingPageEvent):void {
-            dispatchEvent(event);
-        }
-
-        public function Zoom(factor:Number):void {
-            viewer.Zoom(factor);
-        }
-
-        public function searchText(text:String):void {
-            viewer.searchText(text);
-        }
-
-        public function prevSearchMatch():void {
-            viewer.prevSearchMatch();
-        }
-
-        public function nextSearchMatch(text:String):void {
-            viewer.nextSearchMatch(text);
-        }
-
-        public function switchMode(mode:String = null):void {
-            viewer.switchMode(mode);
-        }
-
-        public function setCurrentCursor(cursor:String):void {
-            if (cursor == "TextSelectorCursor") {
-                viewer.TextSelectEnabled = true;
-            } else if (cursor == "ArrowCursor") {
-                viewer.TextSelectEnabled = false;
-            }
-        }
-
-        protected function formatPct(item:Object):String {
-            var spct:String = (Math.round(Number(item) * 100)) + "%";
-            return spct;
-        }
-
-        public function loadSwf(s:String):void {
-            viewer.SwfFile = s;
-        }
-
-        public function loadFromBytes(b:ByteArray):void {
-            viewer.loadFromBytes(b);
-        }
-
-        override protected function createChildren():void {
-            super.createChildren();
-
-            if (viewer == null)
-                return;
-
-            _browserManager = BrowserManager.getInstance();
-
-            try {
-                //if(LicenseKey.validate(_browserManager.url,VersionHandler.version(),Key,true)){
-
-               
-                if (StreamUtil.DocLoader == null) {
-                    viewer.DocLoader = new AVM2Loader(StreamUtil.getExecutionContext(), StreamUtil.ProgressiveLoading);
-                } else {
-                    viewer.DocLoader = StreamUtil.DocLoader;
-                }
-                //}
-
-                viewer.DocLoader.addEventListener("onDocumentLoadedError", onLoadedError);
-            } catch(e:Error) {
-                Alert.show(e.message, "Error");
-            }
-        }
-
-        protected function onLoadedError(event:ErrorEvent):void {
-            dispatchEvent(event);
-        }
-
-        public function highlight(url:String):void {
-            viewer.highlight(url);
-        }
-
-        public function postSnapshot(url:String):void {
-            var imageSnap:ImageSnapshot = ImageSnapshot.captureImage(viewer);
-            var imageByteArray:ByteArray = imageSnap.data as ByteArray;
-
-            var request:URLRequest = new URLRequest(url);
-            var loader:URLLoader = new URLLoader();
-            request.contentType = 'application/octet-stream';
-            request.method = URLRequestMethod.POST;
-            request.data = imageByteArray;
-            loader.load(request);
-        }
-
-        public function getSecretKey():String {
-            return SecretKey;
-        }
-
-        public function setSecretKey(value:String):void {
-            SecretKey = value;
-        }
-        ]]>
+			import com.devaldi.controls.TwoPagePlugin;
+			import com.log4ic.resources.MenuIcons;
+			import com.devaldi.controls.flexpaper.utils.StreamUtil;
+			import com.devaldi.events.CurrentPageChangedEvent;
+			import com.devaldi.events.CursorModeChangedEvent;
+			import com.devaldi.events.DocumentLoadedEvent;
+			import com.devaldi.events.DocumentPrintedEvent;
+			import com.devaldi.events.ErrorLoadingPageEvent;
+			import com.devaldi.events.ExternalLinkClickedEvent;
+			import com.devaldi.events.FitModeChangedEvent;
+			import com.devaldi.events.ScaleChangedEvent;
+			import com.devaldi.events.ViewModeChangedEvent;
+			import com.devaldi.streaming.AVM2Loader;
+			import com.devaldi.streaming.IDocumentLoader;
+			
+			import flash.desktop.Clipboard;
+			import flash.desktop.ClipboardFormats;
+			
+			import mx.core.UITextField;
+			import mx.graphics.ImageSnapshot;
+			import mx.managers.BrowserManager;
+			import mx.managers.IBrowserManager;
+			import mx.managers.PopUpManager;
+			
+			[Bindable]
+			public var Scale:Number = 1;
+			
+			[Bindable]
+			public var SwfFile:String = "";
+			
+			[Bindable]
+			public var SearchServiceUrl:String = "";
+			
+			[Bindable]
+			public var ZoomTransition:String = "easeOut";
+			
+			[Bindable]
+			public var ZoomTime:Number = 0.6;
+			
+			[Bindable]
+			public var ZoomInterval:Number = 0.1;
+			
+			[Bindable]
+			public var FitPageOnLoad:Boolean = false;
+			
+			[Bindable]
+			public var FitWidthOnLoad:Boolean = false;
+			
+			[Bindable]
+			public var FullScreenAsMaxWindow:Boolean = false;
+			
+			[Bindable]
+			public var ProgressiveLoading:Boolean = false;
+			
+			[Bindable]
+			protected var TrueFullScreenActive:Boolean = false;
+			
+			[Bindable]
+			public var StartAtPage:Number = 1;
+			
+			[Bindable]
+			public var ReadOnly:Boolean = false;
+			
+			[Bindable]
+			public var MinZoomSize:Number = 0.3;
+			
+			[Bindable]
+			public var MaxZoomSize:Number = 5;
+			
+			[Bindable]
+			public var ViewModeToolsVisible:Boolean = true;
+			
+			[Bindable]
+			public var ZoomToolsVisible:Boolean = true;
+			
+			[Bindable]
+			public var NavToolsVisible:Boolean = true;
+			
+			[Bindable]
+			public var CursorToolsVisible:Boolean = true;
+			
+			[Bindable]
+			public var SearchToolsVisible:Boolean = true;
+			
+			[Bindable]
+			public var PrintDialogEnabled:Boolean = true;
+			
+			[Bindable]
+			public var SearchMatchAll:Boolean = false;
+			
+			[Bindable]
+			public var BitmapBasedRendering:Boolean = false;
+			
+			private var _fixedWidth:Number = -1;
+			private var _fixedHeight:Number = -1;
+			private var prd:PrintRangeDialog;
+			private var _twopage:TwoPagePlugin;
+			protected var _browserManager:IBrowserManager;
+			
+			public function get viewer():com.devaldi.controls.flexpaper.Viewer{return null;}
+			
+			private function preInit():void{
+				_twopage = new TwoPagePlugin();
+				
+				if(Viewer.ViewModeExtList==null)
+					Viewer.ViewModeExtList = new Array();
+				
+				Viewer.ViewModeExtList[Viewer.ViewModeExtList.length] = _twopage;
+			}
+			
+			private function Init():void{
+				_browserManager = BrowserManager.getInstance();
+			}	
+			
+			private function bindStageEvents(e:Event):void{
+				stage.removeEventListener(FullScreenEvent.FULL_SCREEN, fullScreenRedraw);
+				stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenRedraw);
+				stage.addEventListener(KeyboardEvent.KEY_DOWN, viewerKeyDown);
+				this.addEventListener(MouseEvent.CLICK,setFocusTo);
+				
+				contextMenu = new ContextMenu();
+				contextMenu.hideBuiltInItems();
+				
+				if(!ReadOnly){
+					this.addEventListener(Event.COPY,copyHandler);
+					contextMenu.clipboardMenu = true;
+					contextMenu.clipboardItems.copy = true;
+					contextMenu.clipboardItems.selectAll = false;
+				}
+				
+				if(new MenuIcons.SMALL_TRANSPARENT().width > 10){
+					var cmi_about:ContextMenuItem = new ContextMenuItem(resourceManager.getString("FlexPaper", "About")+' FlexPaper');
+					cmi_about.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, showInfo);
+					contextMenu.customItems.push(cmi_about);
+				}
+				
+				if(!ReadOnly){
+					var cmi_print:ContextMenuItem = new ContextMenuItem(resourceManager.getString("FlexPaper", "Print") + " ...");
+					cmi_print.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, printPaper);
+					contextMenu.customItems.push(cmi_print);
+				}
+			}
+			
+			public function setViewerFocus():void{
+				viewer.setPaperFocus();	
+			}
+			
+			public function getCurrPage():Number{
+				return viewer.currPage;
+			}
+			
+			public function nextPage():void{
+				return viewer.gotoPage(viewer.currPage+1);
+			}		
+			
+			public function prevPage():void{
+				return viewer.gotoPage(viewer.currPage-1);
+			}
+			
+			public function get PluginList():Array{
+				return viewer.PluginList;
+			}
+			
+			public function set PluginList(p:Array):void{
+				viewer.PluginList = p;
+			}
+			
+			public function showInfo(e:Event):void {
+				var vabout:About = new About();
+				PopUpManager.addPopUp(vabout, this, true);
+				PopUpManager.centerPopUp(vabout);
+			}
+			
+			private function setFocusTo(e:MouseEvent):void{
+				stage.stageFocusRect = false;
+				stage.focus = e.target as InteractiveObject;
+			}
+			
+			public function printPaper(e:Event):void{
+				if(!ReadOnly){
+					if(PrintDialogEnabled){
+						prd = new PrintRangeDialog(); 
+						PopUpManager.addPopUp(prd, this, true);
+						PopUpManager.centerPopUp(prd);
+						prd["bttnPrint"].addEventListener("click", printHandler);
+					}else{
+						viewer.printPaper();	
+					}
+				}
+			}
+			
+			protected function printHandler(event:Event):void{
+				if(prd.PrintRange != "" && prd.validated){
+					viewer.printPaperRange(prd.PrintRange);
+				}else if(prd.validated){
+					viewer.printPaper();
+				}
+			}
+			
+			private function fullScreenRedraw(event:FullScreenEvent):void{
+				if(!event.fullScreen && _fixedWidth>0){
+					viewer.setActualSize(_fixedWidth,_fixedHeight);
+				}
+				
+				if(viewer.FitMode == FitModeEnum.FITWIDTH){
+					flash.utils.setTimeout(viewer.fitWidth,200);
+				} else if(viewer.FitMode == FitModeEnum.FITHEIGHT){
+					flash.utils.setTimeout(viewer.fitHeight,200);
+				} else {
+					viewer.PaperVisible = true;
+				}
+				
+				TrueFullScreenActive = event.fullScreen && !FullScreenAsMaxWindow;
+			}
+			
+			private function viewerKeyDown(event:KeyboardEvent):void{
+				if(event.keyCode == Keyboard.SPACE && !(event.target is mx.core.UITextField)){
+					viewer.mvNext();
+				}
+			}
+			
+			private function copyHandler(e:Event):void{
+				if(!ReadOnly){
+					try{Clipboard.generalClipboard.setData(ClipboardFormats.TEXT_FORMAT, viewer.CurrentlySelectedText);}catch (e:*) {}
+				}
+			}
+			
+			protected function toggleFullScreen():void {
+				try {
+					if(!FullScreenAsMaxWindow){
+						viewer.PaperVisible = false; // to avoid flickering and let it redraw properly
+						
+						if(this.stage.displayState == StageDisplayState.NORMAL){
+							_fixedWidth = viewer.width;
+							_fixedHeight = viewer.height;
+						}
+						
+						switch (this.stage.displayState) {
+							case StageDisplayState.FULL_SCREEN:
+								this.stage.displayState = StageDisplayState.NORMAL;
+								break;
+							default:
+								this.stage.displayState = StageDisplayState.FULL_SCREEN;
+								break;
+						}
+					}else{
+						var ur:URLRequest = new URLRequest(this.stage.loaderInfo.url);
+						var uv:URLVariables = new URLVariables();
+						uv.Scale = Scale;
+						uv.SwfFile = SwfFile;
+						uv.ZoomTransition = ZoomTransition;
+						uv.ZoomTime = ZoomTime;
+						uv.ZoomInterval = ZoomInterval;
+						uv.FitPageOnLoad = viewer.FitMode == FitModeEnum.FITHEIGHT;
+						uv.FitWidthOnLoad = viewer.FitMode == FitModeEnum.FITWIDTH;
+						uv.ViewModeToolsVisible = ViewModeToolsVisible;
+						uv.ZoomToolsVisible = ZoomToolsVisible;
+						uv.NavToolsVisible = NavToolsVisible;
+						uv.CursorToolsVisible = CursorToolsVisible;
+						uv.SearchToolsVisible = SearchToolsVisible;
+						uv.ProgressiveLoading = ProgressiveLoading;
+						uv.FullScreenAsMaxWindow = FullScreenAsMaxWindow;
+						uv.localeChain = resourceManager.localeChain;
+						ur.data = uv;
+						navigateToURL(ur,"FlexPaperFullScreen");
+					}
+				} catch (err:SecurityError) {
+					
+				}
+			}
+			
+			public function fitWidth():void{
+				viewer.fitWidth();
+			}
+			
+			public function fitHeight():void{
+				viewer.fitHeight();
+			}		
+			
+			public function gotoPage(p:Number):void{
+				viewer.gotoPage(p);
+			}
+			
+			protected function documentLoadedErrorHandler(event:Event):void{
+				dispatchEvent(event);
+			}
+			
+			protected function onFitModeChanged(event:FitModeChangedEvent):void{
+				dispatchEvent(event);
+			}
+			
+			protected function onViewModeChanged(event:ViewModeChangedEvent):void{
+				dispatchEvent(event);
+			}
+			
+			protected function onCurrPageChanged(event:CurrentPageChangedEvent):void{
+				dispatchEvent(event);
+			}
+			
+			protected function onCursorModeChanged(event:CursorModeChangedEvent):void{
+				dispatchEvent(event);
+			}
+			
+			protected function onExternalLinkClickedHandler(event:ExternalLinkClickedEvent):void{
+				dispatchEvent(event);
+			}
+			
+			protected function onDocumentLoadingProgressHandler(event:ProgressEvent):void{
+				dispatchEvent(event);
+			}
+			
+			protected function papersLoadingHandler(event:Event):void{
+				dispatchEvent(event);
+			}
+			
+			protected function pageLoadingEventHandler(event:Event):void{
+				dispatchEvent(event);
+			}
+			
+			protected function documentPrintedHandler(event:DocumentPrintedEvent):void{
+				dispatchEvent(event);
+			}
+			
+			protected function documentLoadedHandler(event:Event):void{
+				dispatchEvent(event);
+			}	
+			
+			protected function pageLoadedEventHandler(event:Event):void{
+				dispatchEvent(event);
+			}
+			
+			protected function errorLoadingPageEventHandler(event:ErrorLoadingPageEvent):void{
+				dispatchEvent(event);
+			}
+			
+			public function Zoom(factor:Number):void{
+				viewer.Zoom(factor);
+			}
+			
+			public function searchText(text:String):void{
+				viewer.searchText(text);				
+			}		
+			
+			public function prevSearchMatch():void{
+				viewer.prevSearchMatch();
+			}
+			
+			public function nextSearchMatch(text:String):void{
+				viewer.nextSearchMatch(text);
+			}
+			
+			public function switchMode(mode:String=null):void{
+				viewer.switchMode(mode);
+			}
+			
+			public function setCurrentCursor(cursor:String):void{
+				if(cursor=="TextSelectorCursor"){
+					viewer.TextSelectEnabled = true;
+				}else if (cursor=="ArrowCursor"){
+					viewer.TextSelectEnabled = false;
+				}
+			}
+			
+			protected function formatPct(item:Object):String {
+				var spct:String = (Math.round(Number(item)*100)) + "%";
+				return spct;
+			}
+			
+			public function loadSwf(s:String):void{
+				viewer.SwfFile = s;
+			}
+			
+			override protected function createChildren():void {
+				super.createChildren();
+				
+				if(viewer==null)
+					return;
+				
+				if(StreamUtil.DocLoader==null)
+					viewer.DocLoader = new AVM2Loader(StreamUtil.getExecutionContext(),StreamUtil.ProgressiveLoading);
+				else 
+					viewer.DocLoader = StreamUtil.DocLoader;
+				
+				viewer.DocLoader.addEventListener("onDocumentLoadedError",onLoadedError);
+			}
+			
+			protected function onLoadedError(event:ErrorEvent):void{
+				dispatchEvent(event);	
+			}
+			
+			public function highlight(url:String):void{
+				viewer.highlight(url);
+			}
+			
+			public function postSnapshot(url:String):void{
+				var imageSnap:ImageSnapshot = ImageSnapshot.captureImage(viewer);
+				var imageByteArray:ByteArray = imageSnap.data as ByteArray;
+				
+				var request:URLRequest = new URLRequest ( url );
+				var loader: URLLoader = new URLLoader();
+				request.contentType = 'application/octet-stream';
+				request.method = URLRequestMethod.POST;
+				request.data = imageByteArray;
+				loader.load( request );
+			}
+		]]>
 	</mx:Script>
 </mx:VBox>

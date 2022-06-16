@@ -1,12 +1,16 @@
 package com.log4ic.utils.convert;
 
 import com.log4ic.DocViewer;
-import com.log4ic.utils.FileUtils;
 import com.log4ic.utils.convert.office.OfficeConverter;
 import com.log4ic.utils.convert.pdf.PDFConverter;
+import com.log4ic.utils.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
 import java.util.LinkedList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author: 张立鑫
@@ -15,9 +19,11 @@ import java.util.LinkedList;
 public class DocViewerConverter {
     private static OfficeConverter officeConverter;
     private static PDFConverter pdfConverter;
-    private static Object lock = new Object();
+    private static final Object lock = new Object();
+    private static final Log logger = LogFactory.getLog(DocViewerConverter.class);
 
     private static LinkedList<File> runningQueue = new LinkedList<File>();
+    private static final Lock queueLock = new ReentrantLock();
 
     public static File deploy(File file, String outPath) {
 
@@ -34,61 +40,82 @@ public class DocViewerConverter {
         return dir;
     }
 
+    public static Lock getRunningQueueLock() {
+        return queueLock;
+    }
+
     public static LinkedList<File> getRunningQueue() {
         return runningQueue;
     }
 
-    /***
+    /**
      * 转换为swf
+     *
      * @param file
      * @param outPath
      * @return 返回转换后输出文件目录
      * @throws Exception
      */
     public static File toSwf(File file, String outPath) throws Exception {
-        synchronized (lock) {
+        File pdf = file;
+        if (pdfConverter == null) {
+            queueLock.lock();
             if (pdfConverter == null) {
                 //PDFConverter.loadConfig();
                 pdfConverter = new PDFConverter();
             }
+            queueLock.unlock();
         }
+        queueLock.lock();
+        runningQueue.add(file);
+        queueLock.unlock();
         try {
-            runningQueue.add(file);
+            logger.debug("toSwf after add size:" + runningQueue.size() + ".[" + file.getName() + "]");
             String suffix = FileUtils.getFileSuffix(file);
-            File pdf;
             if (suffix == null) {
                 throw new Exception("The file not has a suffix!");
             }
             if (!suffix.toLowerCase().equals("pdf")) {
                 pdf = toPDF(file, outPath);
-            } else {
-                pdf = file;
             }
 
             return pdfConverter.convert(pdf, outPath, DocViewer.isSplitPage(), false);
         } finally {
-            runningQueue.remove(file);
+            queueLock.lock();
+            boolean isok = runningQueue.remove(file);
+
+            logger.debug("toSwf after remove size:" + runningQueue.size() + ". isok:" + isok);
+            queueLock.unlock();
         }
     }
 
     public static File toPDF(File file, String outPath) throws Exception {
-        synchronized (lock) {
+        if (officeConverter == null) {
+            queueLock.lock();
             if (officeConverter == null) {
                 officeConverter = new OfficeConverter();
             }
+            queueLock.unlock();
         }
+        queueLock.lock();
+        runningQueue.add(file);
+        queueLock.unlock();
         try {
-            runningQueue.add(file);
+            logger.debug("toPDF after add size:" + runningQueue.size() + ".[" + file.getName() + "]");
             File pdf = null;
 
             File dir = deploy(file, outPath);
-            pdf = new File(FileUtils.appendFileSeparator(dir.getPath()) + FileUtils.getFilePrefix(file) + ".pdf");
+            pdf = new File(dir.getPath() + File.separator + FileUtils.getFilePrefix(file) + ".pdf");
             if (!pdf.exists()) {
                 pdf = officeConverter.toPDF(file, dir.getPath());
             }
+
             return pdf;
         } finally {
-            runningQueue.remove(file);
+            queueLock.lock();
+            boolean isok = runningQueue.remove(file);
+            logger.debug("toPDF after remove size:" + runningQueue.size() + ". isok:" + isok);
+            queueLock.unlock();
         }
     }
 }

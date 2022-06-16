@@ -1,5 +1,6 @@
 package com.devaldi.controls
 {
+	import com.devaldi.streaming.DupImage;
 	
 	import flash.display.Bitmap;
 	
@@ -12,5 +13,7 @@ package com.devaldi.controls
 		{
 	
 		}
+		
+
 	}
 }

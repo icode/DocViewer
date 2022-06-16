@@ -32,14 +32,13 @@ package com.devaldi.streaming
 		function set LoaderList(v:Array):void;
 		function postProcessBytes(b:ByteArray):void;
 		function load(request:URLRequest, loaderCtx:LoaderContext):void;
-		function loadFromBytes(bytes:ByteArray):void;
 		function resetURLStream():void;
 		function signFileHeader(bytes:ByteArray, ldr:Loader=null):void;
 		function get InputBytes():ByteArray;
 		function set InputBytes(b:ByteArray):void;
 		function get Resigned():Boolean;
 		function get stream():URLStream;	
-		function get IsSplit():Boolean;
-		function set IsSplit(b:Boolean):void;
+		function get PagesSplit():Boolean;
+		function set PagesSplit(b:Boolean):void;
 	}
 }

@@ -1,6 +1,8 @@
 package com.log4ic.entity;
 
 
+import com.log4ic.enums.Permissions;
+
 import java.io.InputStream;
 
 /**
@@ -31,13 +33,6 @@ public interface IDocAttachment {
     public Integer getPageCount();
 
     /**
-     * 获得附件摘要属性值
-     *
-     * @return 附件摘要属性值
-     */
-    public String getDigest();
-
-    /**
      * 获得文件类型属性值
      *
      * @return 文件类型属性值
@@ -50,4 +45,11 @@ public interface IDocAttachment {
      * @return 附件内容属性值
      */
     public InputStream getContentStream();
+
+    /**
+     * 获取该文档权限
+     *
+     * @return
+     */
+    public Permissions getPermissions();
 }

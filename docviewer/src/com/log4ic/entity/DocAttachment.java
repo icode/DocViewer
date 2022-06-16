@@ -1,6 +1,7 @@
 package com.log4ic.entity;
 
-import com.log4ic.utils.FileUtils;
+import com.log4ic.enums.Permissions;
+import com.log4ic.utils.io.FileUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,12 +15,12 @@ import java.io.InputStream;
  */
 public class DocAttachment implements IDocAttachment {
 
-    String name;
-    Long contentSize;
-    Integer pageCount;
-    String digest;
-    String fileType;
-    InputStream contentStream;
+    private String name;
+    private Long contentSize;
+    private Integer pageCount;
+    private String fileType;
+    private InputStream contentStream;
+    private Permissions permissions;
 
     public DocAttachment(File file) {
         this.name = FileUtils.getFilePrefix(file);
@@ -45,15 +46,39 @@ public class DocAttachment implements IDocAttachment {
         return pageCount;
     }
 
-    public String getDigest() {
-        return digest;
-    }
-
     public String getFileType() {
         return fileType;
     }
 
     public InputStream getContentStream() {
         return contentStream;
+    }
+
+    public Permissions getPermissions() {
+        return permissions;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setContentSize(Long contentSize) {
+        this.contentSize = contentSize;
+    }
+
+    public void setPageCount(Integer pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public void setContentStream(InputStream contentStream) {
+        this.contentStream = contentStream;
+    }
+
+    public void setPermissions(Permissions permissions) {
+        this.permissions = permissions;
     }
 }

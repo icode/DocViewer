@@ -1,10 +1,9 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="docviewer">
+  <artifact type="exploded-ear" name="docviewer">
     <output-path>$PROJECT_DIR$/out/artifacts/docviewer</output-path>
-    <root id="archive" name="docviewer.war">
+    <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="docviewer" />
           <element id="directory" name="conf">
             <element id="file-copy" path="$PROJECT_DIR$/docviewerapi/src/conf/docviewer.properties" />
           </element>
@@ -12,12 +11,17 @@
           <element id="file-copy" path="$USER_HOME$/Tools/resources/FreeMarker_Manual_zh_CN.pdf" output-file-name="test.pdf" />
         </element>
         <element id="directory" name="lib">
+          <element id="archive" name="docviewer.jar">
+            <element id="module-output" name="docviewer" />
+          </element>
           <element id="archive" name="docviewerapi.jar">
             <element id="module-output" name="docviewerapi" />
           </element>
           <element id="library" level="project" name="itext" />
           <element id="library" level="project" name="ooo" />
           <element id="library" level="project" name="common" />
+          <element id="library" level="project" name="berby" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/j2ee6/javax.persistence.jar" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="docviewer/web/Web" />

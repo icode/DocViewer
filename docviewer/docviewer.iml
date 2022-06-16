@@ -21,8 +21,10 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="docviewerapi" />
-    <orderEntry type="library" name="j2ee1.4" level="project" />
+    <orderEntry type="library" name="j2ee6" level="project" />
     <orderEntry type="library" name="common" level="project" />
+    <orderEntry type="library" name="ooo" level="project" />
+    <orderEntry type="library" name="berby" level="project" />
   </component>
 </module>
 

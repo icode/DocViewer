@@ -24,13 +24,10 @@ package com.devaldi.controls
 	import com.devaldi.controls.flexpaper.Viewer;
 	import com.devaldi.controls.flexpaper.utils.StreamUtil;
 	import com.devaldi.events.CurrentPageChangedEvent;
-	import com.devaldi.events.PageLoadingEvent;
 	import com.devaldi.streaming.DupLoader;
-	import flash.net.URLRequest;
 	
 	import flash.display.DisplayObject;
 	import flash.events.Event;
-	import flash.events.IOErrorEvent;
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	import flash.events.MouseEvent;
@@ -76,47 +73,19 @@ package com.devaldi.controls
 			rp = (i % 2 == 0)?0:1;
 			var uloaderidx:int = (i % 2 == 0)?0:1;
 			
-			if(i==viewer.PageList.length-1 && viewer.PageList.length % 2 == 1)
-				viewer.DisplayContainer.getChildAt(1).visible = false;
-			else
-				viewer.DisplayContainer.getChildAt(1).visible = true;
-			
-			if(((!viewer.BusyLoading||viewer.DocLoader.IsSplit)&&(!viewer.DocLoader.LoaderList[uloaderidx].loading)) && viewer.DocLoader.LoaderList!=null && viewer.DocLoader.LoaderList.length>0){
-				if(	viewer.libMC!=null&&
-					(viewer.numPagesLoaded>=viewer.PageList[i].dupIndex || viewer.DocLoader.IsSplit) && 
-					(viewer.DocLoader.LoaderList[uloaderidx] != null) && 
-					(viewer.DocLoader.LoaderList[uloaderidx].content==null) ||
-					(viewer.DocLoader.LoaderList[uloaderidx].content!=null&&viewer.DocLoader.IsSplit && viewer.DocLoader.LoaderList[uloaderidx].pageStartIndex != i+1 && !viewer.DocLoader.LoaderList[uloaderidx].loading) ||
-					(viewer.DocLoader.LoaderList[uloaderidx].content!=null&&(viewer.DocLoader.LoaderList[uloaderidx].content.framesLoaded<viewer.PageList[i].dupIndex && !viewer.DocLoader.IsSplit))){
-					viewer.PageList[i].resetPage(viewer.libMC.width,viewer.libMC.height,Number(viewer.Scale),true);
-					viewer.BusyLoading = true;
+			if(!viewer.BusyLoading && viewer.DocLoader.LoaderList!=null && viewer.DocLoader.LoaderList.length>0){
+				if(viewer.libMC!=null&&viewer.numPagesLoaded>=viewer.PageList[i].dupIndex && 
+					viewer.DocLoader.LoaderList[uloaderidx] != null && 
+					viewer.DocLoader.LoaderList[uloaderidx].content==null||(viewer.DocLoader.LoaderList[uloaderidx].content!=null&&viewer.DocLoader.LoaderList[uloaderidx].content.framesLoaded<viewer.PageList[rp].dupIndex)){
 					
-					if(!viewer.DocLoader.IsSplit){
-						viewer.DocLoader.LoaderList[uloaderidx].loadBytes(viewer.DocLoader.InputBytes,StreamUtil.getExecutionContext());
-						flash.utils.setTimeout(viewer.repositionPapers,200);
-					}else{
-						viewer.dispatchEvent(new PageLoadingEvent(PageLoadingEvent.PAGE_LOADING,i+1));
-						try{
-							viewer.DocLoader.LoaderList[uloaderidx].unloadAndStop(true);
-							viewer.DocLoader.LoaderList[uloaderidx].loaded = false;
-							viewer.DocLoader.LoaderList[uloaderidx].loading = true;
-							viewer.DocLoader.LoaderList[uloaderidx].load(new URLRequest(viewer.getSwfFilePerPage(viewer.SwfFile,i+1)),StreamUtil.getExecutionContext());
-							viewer.DocLoader.LoaderList[uloaderidx].pageStartIndex = i+1;
-						}catch(err:IOErrorEvent){
-							
-						}
-						
-						viewer.repaint();
-					}
+					viewer.BusyLoading = true;
+					viewer.DocLoader.LoaderList[uloaderidx].loadBytes(viewer.DocLoader.InputBytes,StreamUtil.getExecutionContext());
+					flash.utils.setTimeout(viewer.repositionPapers,200);
 				}
 			}
 			
 			if(viewer.PageList[rp]!=null && viewer.DocLoader.LoaderList[uloaderidx]!=null && viewer.DocLoader.LoaderList[uloaderidx].content!=null){
-				if(!viewer.DocLoader.IsSplit)
-					viewer.DocLoader.LoaderList[uloaderidx].content.gotoAndStop(i+1);
-				else
-					viewer.PageList[rp].scaleX = viewer.PageList[rp].scaleY = Number(viewer.Scale);	
-				
+				viewer.DocLoader.LoaderList[uloaderidx].content.gotoAndStop(i+1);
 				viewer.PageList[rp].addChild(viewer.DocLoader.LoaderList[uloaderidx]);
 				viewer.PageList[rp].loadedIndex = i+1;
 				viewer.PageList[rp].dupIndex = i+1; 
@@ -125,10 +94,10 @@ package com.devaldi.controls
 		
 		public function renderSelection(i:int,marker:ShapeMarker):void{
 			var rp:int = (i % 2 == 0)?0:1;
-			if(marker!=null && viewer.PageList[rp] !=null){
+			if(marker!=null && marker.parent != null && viewer.PageList[rp] !=null){
 				if(i+1 == viewer.SearchPageIndex && marker.parent != viewer.PageList[rp]){
 					viewer.PageList[rp].addChildAt(marker,viewer.PageList[rp].numChildren);
-				}else if(i+1 == viewer.SearchPageIndex){
+				}else if(i+1 == viewer.SearchPageIndex && marker.parent == viewer.PageList[rp]){
 					viewer.PageList[rp].setChildIndex(marker,viewer.PageList[rp].numChildren -1);
 				}
 			}
@@ -180,9 +149,11 @@ package com.devaldi.controls
 		}
 		
 		public function gotoPage(page:Number,adjGotoPage:int=0):void{
-			//if(viewer.currPage == page || page % 2 == 0){return;}
+			if(viewer.currPage == page || page % 2 == 0){return;}
 			
-			if(page % 2 == 0){
+			if(page % 2 == 0 && page > viewer.currPage){
+				page = page + 1;
+			}else if(page % 2 == 0 && page < viewer.currPage){
 				page = page - 1;
 			}
 			
@@ -254,7 +225,6 @@ package com.devaldi.controls
 		
 		public function initOnLoading():void{
 			viewer.BusyLoading = true; 
-			viewer.DocLoader.LoaderList[0].pageStartIndex = 1;
 			viewer.DocLoader.LoaderList[0].loadBytes(viewer.libMC.loaderInfo.bytes,StreamUtil.getExecutionContext());
 		}
 	}

@@ -19,7 +19,7 @@ along with FlexPaper.  If not, see <http://www.gnu.org/licenses/>.
 package com.devaldi.streaming
 {
 	import com.devaldi.controls.Spinner;
-	import com.devaldi.controls.flexpaper.resources.MenuIcons;
+	import com.log4ic.resources.MenuIcons;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -36,19 +36,16 @@ package com.devaldi.streaming
 	public class DupImage extends Image
 	{
 		public var dupIndex:int = 0;
-		//public var dupScale:Number = 0;
-		//public var scaleWidth:int;
-		//public var scaleHeight:int;
+		public var dupScale:Number = 0;
+		public var scaleWidth:int;
+		public var scaleHeight:int;
 		public var loadedIndex:int = -1;
 		public var _paperRotation:int = 0;
 		public var doAddDropShadow:Boolean = true;
 		public var doAddGlowFilter:Boolean = false;
 		public var glowFilterColor:uint = 0x000000;
-		public var NeedsFitting:Boolean = false;
-		public var RoleModelWidth:Number = 0;
-		public var RoleModelHeight:Number = 0;
 		public static var paperSource:DisplayObject; 
-		//private var _skinImgl:Bitmap = new MenuIcons.LOGO_SMALL();
+		private var _skinImgl:Bitmap = new MenuIcons.LOGO_SMALL();
 		private var loadImg:Bitmap;
 		private var loadSpinner:Spinner;
 		
@@ -56,7 +53,7 @@ package com.devaldi.streaming
 		
 		public function init():void{
 			loadImg = new Bitmap();
-			//loadImg.bitmapData = _skinImgl.bitmapData;
+			loadImg.bitmapData = _skinImgl.bitmapData;
 			loadImg.smoothing = true;
 			
 			loadSpinner = new Spinner(50,50);
@@ -157,14 +154,6 @@ package com.devaldi.streaming
 			//flash.utils.setTimeout(addDropShadow,200);
 			super.addChildAt(child,0);
 			
-			if(child is DupLoader && NeedsFitting){
-				if((child as DupLoader).content!=null && ((child as DupLoader).content.width != RoleModelWidth || (child as DupLoader).content.height != RoleModelHeight)){
-					this.width = (child as DupLoader).content.width * scaleX;
-					this.height = (child as DupLoader).content.height * scaleY;
-				}
-				NeedsFitting = false;
-			}
-			
 			while(numChildren >= 2)
 				delete(removeChildAt(1));
 			
@@ -205,7 +194,6 @@ package com.devaldi.streaming
 		}		
 		
 		public function resetPage(width:Number,height:Number,scale:Number,showSpinner:Boolean=false):void{
-			loadedIndex = -1;
 			
 			if(loadImg.parent != this)
 			{
@@ -224,6 +212,7 @@ package com.devaldi.streaming
 				scaleX = scaleY = scale;
 				addBlankChildAt(loadSpinner,numChildren);
 			}	
+			
 		}
 	}
 }

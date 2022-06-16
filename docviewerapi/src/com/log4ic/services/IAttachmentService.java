@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date: 11-8-29 上午10:34
  */
 public interface IAttachmentService {
+
     /**
      * 获取附件
      *

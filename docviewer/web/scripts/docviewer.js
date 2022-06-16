@@ -39,14 +39,6 @@
         return error;
     }
 
-    function getRootPath() {
-        var curWwwPath = window.document.location.href,
-            pathName = window.document.location.pathname,
-            pos = curWwwPath.indexOf(pathName),
-            localhostPath = curWwwPath.substring(0, pos),
-            projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
-        return(localhostPath + projectName);
-    }
 
     w.DocViewer = function(args) {
         args = args || {};
@@ -564,7 +556,7 @@
             this.el.trigger('postsnapshot', url);
         }
     };
-    var rootPath = getRootPath();
+    var rootPath = "";
     $.extend(w.DocViewer, {
         NONE_PERMS:0,
         READ_ONLY_PERMS:1,

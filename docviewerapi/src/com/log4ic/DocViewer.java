@@ -2,21 +2,21 @@ package com.log4ic;
 
 import com.log4ic.entity.IDocAttachment;
 import com.log4ic.services.IAttachmentService;
-import com.log4ic.utils.FileUtils;
 import com.log4ic.utils.convert.*;
 import com.log4ic.utils.convert.office.OfficeConverter;
 import com.log4ic.utils.convert.pdf.PDFConverter;
-import com.log4ic.utils.filter.SplitSwfFileFilter;
+import com.log4ic.utils.io.FileUtils;
 import com.log4ic.utils.security.XXTEA;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.artofsolving.jodconverter.document.DocumentFormat;
 import org.artofsolving.jodconverter.office.OfficeConnectionProtocol;
 
 import java.io.*;
-import java.util.LinkedList;
-import java.util.Properties;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author: 张立鑫
@@ -119,9 +119,9 @@ public class DocViewer {
 
     public static IAttachmentService getAttachmentService() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         if (attachmentService == null) {
-            synchronized (ATTACHMENT_SERVICE){
+            synchronized (ATTACHMENT_SERVICE) {
                 if (attachmentService == null) {
-                    Class serviceClass = Class.forName(ATTACHMENT_SERVICE);
+                    Class serviceClass = DocViewer.class.getClassLoader().loadClass(ATTACHMENT_SERVICE);
                     attachmentService = (IAttachmentService) serviceClass.newInstance();
                 }
             }
@@ -139,8 +139,11 @@ public class DocViewer {
         return OfficeConverter.isSupport(fileExtends);
     }
 
+    public static List<DocumentFormat> getAllSupport() {
+        return OfficeConverter.getAllSupport();
+    }
 
-    DocViewer() {
+    protected DocViewer() {
     }
 
     public static void initialize() throws Exception {
@@ -153,7 +156,17 @@ public class DocViewer {
         LOGGER.debug("初始化office转换服务配置....");
         OfficeConverter.setOfficeHome(new String(properties.getProperty(baseOfficeConfigSpace + "home", OfficeConverter.getOfficeHome()).getBytes("ISO-8859-1"), "UTF-8"));
         //OfficeConverter.setHost(new String(properties.getProperty(baseOfficeConfigSpace + "host", OfficeConverter.getHost()).getBytes("ISO-8859-1"), "UTF-8"));
-        OfficeConverter.setPort(Integer.parseInt(properties.getProperty(baseOfficeConfigSpace + "port", OfficeConverter.getPort() + "")));
+        String portStr = properties.getProperty(baseOfficeConfigSpace + "port");
+        if(StringUtils.isNotBlank(portStr)){
+            String[] portStrs = portStr.split(",");
+            int[] ports = new int[portStrs.length];
+            int i = 0;
+            for(String s : portStrs){
+                ports[i] = Integer.parseInt(s);
+                i++;
+            }
+            OfficeConverter.setPort(ports);
+        }
         String protocol = properties.getProperty(baseOfficeConfigSpace + "protocol");
         if (StringUtils.isNotBlank(protocol)) {
             protocol = protocol.toLowerCase();
@@ -240,24 +253,28 @@ public class DocViewer {
 
     public static void destroy() throws Exception {
         OfficeConverter.stopService();
+        officeQueue.safeShutdown();
+        pdfQueue.safeShutdown();
     }
 
-    private synchronized static void checkWorker(ConvertWorker worker) throws Exception {
+    private synchronized static boolean checkWorker(ConvertWorker worker) throws Exception {
         worker.setOutputPath(OUTPUT_PATH);
-        if (worker.getInFile() == null) {
-            throw new Exception("input file is null");
-        }
+        return worker.getInFile() != null;
     }
 
     public synchronized static void addConvertWorker(PDFConvertWorker worker) throws Exception {
-        checkWorker(worker);
+        if (!checkWorker(worker)) {
+            return;
+        }
         synchronized (pdfQueue) {
             pdfQueue.addWorker(worker);
         }
     }
 
     public synchronized static void addConvertWorker(OfficeConvertWorker worker) throws Exception {
-        checkWorker(worker);
+        if (!checkWorker(worker)) {
+            return;
+        }
         synchronized (officeQueue) {
             officeQueue.addWorker(worker);
         }
@@ -280,7 +297,8 @@ public class DocViewer {
 
     private static final ConvertQueue officeQueue = new ConvertQueue(OFFICE_POOL_MAX_THREAD, "office_queue");
     private static final ConvertQueue pdfQueue = new ConvertQueue(PDF_POOL_MAX_THREAD, "pdf_queue");
-
+    private static Map<String, Lock> fileIds = new HashMap<String, Lock>();
+    private static final byte[] lock = new byte[0];
 
     /**
      * 获取转换后的文档目录 如果没有转换则进行转换
@@ -290,84 +308,129 @@ public class DocViewer {
      * @throws Exception
      */
     public static File getDoc(int id) throws Exception {
-        if (DocViewer.isConverting(id) || hasDoc(id)) {
-            while (DocViewer.isConverting(id)) {
-                Thread.sleep(500);
-            }
+        if (hasDoc(id)) {
+            LOGGER.debug(id + " return doc");
             return new File(OUTPUT_PATH + id);
         }
-        ConvertWorker worker = null;
-        if (pdfQueue.isWaiting(id)) {
-            worker = (ConvertWorker) pdfQueue.getWaitingWorker(id);
-            if (worker != null) {
-                pdfQueue.removeWaitingWorker(worker);
-            }
 
-        } else if (officeQueue.isWaiting(id)) {
-            worker = (ConvertWorker) officeQueue.getWaitingWorker(id);
-            if (worker != null) {
-                officeQueue.removeWaitingWorker(worker);
-            }
-        }
+        String docId = id + "_doc";
 
-        File in = null;
-
-        if (worker != null) {
-            in = worker.getInFile();
-        } else {
-            in = getDocFileFromSource(id);
-        }
-
-        if (in == null) {
-            return null;
-        }
-
-        return DocViewerConverter.toSwf(in, OUTPUT_PATH);
-    }
-
-    public synchronized static boolean isConverting(int id) {
-
-        LinkedList<File> fileList = DocViewerConverter.getRunningQueue();
-
-        synchronized (fileList) {
-            for (File f : fileList) {
-                if (FileUtils.getFilePrefix(f).equals(id + "")) {
-                    return true;
+        if (!fileIds.containsKey(docId)) {
+            synchronized (lock) {
+                if (!fileIds.containsKey(docId)) {
+                    fileIds.put(docId, new ReentrantLock());
                 }
             }
         }
+        Lock lk = fileIds.get(docId);
 
+        lk.lock();
+        try {
+            if (hasDoc(id)) {
+                LOGGER.debug(id + " return doc");
+                return new File(OUTPUT_PATH + id);
+            }
+            ConvertWorker worker = null;
+            if (pdfQueue.isWaiting(id)) {
+                worker = (ConvertWorker) pdfQueue.getWaitingWorker(id);
+                if (worker != null) {
+                    pdfQueue.removeWaitingWorker(worker);
+                }
+
+            } else if (officeQueue.isWaiting(id)) {
+                worker = (ConvertWorker) officeQueue.getWaitingWorker(id);
+                if (worker != null) {
+                    officeQueue.removeWaitingWorker(worker);
+                }
+            }
+
+            File in;
+
+            if (worker != null) {
+                in = worker.getInFile();
+            } else {
+                in = getDocFileFromSource(id);
+            }
+
+            if (in == null) {
+                return null;
+            }
+            return DocViewerConverter.toSwf(in, OUTPUT_PATH);
+        } finally {
+            lk.unlock();
+            fileIds.remove(docId);
+        }
+    }
+
+    public synchronized static boolean isConverting(int id) {
+        DocViewerConverter.getRunningQueueLock().lock();
+        try {
+            LinkedList<File> fileList = DocViewerConverter.getRunningQueue();
+            for (File f : fileList) {
+                if (FileUtils.getFilePrefix(f).equals(id)) {
+                    return true;
+                }
+            }
+        } finally {
+            DocViewerConverter.getRunningQueueLock().unlock();
+        }
         return officeQueue.isRunning(id) || pdfQueue.isRunning(id);
     }
 
     public static File getPDFDoc(int id) throws Exception {
         if (DocViewer.hasDocDir(id)) {
-            while (DocViewer.isConverting(id)) {
-                Thread.sleep(500);
-            }
             File file = new File(OUTPUT_PATH + id + File.separator + id + ".pdf");
             if (file.exists()) {
+                LOGGER.debug(id + " return pdf");
                 return file;
             }
         }
-        ConvertWorker worker = null;
-        if (pdfQueue.isWaiting(id)) {
-            worker = (ConvertWorker) pdfQueue.getWaitingWorker(id);
-            if (worker != null) {
-                pdfQueue.removeWaitingWorker(worker);
+
+        String pdfId = id + "_pdf";
+        if (!fileIds.containsKey(pdfId)) {
+            synchronized (lock) {
+                if (!fileIds.containsKey(pdfId)) {
+                    fileIds.put(pdfId, new ReentrantLock());
+                }
+            }
+        }
+        Lock lk = fileIds.get(pdfId);
+
+        lk.lock();
+        try {
+            if (DocViewer.hasDocDir(id)) {
+                File file = new File(OUTPUT_PATH + id + File.separator + id + ".pdf");
+                if (file.exists()) {
+                    LOGGER.debug(id + " return pdf");
+                    return file;
+                }
+            }
+            ConvertWorker worker = null;
+            if (pdfQueue.isWaiting(id)) {
+                worker = (ConvertWorker) pdfQueue.getWaitingWorker(id);
+                if (worker != null) {
+                    pdfQueue.removeWaitingWorker(worker);
+                }
+
             }
 
+            File in;
+
+            if (worker != null) {
+                in = worker.getInFile();
+            } else {
+                in = getDocFileFromSource(id);
+            }
+
+
+            if (in == null) {
+                return null;
+            }
+            return DocViewerConverter.toPDF(in, OUTPUT_PATH);
+        } finally {
+            lk.unlock();
+            fileIds.remove(pdfId);
         }
-
-        File in = null;
-
-        if (worker != null) {
-            in = worker.getInFile();
-        } else {
-            in = getDocFileFromSource(id);
-        }
-
-        return DocViewerConverter.toPDF(in, OUTPUT_PATH);
     }
 
     /**
@@ -461,15 +524,8 @@ public class DocViewer {
 
         File dir = new File(OUTPUT_PATH + id);
 
-        if (!dir.exists()) {
-            return false;
-        }
+        return dir.exists() && dir.isDirectory();
 
-        if (dir.isDirectory()) {
-            return true;
-        }
-
-        return false;
     }
 
 
@@ -481,11 +537,8 @@ public class DocViewer {
 
         File file = new File(OUTPUT_PATH + id + File.separator + id + ".pdf");
 
-        if (!file.exists()) {
-            return false;
-        }
+        return file.exists();
 
-        return true;
     }
 
     /**
@@ -502,12 +555,12 @@ public class DocViewer {
             File dir = new File(OUTPUT_PATH + id + File.separator);
             if (isSplitPage()) {
                 if (dir.exists()) {
-                    if (dir.listFiles(new SplitSwfFileFilter()).length == getDocPageCount(id, false)) {
+                    if (getDocPageCount(id, false) > 0) {
                         return true;
                     }
                 }
             } else {
-                File swf = new File(dir.getPath() + "page.swf");
+                File swf = new File(dir.getPath() + File.separator + "page.swf");
                 if (swf.exists() && swf.isFile() && swf.length() > 0) {
                     return true;
                 }
@@ -579,23 +632,16 @@ public class DocViewer {
     }
 
 
-    public static void main(String[] args) {
-//        String path = "/home/icode/test/";
+    public static void main(String[] args) throws Exception {
+        DocViewer.initialize();
+        OfficeConverter converter = new OfficeConverter();
         try {
-
-            System.out.print(
-                    isSupport("xxpdf")
-            );
-//            byte[] keyValue = "abcs".getBytes("UTF-8");
-//            DocViewer.addConvertWorker(new File(path + "3489682.pdf"));
-//            DocViewer.addConvertWorker(new File(path + "3692243.pdf"));
-//            DocViewer.addConvertWorker(new File(path + "7828624.pdf"));
-//            DocViewer.addConvertWorker(new File(path + "test.pdf"));
-//            DocViewer.addConvertWorker(new File(path + "test.txt"));
-//            DocViewer.addConvertWorker(new File(path + "test1.doc"));
-        } catch (Exception e) {
+            converter.convert("/home/icode/Desktop/b.txt", "/home/icode/Desktop/b.pdf");
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
+        DocViewer.destroy();
 
     }
 

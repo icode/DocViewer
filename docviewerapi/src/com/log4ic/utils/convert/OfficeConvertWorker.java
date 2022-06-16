@@ -38,7 +38,7 @@ public class OfficeConvertWorker extends ConvertWorker {
         OfficeConverter converter = new OfficeConverter();
         try {
             in = converter.toPDF(in, dir.getPath());
-            DocViewer.addConvertWorker(new PDFConvertWorker(0, in, out, splitePage));
+            DocViewer.addConvertWorker(new PDFConvertWorker(this.getId(), in, out, splitePage));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

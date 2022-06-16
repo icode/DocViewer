@@ -1,2 +1,2 @@
-Manifest-Version: 1.0
+Manifest-Version: 0.0.9.0
 

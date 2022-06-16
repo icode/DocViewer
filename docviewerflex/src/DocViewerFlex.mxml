@@ -4,15 +4,19 @@
  @version: 1
  @date: 2011/08/25 下午1:00
 -->
-<mx:Application
-        xmlns:mx="http://www.adobe.com/2006/mxml"
+<s:Application
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
         xmlns:fp="com.devaldi.controls.flexpaper.*"
-        layout="absolute" width="100%" height="100%"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        width="100%" height="100%"
         initialize="initApp();">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
-        
+
+        [Bindable]
+        public var _SecretKey:String = null;
+
         [Bindable]
         public var _Scale:Number = 1;//缩放比例
 
@@ -66,16 +70,13 @@
         [Bindable]
         public var _SearchToolsVisible:Boolean = true;
 
-        [Bindable]
-        public var _SecretKey:String = null;
-
 
         //初始化参数
         private function initApp():void {
             Security.allowDomain("*");
-            _Scale = getNumber(parameters, "Scale", 1);
             _SecretKey = parameters["SecretKey"];
-            _SwfFile = getString(parameters, "SwfFile", "");
+            _Scale = getNumber(parameters, "Scale", 1);
+//            _SwfFile = getString(parameters, "SwfFile", "");
             _ZoomTransition = getString(parameters, "ZoomTransition", "easeOut");
             _ZoomTime = getNumber(parameters, "ZoomTime", 0.6);
             _ZoomInterval = getNumber(parameters, "ZoomInterval", 0.1);
@@ -92,9 +93,9 @@
             _SearchToolsVisible = getBoolean(parameters, "SearchToolsVisible", true);
 
             //开放给外部（javascript）调用
-            ExternalInterface.addCallback("setViewerFocus", setViewerFocus);
+//            ExternalInterface.addCallback("setViewerFocus", setViewerFocus);
 
-            ExternalInterface.addCallback("addEventListener", addEventListener);
+//            ExternalInterface.addCallback("addEventListener", addEventListener);
 
         }
 
@@ -133,14 +134,14 @@
             return def;
         }
         ]]>
-    </mx:Script>
+    </fx:Script>
 
 
     <fp:FlexPaperViewer id="docViewer"
                         width="100%"
                         height="100%"
                         Scale="{_Scale}"
-                        SecretKey="{_SecretKey}"
+                        
                         SwfFile="{_SwfFile}"
                         ZoomTransition="{_ZoomTransition}"
                         ZoomTime="{_ZoomTime}"
@@ -158,4 +159,4 @@
 
             />
 
-</mx:Application>
+</s:Application>

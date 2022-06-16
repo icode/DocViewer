@@ -8,8 +8,8 @@
   
   <property name="compiler.args.docviewerflex" value="${compiler.args}"/>
   
-  <property name="docviewerflex.output.dir" value="${module.docviewerflex.basedir}/../out/production/docviewerflex"/>
-  <property name="docviewerflex.testoutput.dir" value="${module.docviewerflex.basedir}/../out/test/docviewerflex"/>
+  <property name="docviewerflex.output.dir" value="docviewerflex.backup/../out/production/docviewerflex"/>
+  <property name="docviewerflex.testoutput.dir" value="docviewerflex.backup/../out/test/docviewerflex"/>
   
   <path id="docviewerflex.module.bootclasspath">
     <!-- Paths to be included in compilation bootclasspath -->
@@ -47,7 +47,7 @@
   </patternset>
   
   <path id="docviewerflex.module.sourcepath">
-    <dirset dir="${module.docviewerflex.basedir}">
+    <dirset dir="docviewerflex.backup">
       <include name="src"/>
       <include name="lib"/>
       <include name="locale"/>
@@ -68,15 +68,15 @@
     </javac2>
     
     <copy todir="${docviewerflex.output.dir}">
-      <fileset dir="${module.docviewerflex.basedir}/src">
+      <fileset dir="docviewerflex.backup/src">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
-      <fileset dir="${module.docviewerflex.basedir}/lib">
+      <fileset dir="docviewerflex.backup/lib">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
-      <fileset dir="${module.docviewerflex.basedir}/locale">
+      <fileset dir="docviewerflex.backup/locale">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>

@@ -4,10 +4,11 @@
 		fillColors: #e6e6e6, #fdfdfd;
 		fillAlphas: 1, 1;
 		borderColor: #8a8a8a;
+		backgroundColor: #EDEDED;
 	}
 	
 	.viewerBackground {
-		backgroundImage: ClassReference("com.devaldi.skinning.GradientBackground");
+		backgroundImage: ClassReference("com.devaldi.skinning.GradientBackground"); 
 		backgroundSize: "100%";
 		fillColors: #aab3b3, #d5dddd;
 		fillAlphas: 1, 1;
@@ -35,11 +36,11 @@
 	}
 	
 	.circles {
-		spinner-type: circles;
+		spinner-type: circles;	
 	}
 	
 	.lines {
 		spinner-type: lines;
 		spinner-highlight-color: #000000;
 		spinner-color: #808080;
-	}	
+	}

@@ -1,11 +1,11 @@
 package com.log4ic.utils.convert.office;
 
-import com.log4ic.utils.FileUtils;
-import com.sun.star.comp.helper.BootstrapException;
+import com.log4ic.utils.convert.office.document.OfficeDocumentFormatRegistry;
+import com.log4ic.utils.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.artofsolving.jodconverter.OfficeDocumentConverter;
-import org.artofsolving.jodconverter.document.DefaultDocumentFormatRegistry;
+import org.artofsolving.jodconverter.document.DocumentFormat;
 import org.artofsolving.jodconverter.document.DocumentFormatRegistry;
 import org.artofsolving.jodconverter.office.DefaultOfficeManagerConfiguration;
 import org.artofsolving.jodconverter.office.OfficeConnectionProtocol;
@@ -14,7 +14,8 @@ import org.artofsolving.jodconverter.office.OfficeManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.ConnectException;
-import java.util.Properties;
+import java.nio.charset.Charset;
+import java.util.List;
 
 /**
  * @author: 张立鑫
@@ -43,16 +44,26 @@ public class OfficeConverter {
     /**
      * 远程地址端口
      */
-    private static int PORT = 8100;
+    private static int[] PORT = {8100};
 
-    private static DocumentFormatRegistry documentFormatRegistry = new DefaultDocumentFormatRegistry();
+    private static DocumentFormatRegistry documentFormatRegistry = null;
 
-    private static Properties properties;
+    static {
+        try {
+            documentFormatRegistry = new OfficeDocumentFormatRegistry(OfficeConverter.class.getResourceAsStream("/conf/documentFormats.js"));
+        } catch (Exception e) {
+            LOGGER.error(e);
+        }
+    }
+
 
     public static boolean isSupport(String fileExtends) {
         return documentFormatRegistry.getFormatByExtension(fileExtends) != null;
     }
 
+    public static List<DocumentFormat> getAllSupport() {
+        return ((OfficeDocumentFormatRegistry) documentFormatRegistry).getDocumentFormats();
+    }
 
     /**
      * 将office转换为PDF
@@ -104,20 +115,41 @@ public class OfficeConverter {
         return convert(inputFile, outputFile);
     }
 
+    private boolean isWindows() {
+        return System.getProperty("os.name").startsWith("Windows");
+    }
+
     /**
      * 根据传入文件后缀名转换文件
      *
      * @param inputFile
      * @param outputFile
+     * @return File
+     * @throws java.io.IOException
      */
     public File convert(File inputFile, File outputFile) throws IOException {
         try {
-            if (System.getProperty("os.name").startsWith("Windows") && inputFile.getName().endsWith(".txt")) {
-                File tmp = new File(inputFile.getName().replace(".txt", ".odt"));
-                if (!tmp.exists()) {
-                    org.apache.commons.io.FileUtils.copyFile(inputFile, tmp);
+            if (inputFile.getName().endsWith(".txt")) {
+                Charset fileCharset = FileUtils.getFileEncoding(inputFile);
+                if (fileCharset != null) {
+                    Charset systemCharset = Charset.defaultCharset();
+                    if (!fileCharset.equals(systemCharset) && !(systemCharset.equals(Charset.forName("GBK"))
+                            && fileCharset.name().toLowerCase().equals("gb2312"))) {
+                        String encodedFileName = FileUtils.getFilePrefix(inputFile.getPath()) + "_encoded." + (this.isWindows() ? "odt" : "txt");
+                        File encodedFile = new File(encodedFileName);
+                        try {
+                            FileUtils.convertFileEncodingToSys(inputFile, encodedFile);
+                        } catch (Exception e) {
+                            org.apache.commons.io.FileUtils.copyFile(inputFile, encodedFile);
+                        }
+                        inputFile = encodedFile;
+                    } else if (isWindows()) {
+                        String encodedFileName = FileUtils.getFilePrefix(inputFile.getPath()) + "_encoded.odt";
+                        File encodedFile = new File(encodedFileName);
+                        org.apache.commons.io.FileUtils.copyFile(inputFile, encodedFile);
+                        inputFile = encodedFile;
+                    }
                 }
-                inputFile = tmp;
             }
             LOGGER.debug("进行文档转换转换:" + inputFile.getPath() + " --> " + outputFile.getPath());
             OfficeDocumentConverter converter = new OfficeDocumentConverter(officeManager);
@@ -133,29 +165,29 @@ public class OfficeConverter {
         return null;
     }
 
-    public static void startService() throws Exception {
+    public static void startService(){
         DefaultOfficeManagerConfiguration configuration = new DefaultOfficeManagerConfiguration();
         try {
             LOGGER.debug("准备启动服务....");
             configuration.setOfficeHome(getOfficeHome());
-            configuration.setPortNumber(getPort());
-            officeManager = configuration.buildOfficeManager();
+            configuration.setPortNumbers(getPort());
+            configuration.setTaskExecutionTimeout(1000 * 60 * 5L);
+            configuration.setTaskQueueTimeout(1000 * 60 * 60 * 24L);
             if (CONNECTION_PROTOCOL != null) {
                 configuration.setConnectionProtocol(CONNECTION_PROTOCOL);
             }
             if (OFFICE_PROFILE != null) {
                 configuration.setTemplateProfileDir(OFFICE_PROFILE);
             }
+            officeManager = configuration.buildOfficeManager();
             officeManager.start();
             LOGGER.debug("office转换服务启动成功!");
         } catch (Exception ce) {
-        } finally {
-
+            LOGGER.error("office转换服务启动失败!详细信息:" + ce);
         }
-
     }
 
-    public static void stopService() throws Exception, BootstrapException {
+    public static void stopService() {
         LOGGER.debug("关闭office转换服务....");
         if (officeManager != null) {
             officeManager.stop();
@@ -172,7 +204,7 @@ public class OfficeConverter {
         return HOST;
     }
 
-    public static int getPort() {
+    public static int[] getPort() {
         return PORT;
     }
 
@@ -181,7 +213,7 @@ public class OfficeConverter {
         LOGGER.debug("设置office目录为：" + OfficeConverter.OFFICE_HOME);
     }
 
-    public static void setPort(int port) {
+    public static void setPort(int[] port) {
         LOGGER.debug("设置office转换服务端口为：" + port);
         OfficeConverter.PORT = port;
     }

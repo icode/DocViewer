@@ -1,38 +1,179 @@
-importFormatTable = new Array();
-importFormatTable['odt'] = 'Text';
-importFormatTable['sxw'] = 'Text';
-importFormatTable['doc'] = 'Text';
-importFormatTable['docx'] = 'Text';
-importFormatTable['rtf'] = 'Text';
-importFormatTable['txt'] = 'Text';
-importFormatTable['csv'] = 'Spreadsheet';
-importFormatTable['ods'] = 'Spreadsheet';
-importFormatTable['sxc'] = 'Spreadsheet';
-importFormatTable['xls'] = 'Spreadsheet';
-importFormatTable['xlsx'] = 'Spreadsheet';
-importFormatTable['odp'] = 'Presentation';
-importFormatTable['sxi'] = 'Presentation';
-importFormatTable['ppt'] = 'Presentation';
-importFormatTable['pptx'] = 'Presentation';
-
-exportFormatTable = new Array();
-exportFormatTable['Text'] = Array();
-exportFormatTable['Text'][0] = new Option('Portable Document Format (pdf)', 'pdf');
-exportFormatTable['Text'][1] = new Option('OpenDocument Text (odt)', 'odt');
-exportFormatTable['Text'][2] = new Option('OpenOffice.org 1.0 Text Document (sxw)', 'sxw');
-exportFormatTable['Text'][3] = new Option('Microsoft Word (doc)', 'doc');
-exportFormatTable['Text'][4] = new Option('Rich Text Format (rtf)', 'rtf');
-exportFormatTable['Text'][5] = new Option('Plain Text (txt)', 'txt');
-exportFormatTable['Spreadsheet'] = Array();
-exportFormatTable['Spreadsheet'][0] = new Option('Portable Document Format (pdf)', 'pdf');
-exportFormatTable['Spreadsheet'][1] = new Option('OpenDocument Spreadsheet (ods)', 'ods');
-exportFormatTable['Spreadsheet'][2] = new Option('OpenOffice.org 1.0 Spreadsheet (sxc)', 'sxc');
-exportFormatTable['Spreadsheet'][3] = new Option('Microsoft Excel (xls)', 'xls');
-exportFormatTable['Spreadsheet'][4] = new Option('Comma-Separated Values (csv)', 'csv');
-exportFormatTable['Presentation'] = Array();
-exportFormatTable['Presentation'][0] = new Option('Portable Document Format (pdf)', 'pdf');
-exportFormatTable['Presentation'][1] = new Option('Macromedia Flash (swf)', 'swf');
-exportFormatTable['Presentation'][2] = new Option('OpenDocument Presentation (odp)', 'odp');
-exportFormatTable['Presentation'][3] = new Option('OpenOffice.org 1.0 Presentation (sxi)', 'sxi');
-exportFormatTable['Presentation'][4] = new Option('Microsoft PowerPoint (ppt)', 'ppt');
-
+[
+    {
+        "name": "Portable Document Format",
+        "extension": "pdf",
+        "mediaType": "application/pdf",
+        "storePropertiesByFamily": {
+            "DRAWING": {"FilterName": "draw_pdf_Export"},
+            "SPREADSHEET": {"FilterName": "calc_pdf_Export"},
+            "PRESENTATION": {"FilterName": "impress_pdf_Export"},
+            "TEXT": {"FilterName": "writer_pdf_Export"}
+        }
+    },
+    {
+        "name": "HTML",
+        "extension": "html",
+        "mediaType": "text/html",
+        "inputFamily": "TEXT",
+        "storePropertiesByFamily": {
+            "SPREADSHEET": {"FilterName": "HTML (StarCalc)"},
+            "PRESENTATION": {"FilterName": "impress_html_Export"},
+            "TEXT": {"FilterName": "HTML (StarWriter)"}
+        }
+    },
+    {
+        "name": "OpenDocument Text",
+        "extension": "odt",
+        "mediaType": "application/vnd.oasis.opendocument.text",
+        "inputFamily": "TEXT",
+        "storePropertiesByFamily": {"TEXT": {"FilterName": "writer8"}}
+    },
+    {
+        "name": "OpenOffice.org 1.0 Text Document",
+        "extension": "sxw",
+        "mediaType": "application/vnd.sun.xml.writer",
+        "inputFamily": "TEXT",
+        "storePropertiesByFamily": {"TEXT": {"FilterName": "StarOffice XML (Writer)"}}
+    },
+    {
+        "name": "Microsoft Word",
+        "extension": "doc",
+        "mediaType": "application/msword",
+        "inputFamily": "TEXT",
+        "storePropertiesByFamily": {"TEXT": {"FilterName": "MS Word 97"}}
+    },
+    {
+        "name": "Microsoft Word 2007 XML",
+        "extension": "docx",
+        "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "inputFamily": "TEXT"
+    },
+    {
+        "name": "Rich Text Format",
+        "extension": "rtf",
+        "mediaType": "text/rtf",
+        "inputFamily": "TEXT",
+        "storePropertiesByFamily": {"TEXT": {"FilterName": "Rich Text Format"}}
+    },
+    {
+        "name": "WordPerfect",
+        "extension": "wpd",
+        "mediaType": "application/wordperfect",
+        "inputFamily": "TEXT"
+    },
+    {
+        "name": "Plain Text",
+        "extension": "txt",
+        "mediaType": "text/plain",
+        "inputFamily": "TEXT",
+        "loadProperties": {
+            "FilterName": "Text (encoded)",
+            "FilterOptions": "utf8"
+        },
+        "storePropertiesByFamily": {"TEXT": {
+            "FilterName": "Text (encoded)",
+            "FilterOptions": "utf8"
+        }}
+    },
+    {
+        "name": "MediaWiki wikitext",
+        "extension": "wiki",
+        "mediaType": "text/x-wiki",
+        "storePropertiesByFamily": {"TEXT": {"FilterName": "MediaWiki"}}
+    },
+    {
+        "name": "OpenDocument Spreadsheet",
+        "extension": "ods",
+        "mediaType": "application/vnd.oasis.opendocument.spreadsheet",
+        "inputFamily": "SPREADSHEET",
+        "storePropertiesByFamily": {"SPREADSHEET": {"FilterName": "calc8"}}
+    },
+    {
+        "name": "OpenOffice.org 1.0 Spreadsheet",
+        "extension": "sxc",
+        "mediaType": "application/vnd.sun.xml.calc",
+        "inputFamily": "SPREADSHEET",
+        "storePropertiesByFamily": {"SPREADSHEET": {"FilterName": "StarOffice XML (Calc)"}}
+    },
+    {
+        "name": "Microsoft Excel",
+        "extension": "xls",
+        "mediaType": "application/vnd.ms-excel",
+        "inputFamily": "SPREADSHEET",
+        "storePropertiesByFamily": {"SPREADSHEET": {"FilterName": "MS Excel 97"}}
+    },
+    {
+        "name": "Microsoft Excel 2007 XML",
+        "extension": "xlsx",
+        "mediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "inputFamily": "SPREADSHEET"
+    },
+    {
+        "name": "Comma Separated Values",
+        "extension": "csv",
+        "mediaType": "text/csv",
+        "inputFamily": "SPREADSHEET",
+        "loadProperties": {
+            "FilterName": "Text - txt - csv (StarCalc)",
+            "FilterOptions": "44,34,0"
+        },
+        "storePropertiesByFamily": {"SPREADSHEET": {
+            "FilterName": "Text - txt - csv (StarCalc)",
+            "FilterOptions": "44,34,0"
+        }}
+    },
+    {
+        "name": "Tab Separated Values",
+        "extension": "tsv",
+        "mediaType": "text/tab-separated-values",
+        "inputFamily": "SPREADSHEET",
+        "loadProperties": {
+            "FilterName": "Text - txt - csv (StarCalc)",
+            "FilterOptions": "9,34,0"
+        },
+        "storePropertiesByFamily": {"SPREADSHEET": {
+            "FilterName": "Text - txt - csv (StarCalc)",
+            "FilterOptions": "9,34,0"
+        }}
+    },
+    {
+        "name": "OpenDocument Presentation",
+        "extension": "odp",
+        "mediaType": "application/vnd.oasis.opendocument.presentation",
+        "inputFamily": "PRESENTATION",
+        "storePropertiesByFamily": {"PRESENTATION": {"FilterName": "impress8"}}
+    },
+    {
+        "name": "OpenOffice.org 1.0 Presentation",
+        "extension": "sxi",
+        "mediaType": "application/vnd.sun.xml.impress",
+        "inputFamily": "PRESENTATION",
+        "storePropertiesByFamily": {"PRESENTATION": {"FilterName": "StarOffice XML (Impress)"}}
+    },
+    {
+        "name": "Microsoft PowerPoint",
+        "extension": "ppt",
+        "mediaType": "application/vnd.ms-powerpoint",
+        "inputFamily": "PRESENTATION",
+        "storePropertiesByFamily": {"PRESENTATION": {"FilterName": "MS PowerPoint 97"}}
+    },
+    {
+        "name": "Microsoft PowerPoint 2007 XML",
+        "extension": "pptx",
+        "mediaType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "inputFamily": "PRESENTATION"
+    },
+    {
+        "name": "OpenDocument Drawing",
+        "extension": "odg",
+        "mediaType": "application/vnd.oasis.opendocument.graphics",
+        "inputFamily": "DRAWING",
+        "storePropertiesByFamily": {"DRAWING": {"FilterName": "draw8"}}
+    },
+    {
+        "name": "Scalable Vector Graphics",
+        "extension": "svg",
+        "mediaType": "image/svg+xml",
+        "storePropertiesByFamily": {"DRAWING": {"FilterName": "draw_svg_Export"}}
+    }
+]
